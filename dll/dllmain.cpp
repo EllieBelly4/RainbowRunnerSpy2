@@ -2,8 +2,11 @@
 #include "common.h"
 #include "dllmain.h"
 #include "rrspy.h"
+#include "direct3d/IRRSpyDirect3D9.h"
 
-HMODULE handle;
+HMODULE direct3dHandle;
+IDirect3D9* direct3D9;
+IRRSpyDirect3D9* rrSpyDirect3D9;
 std::fstream outLog;
 
 BOOL APIENTRY DllMain(HMODULE hModule,
@@ -13,8 +16,10 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call) {
         case DLL_PROCESS_ATTACH:
 //            MessageBox(NULL, "Hello", "There", MB_OKCANCEL | MB_DEFBUTTON2);
-            InjectSpy();
-            handle = LoadLibraryA(
+            Inject((DWORD) worldUpdatePatchAddress, 6, (DWORD) WorldUpdateHook);
+            Inject((DWORD) rendererRenderPatchAddress, 6, (DWORD) RendererRenderHook);
+            Inject((DWORD) gameExitInitResourcesPatchAddress, 6, (DWORD) GameExitInitResourcesHook);
+            direct3dHandle = LoadLibraryA(
                     "C:\\Windows\\SysWOW64\\d3d9.dll"
             );
             break;
@@ -28,6 +33,9 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 // Exported function (faking d3d9.dll's one-and-only export)
 IDirect3D9* WINAPI Direct3DCreate9(UINT SDKVersion) {
     typedef IDirect3D9* (WINAPI* D3D9_Type)(UINT SDKVersion);
-    auto D3DCreate9_fn = (D3D9_Type) GetProcAddress(handle, "Direct3DCreate9");
-    return D3DCreate9_fn(SDKVersion);
+    auto D3DCreate9_fn = (D3D9_Type) GetProcAddress(direct3dHandle, "Direct3DCreate9");
+    direct3D9 = D3DCreate9_fn(SDKVersion);
+    rrSpyDirect3D9 = new IRRSpyDirect3D9(direct3D9);
+
+    return rrSpyDirect3D9;
 }

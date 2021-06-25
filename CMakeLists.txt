@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "-m32")
 
 add_compile_options(-masm=intel)
 
-add_library(RRSpy2 SHARED dll/dllmain.h dll/dllmain.cpp dll/rrspy dll/common dll/rrspy.def)
+add_library(RRSpy2 SHARED dll/dllmain.h dll/dllmain.cpp dll/rrspy dll/common dll/rrspy.def dll/direct3d/IRRSpyDirect3D9.cpp dll/direct3d/IRRSpyDirect3D9.h)
 
 target_link_libraries(RRSpy2 -static-libgcc -static-libstdc++)
 set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup")
