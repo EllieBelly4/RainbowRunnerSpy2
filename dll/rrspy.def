@@ -1,0 +1,5 @@
+LIBRARY	"RRSpy2"
+
+EXPORTS
+        Direct3DCreate9   @1
+        DoIt              @2
