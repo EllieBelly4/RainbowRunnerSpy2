@@ -26,7 +26,7 @@ add_library(RRSpy2 SHARED
         lib/imgui/imgui_impl_win32.h
         lib/imgui/imgui_impl_win32.cpp
         dll/direct3d/IRRSpyDirect3D9.h dll/direct3d/IRRSpyDirect3D9.cpp
-        )
+        dll/gui/RRSpyGUI.cpp dll/gui/RRSpyGUI.h dll/gameobjects/GameClientStateManager.cpp dll/gameobjects/GameClientStateManager.h)
 
 target_link_libraries(RRSpy2 -static-libgcc -static-libstdc++ -static -limm32 -ldwmapi)
 set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup, -Bstatic")

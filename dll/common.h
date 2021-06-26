@@ -11,3 +11,4 @@ extern HMODULE direct3dHandle;
 extern IDirect3D9* direct3D9;
 extern std::fstream outLog;
 extern IRRSpyDirect3D9* rrSpyDirect3D9;
+extern WNDPROC gameWndProcHandler;
