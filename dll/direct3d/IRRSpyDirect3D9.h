@@ -12,8 +12,9 @@ class IRRSpyDirect3D9 : public IDirect3D9 {
 public:
     explicit IRRSpyDirect3D9(IDirect3D9* realD3d) : m_realD3d(realD3d){}
 
-private:
-    IDirect3D9* m_realD3d;
+    IDirect3DDevice9* GetRealDevice(){
+        return m_realD3dDevice;
+    }
 
     __stdcall HRESULT QueryInterface(const IID &iid, PVOID* pvoid) override;
 
@@ -57,6 +58,10 @@ private:
     __stdcall HRESULT
     CreateDevice(UINT uint, D3DDEVTYPE ddevtype, HWND hwnd, DWORD dword, D3DPRESENT_PARAMETERS* parameters,
                  IDirect3DDevice9** pDevice9) override;
+
+private:
+    IDirect3D9* m_realD3d;
+    IDirect3DDevice9* m_realD3dDevice;
 };
 
 

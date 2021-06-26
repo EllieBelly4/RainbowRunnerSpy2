@@ -6,10 +6,30 @@ set(CMAKE_CXX_FLAGS "-m32")
 
 add_compile_options(-masm=intel)
 
-add_library(RRSpy2 SHARED dll/dllmain.h dll/dllmain.cpp dll/rrspy dll/common dll/rrspy.def dll/direct3d/IRRSpyDirect3D9.cpp dll/direct3d/IRRSpyDirect3D9.h)
+add_library(RRSpy2 SHARED
+        dll/dllmain.h dll/dllmain.cpp
+        dll/rrspy.h dll/rrspy.cpp dll/rrspy.def
+        dll/common.h
+        lib/imgui/imconfig.h
+        lib/imgui/imgui.cpp
+        lib/imgui/imgui.h
+        lib/imgui/imgui_demo.cpp
+        lib/imgui/imgui_draw.cpp
+        lib/imgui/imgui_impl_dx9.cpp
+        lib/imgui/imgui_impl_dx9.h
+        lib/imgui/imgui_internal.h
+        lib/imgui/imgui_tables.cpp
+        lib/imgui/imgui_widgets.cpp
+        lib/imgui/imstb_rectpack.h
+        lib/imgui/imstb_textedit.h
+        lib/imgui/imstb_truetype.h
+        lib/imgui/imgui_impl_win32.h
+        lib/imgui/imgui_impl_win32.cpp
+        dll/direct3d/IRRSpyDirect3D9.h dll/direct3d/IRRSpyDirect3D9.cpp
+        )
 
-target_link_libraries(RRSpy2 -static-libgcc -static-libstdc++)
-set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup")
+target_link_libraries(RRSpy2 -static-libgcc -static-libstdc++ -static -limm32 -ldwmapi)
+set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup, -Bstatic")
 set_target_properties(RRSpy2 PROPERTIES PREFIX "")
 
 #echo ${CMAKE_CURRENT_BINARY_DIR}/RRSpy2.dll "E:/Games/DungeonRunners v666/d3d9.dll"

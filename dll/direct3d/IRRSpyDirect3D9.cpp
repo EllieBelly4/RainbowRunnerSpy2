@@ -3,6 +3,7 @@
 //
 
 #include "IRRSpyDirect3D9.h"
+#include <iostream>
 
 HRESULT IRRSpyDirect3D9::QueryInterface(const IID &iid, PVOID* pvoid) {
     return m_realD3d->QueryInterface(iid, pvoid);
@@ -76,6 +77,13 @@ HMONITOR IRRSpyDirect3D9::GetAdapterMonitor(UINT uint) {
 HRESULT
 IRRSpyDirect3D9::CreateDevice(UINT uint, D3DDEVTYPE ddevtype, HWND hwnd, DWORD dword, D3DPRESENT_PARAMETERS* parameters,
                               IDirect3DDevice9** pDevice9) {
-    return m_realD3d->CreateDevice(uint, ddevtype, hwnd, dword, parameters, pDevice9);
+    auto result = m_realD3d->CreateDevice(uint, ddevtype, hwnd, dword, parameters, pDevice9);
+    m_realD3dDevice = *pDevice9;
+
+    std::cout << m_realD3dDevice << std::endl;
+
+//    asm("INT3;");
+
+    return result;
 }
 

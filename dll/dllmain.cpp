@@ -15,9 +15,12 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 ) {
     switch (ul_reason_for_call) {
         case DLL_PROCESS_ATTACH:
+//            hwnd = GetActiveWindow();
 //            MessageBox(NULL, "Hello", "There", MB_OKCANCEL | MB_DEFBUTTON2);
             Inject((DWORD) worldUpdatePatchAddress, 6, (DWORD) WorldUpdateHook);
-            Inject((DWORD) rendererRenderPatchAddress, 6, (DWORD) RendererRenderHook);
+//            Inject((DWORD) rendererRenderPatchAddress, 6, (DWORD) RendererRenderHook);
+//            Inject((DWORD) worldUIOnDrawPatchAddress, 6, (DWORD) WorldUIOnDrawHook);
+            Inject((DWORD) DFCRootControlRenderPatchAddress, 7, (DWORD) DFCRootControlRenderHook);
             Inject((DWORD) gameExitInitResourcesPatchAddress, 6, (DWORD) GameExitInitResourcesHook);
             direct3dHandle = LoadLibraryA(
                     "C:\\Windows\\SysWOW64\\d3d9.dll"

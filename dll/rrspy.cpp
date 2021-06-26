@@ -5,6 +5,9 @@
 #include <fstream>
 #include <iomanip>
 #include "../lib/imgui/imgui_impl_dx9.h"
+#include "../lib/imgui/imgui_impl_win32.h"
+
+WNDPROC gameWndProcHandler;
 
 //Returns the last Win32 error, in string format. Returns an empty string if there is no error.
 std::string GetLastErrorAsString() {
@@ -62,7 +65,7 @@ void GameExitInitResourcesHook() {
     "pushad;"
     );
 
-    OnGameExitInitResources();
+    OnInit();
 
     asm(
     "popad;"
@@ -81,7 +84,7 @@ void RendererRenderHook() {
     "pushad;"
     );
 
-    OnRendererRender();
+    OnRender();
 
     asm(
     "popad;"
@@ -95,11 +98,92 @@ void RendererRenderHook() {
     );
 }
 
-void OnRendererRender() {
-//    std::cout << "Render" << std::endl;
+void WorldUIOnDrawHook() {
+    asm (
+    "pushad;"
+    );
+
+    OnRender();
+
+    asm(
+    "popad;"
+    "mov eax,fs:0x0;"
+    "mov esp, ebp;"
+    "pop ebp;"
+    "push %0;"
+    "ret;"
+    :
+    :"m" (worldUIOnDrawReturnAddress)
+    );
 }
 
-void OnGameExitInitResources() {
+void DFCRootControlRenderHook() {
+    asm (
+    "pushad;"
+    );
+
+    OnRender();
+
+    asm(
+    "popad;"
+    "mov fs:0x0, ecx;"
+    "mov esp, ebp;"
+    "pop ebp;"
+    "push %0;"
+    "ret;"
+    :
+    :"m" (DFCRootControlRenderReturnAddress)
+    );
+}
+
+void OnRender() {
+//    std::cout << "Render" << std::endl;
+
+    ImGui_ImplDX9_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+    { //using brackets to control scope makes formatting and checking where the ImGui::Render(); is easier.
+
+//        ImGui::Begin("Framerate", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
+//        ImGui::SetWindowSize(ImVec2(200, 30), ImGuiCond_FirstUseEver);
+//        ImGui::SetWindowPos(ImVec2(2, 2), ImGuiCond_FirstUseEver);
+//        ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+//        ImGui::End();
+        ImGui::ShowDemoWindow();
+    }
+    ImGui::EndFrame();
+    IDirect3DDevice9* realDevice = rrSpyDirect3D9->GetRealDevice();
+
+//    realDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+//    realDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+//    realDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
+//    D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int) (clear_color.x * clear_color.w * 255.0f),
+//                                          (int) (clear_color.y * clear_color.w * 255.0f),
+//                                          (int) (clear_color.z * clear_color.w * 255.0f),
+//                                          (int) (clear_color.w * 255.0f));
+//    realDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
+
+//    if (realDevice->BeginScene() >= 0) {
+    std::cout << "Drawing Scene" << std::endl;
+    ImGui::Render();
+    ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+//        realDevice->EndScene();
+//    }
+}
+
+void OnInit() {
+    gameWndProcHandler = (WNDPROC) SetWindowLongPtr(GetActiveWindow(), GWLP_WNDPROC, (LONG_PTR) windowProc_hook);
+
+    ImGui::CreateContext();
+    ImGuiIO &io = ImGui::GetIO();
+    (void) io;
+
+    ImGui_ImplWin32_Init(GetActiveWindow());
+    ImGui_ImplDX9_Init(rrSpyDirect3D9->GetRealDevice());
+
     std::cout << "Init" << std::endl;
 }
 
@@ -158,4 +242,24 @@ void DoIt() {
 
 void Stop() {
     outLog.close();
+}
+
+LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+//    // Toggle the overlay using the delete key
+//    if (uMsg == WM_KEYDOWN && wParam == VK_DELETE) {
+//        menuShown = !menuShown;
+//        return false;
+//    }
+//    asm("INT3");
+
+    auto io = ImGui::GetIO();
+
+    if (io.WantCaptureMouse || io.WantCaptureKeyboard) {
+        ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
+        return true;
+    }
+
+    // Otherwise call the game's wndProc function
+    CallWindowProc(gameWndProcHandler, hWnd, uMsg, wParam, lParam);
+    return true;
 }
