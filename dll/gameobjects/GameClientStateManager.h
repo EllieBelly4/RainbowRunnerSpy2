@@ -5,18 +5,23 @@
 #ifndef RRSPY2TESTAPP_GAMECLIENTSTATEMANAGER_H
 #define RRSPY2TESTAPP_GAMECLIENTSTATEMANAGER_H
 
+#include <vector>
 
-#pragma pack(1)
+#pragma pack(push, 1)
 struct GameClientStateManager {
-    int Unk0;
+    void* VFTable;
     int Unk1;
     int Unk2;
     int SomeTimer;
     int State1;
     int State2;
 };
+#pragma pack(pop)
+
+extern std::vector<char*> GetGameClientStateManagerProperties();
 
 const char* GetStateString(GameClientStateManager*);
+
 const char* GetGameClientStateManagerProperty(int i);
 
 #endif //RRSPY2TESTAPP_GAMECLIENTSTATEMANAGER_H

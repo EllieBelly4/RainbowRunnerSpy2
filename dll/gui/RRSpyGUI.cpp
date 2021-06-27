@@ -5,9 +5,11 @@
 #include <windows.h>
 #include <iostream>
 #include <iomanip>
+#include <memory>
 #include "RRSpyGUI.h"
 #include "../gameobjects/GameClientStateManager.h"
 #include "../../lib/imgui/imgui_impl_dx9.h"
+#include "./GameObjectPanels.h"
 
 WNDPROC gameWndProcHandler;
 
@@ -46,60 +48,9 @@ void RRSpyGUI::RenderInfoBox() {
     static bool openMain = true;
 
     ImGui::Begin("RRSpy2", &openMain);
-    std::stringstream gameClientStateManagerText;
 
-    char* gameClientStateManagerPtr = (char*) 0x9360C8;
-//    gameClientStateManagerText << "GameClientStateManager: 0x"
-//                               << std::hex << std::setfill('0') << std::setw(2)
-//                               << *(int*) gameClientStateManagerPtr;
-
-//    asm("INT3");
-
-    auto gameClientStateManager = (GameClientStateManager*) (gameClientStateManagerPtr);
-
-    ImGui::Text("State: ");
-    ImGui::SameLine();
-    ImGui::TextColored(ImVec4(0.8f, 0.8f, 0.1f, 1), GetStateString(gameClientStateManager));
-
-    ImGui::SetNextItemOpen(true);
-    if (ImGui::TreeNode("GameClientStateManager")) {
-        static ImGuiTableFlags tableFlags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
-
-        char hexVal[128];
-
-        if (ImGui::BeginTable("table1", 4, tableFlags)) {
-            ImGui::TableSetupColumn("Address");
-            ImGui::TableSetupColumn("Offset");
-            ImGui::TableSetupColumn("Value");
-            ImGui::TableSetupColumn("Name");
-            ImGui::TableHeadersRow();
-
-            for (int i = 0; i < 32; ++i) {
-                ImGui::TableNextRow();
-
-                char* valPtr = gameClientStateManagerPtr + i * 4;
-
-                ImGui::TableSetColumnIndex(0);
-                sprintf(hexVal, "0x%08x", (int) valPtr);
-                ImGui::Text(hexVal);
-
-                ImGui::TableSetColumnIndex(1);
-                sprintf(hexVal, "0x%04x", i * 4);
-                ImGui::Text(hexVal);
-
-                ImGui::TableSetColumnIndex(2);
-                sprintf(hexVal, "0x%08x", (int) *valPtr);
-                ImGui::Text(hexVal);
-
-                ImGui::TableSetColumnIndex(3);
-                ImGui::Text(GetGameClientStateManagerProperty(i));
-            }
-
-            ImGui::EndTable();
-        }
-
-        ImGui::TreePop();
-    }
+    RenderGameClientStateManager();
+    RenderWorld();
 
     ImGui::End();
 }
@@ -120,4 +71,24 @@ LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
     // Otherwise call the game's wndProc function
     CallWindowProc(gameWndProcHandler, hWnd, uMsg, wParam, lParam);
     return true;
+}
+
+bool PasteToClipboard(const std::string &text) {
+    bool succeeded = false;
+
+    if (HANDLE clipdata = GlobalAlloc(GMEM_FIXED, text.length() + 1)) {
+        memcpy(clipdata, text.data(), text.length() + 1);
+
+        if (OpenClipboard(NULL)) {
+            if (EmptyClipboard() && SetClipboardData(CF_TEXT, clipdata))
+                succeeded = true;
+
+            CloseClipboard();
+        }
+
+        if (!succeeded)
+            GlobalFree(clipdata);
+    }
+
+    return succeeded;
 }

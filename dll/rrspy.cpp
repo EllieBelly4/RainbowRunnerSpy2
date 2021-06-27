@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <fstream>
 #include <iomanip>
+#include "gameobjects/World.h"
 #include "../lib/imgui/imgui_impl_dx9.h"
 #include "../lib/imgui/imgui_impl_win32.h"
 
@@ -143,8 +144,14 @@ void OnInit() {
     GUI->Init();
 }
 
+struct World* World = nullptr;
+
 void OnWorldUpdate() {
-//    std::cout << "World Update" << std::endl;
+    asm (
+    "mov %0, ecx;"
+    : "=r"(World)
+    :
+    );
 }
 
 void SetupLog() {

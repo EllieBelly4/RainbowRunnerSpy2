@@ -6,7 +6,7 @@
 #include "GameClientStateManager.h"
 
 const char* GetStateString(GameClientStateManager* gcsm) {
-    std::string* str = new std::string();
+    auto* str = new std::string();
 
     if (gcsm->State2 == 0x65) {
         *str = "Login Screen";
@@ -23,19 +23,24 @@ const char* GetStateString(GameClientStateManager* gcsm) {
     return str->c_str();
 }
 
-const char* GetGameClientStateManagerProperty(int i) {
-    const char* properties[6] = {
-            "Unk0",
-            "Unk1",
-            "Unk2",
-            "SomeTimer",
-            "State1",
-            "State2",
+std::vector<char*> GetGameClientStateManagerProperties(){
+    static const std::vector<char*> properties {
+            (char*) "VFTable",
+            (char*) "Unk1",
+            (char*) "Unk2",
+            (char*) "FrameCount",
+            (char*) "State1",
+            (char*) "State2",
     };
 
-    if (i < 6) {
-        return properties[i];
-    }
-
-    return "";
+    return properties;
 }
+
+
+//const char* GetGameClientStateManagerProperty(int i) {
+//    if (i < 6) {
+//        return GameClientStateManagerProperties[i];
+//    }
+//
+//    return "";
+//}

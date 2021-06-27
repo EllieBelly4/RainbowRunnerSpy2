@@ -28,6 +28,7 @@ private:
     void RenderInfoBox();
 };
 
+bool PasteToClipboard(const std::string &text);
 extern std::shared_ptr<RRSpyGUI> GUI;
 
 #endif //RRSPY2TESTAPP_RRSPYGUI_H
