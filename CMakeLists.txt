@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 project(RRSpy2)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "-m32")
 
 add_compile_options(-masm=intel)
@@ -26,7 +26,9 @@ add_library(RRSpy2 SHARED
         lib/imgui/imgui_impl_win32.h
         lib/imgui/imgui_impl_win32.cpp
         dll/direct3d/IRRSpyDirect3D9.h dll/direct3d/IRRSpyDirect3D9.cpp
-        dll/gui/RRSpyGUI.cpp dll/gui/RRSpyGUI.h dll/gameobjects/GameClientStateManager.cpp dll/gameobjects/GameClientStateManager.h dll/gui/GameObjectPanels.h dll/gui/GameObjectPanels.cpp dll/gameobjects/World.cpp dll/gameobjects/World.h)
+        dll/gameobjects/Entities/Avatar.h
+        dll/gameobjects/Entities/Avatar.cpp
+        dll/gui/RRSpyGUI.cpp dll/gui/RRSpyGUI.h dll/gameobjects/GameClientStateManager.cpp dll/gameobjects/GameClientStateManager.h dll/gui/GameObjectPanels.h dll/gui/GameObjectPanels.cpp dll/gameobjects/World.cpp dll/gameobjects/World.h dll/gameobjects/EntityManager.cpp dll/gameobjects/EntityManager.h dll/gameobjects/ClientEntity.cpp dll/gameobjects/ClientEntity.h dll/gameobjects/Entities/Player.cpp dll/gameobjects/Entities/Player.h dll/datatypes/DRString.cpp dll/datatypes/DRString.h dll/gameobjects/Entities/Entity.cpp dll/gameobjects/Entities/Entity.h)
 
 target_link_libraries(RRSpy2 -static-libgcc -static-libstdc++ -static -limm32 -ldwmapi)
 set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup, -Bstatic")

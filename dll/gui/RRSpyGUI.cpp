@@ -74,6 +74,8 @@ LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 }
 
 bool PasteToClipboard(const std::string &text) {
+    std::cout << "Copy Value " << text << std::endl;
+
     bool succeeded = false;
 
     if (HANDLE clipdata = GlobalAlloc(GMEM_FIXED, text.length() + 1)) {

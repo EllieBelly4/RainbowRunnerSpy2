@@ -1,17 +1,15 @@
 //
-// Created by Sophie on 26/06/2021.
+// Created by Sophie on 27/06/2021.
 //
 
-#include "World.h"
+#include "ClientEntity.h"
 
-std::vector<char*> GetWorldProperties() {
+std::vector<char*> GetClientEntityProperties() {
     static const std::vector<char*> properties{
-            (char*) "VFTable",
-            (char*) "References",
             (char*) "Unk0",
-            (char*) "Unk1",
-            (char*) "Unk2",
-            (char*) "Unk3",
+            (char*) "OwnedObjectsStart",
+            (char*) "OwnedObjectsEnd",
+            (char*) "OwnedObjectsEnd_2",
             (char*) "Unk4",
             (char*) "Unk5",
             (char*) "Unk6",
@@ -23,24 +21,24 @@ std::vector<char*> GetWorldProperties() {
             (char*) "Unk12",
             (char*) "Unk13",
             (char*) "Unk14",
-            (char*) "Unk15",
+            (char*) "Unk11",
             (char*) "Unk16",
             (char*) "Unk17",
             (char*) "Unk18",
             (char*) "Unk19",
-            (char*) "Unk20",
+            (char*) "SomeTimer",
             (char*) "Unk21",
-            (char*) "Unk22",
-            (char*) "Unk23",
-            (char*) "MapName",
+            (char*) "SomeCountAddedToCounter",
+            (char*) "SomeCounter",
+            (char*) "Unk24",
             (char*) "Unk25",
             (char*) "Unk26",
             (char*) "Unk27",
             (char*) "Unk28",
             (char*) "Unk29",
             (char*) "Unk30",
-            (char*) "Unk31",
-            (char*) "Unk32",
+            (char*) "ProcessedMessagesThisMove",
+            (char*) "UpdateMessagesInQueue",
             (char*) "Unk33",
             (char*) "Unk34",
             (char*) "Unk35",
@@ -67,7 +65,7 @@ std::vector<char*> GetWorldProperties() {
             (char*) "Unk56",
             (char*) "Unk57",
             (char*) "Unk58",
-            (char*) "EntityManager",
+            (char*) "Unk59",
     };
 
     return properties;

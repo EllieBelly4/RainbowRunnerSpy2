@@ -144,12 +144,12 @@ void OnInit() {
     GUI->Init();
 }
 
-struct World* World = nullptr;
+struct World* CurrentWorld = nullptr;
 
 void OnWorldUpdate() {
     asm (
     "mov %0, ecx;"
-    : "=r"(World)
+    : "=r"(CurrentWorld)
     :
     );
 }
