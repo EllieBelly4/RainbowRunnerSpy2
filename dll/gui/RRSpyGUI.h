@@ -8,6 +8,7 @@
 #include <windows.h>
 #include "../common.h"
 #include "../../lib/imgui/imgui_impl_win32.h"
+#include "../gameobjects/EntityManager.h"
 
 extern LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

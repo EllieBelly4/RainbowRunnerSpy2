@@ -28,7 +28,9 @@ add_library(RRSpy2 SHARED
         dll/direct3d/IRRSpyDirect3D9.h dll/direct3d/IRRSpyDirect3D9.cpp
         dll/gameobjects/Entities/Avatar.h
         dll/gameobjects/Entities/Avatar.cpp
-        dll/gui/RRSpyGUI.cpp dll/gui/RRSpyGUI.h dll/gameobjects/GameClientStateManager.cpp dll/gameobjects/GameClientStateManager.h dll/gui/GameObjectPanels.h dll/gui/GameObjectPanels.cpp dll/gameobjects/World.cpp dll/gameobjects/World.h dll/gameobjects/EntityManager.cpp dll/gameobjects/EntityManager.h dll/gameobjects/ClientEntity.cpp dll/gameobjects/ClientEntity.h dll/gameobjects/Entities/Player.cpp dll/gameobjects/Entities/Player.h dll/datatypes/DRString.cpp dll/datatypes/DRString.h dll/gameobjects/Entities/Entity.cpp dll/gameobjects/Entities/Entity.h)
+        dll/gameobjects/ServerEntity.h
+        dll/gameobjects/ServerEntity.cpp
+        dll/gui/RRSpyGUI.cpp dll/gui/RRSpyGUI.h dll/gameobjects/GameClientStateManager.cpp dll/gameobjects/GameClientStateManager.h dll/gui/GameObjectPanels.h dll/gui/GameObjectPanels.cpp dll/gameobjects/World.cpp dll/gameobjects/World.h dll/gameobjects/EntityManager.cpp dll/gameobjects/EntityManager.h dll/gameobjects/ClientEntity.cpp dll/gameobjects/ClientEntity.h dll/gameobjects/Entities/Player.cpp dll/gameobjects/Entities/Player.h dll/datatypes/DRString.cpp dll/datatypes/DRString.h dll/gameobjects/Entities/DFCNode.cpp dll/gameobjects/Entities/DFCNode.h dll/gameobjects/Entities/MeleeWeapon.cpp dll/gameobjects/Entities/MeleeWeapon.h dll/gameobjects/Entities/GCObject.cpp dll/gameobjects/Entities/GCObject.h dll/gameobjects/Entities/GCClass.cpp dll/gameobjects/Entities/GCClass.h)
 
 target_link_libraries(RRSpy2 -static-libgcc -static-libstdc++ -static -limm32 -ldwmapi)
 set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup, -Bstatic")

@@ -10,7 +10,10 @@
 #pragma pack(push, 1)
 struct DRString {
     int Length;
-    char String;
+    // Just make this as long as the longest posssible string
+    char String[128];
+
+    std::string ToString();
 };
 
 #pragma pack(pop)

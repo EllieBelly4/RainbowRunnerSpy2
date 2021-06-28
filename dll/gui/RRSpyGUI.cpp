@@ -10,8 +10,11 @@
 #include "../gameobjects/GameClientStateManager.h"
 #include "../../lib/imgui/imgui_impl_dx9.h"
 #include "./GameObjectPanels.h"
+#include "../gameobjects/World.h"
 
 WNDPROC gameWndProcHandler;
+
+ImFont* consolas;
 
 void RRSpyGUI::Init() {
     gameWndProcHandler = (WNDPROC) SetWindowLongPtr(GetActiveWindow(), GWLP_WNDPROC, (LONG_PTR) windowProc_hook);
@@ -19,6 +22,8 @@ void RRSpyGUI::Init() {
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     (void) io;
+
+    consolas = io.Fonts->AddFontFromFileTTF("consola.ttf", 16);
 
     ImGui_ImplWin32_Init(GetActiveWindow());
     ImGui_ImplDX9_Init(rrSpyDirect3D9->GetRealDevice());
@@ -35,8 +40,10 @@ void RRSpyGUI::Render() {
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
-//    std::cout << "Drawing Scene" << std::endl;
+    ImGui::PushFont(consolas);
     RenderInfoBox();
+    ImGui::PopFont();
+
     ImGui::ShowDemoWindow();
 
     ImGui::EndFrame();
@@ -49,8 +56,19 @@ void RRSpyGUI::RenderInfoBox() {
 
     ImGui::Begin("RRSpy2", &openMain);
 
-    RenderGameClientStateManager();
-    RenderWorld();
+    try {
+        RenderGameClientStateManager();
+        RenderWorld();
+
+        if (ImGui::TreeNodeEx("Entities", ImGuiTreeNodeFlags_Framed)) {
+            if (CurrentWorld != nullptr && CurrentWorld->EntityManager != nullptr) {
+                RenderEntityManagerEntities(CurrentWorld->EntityManager);
+            }
+            ImGui::TreePop();
+        }
+    } catch (...) {
+        ImGui::TextColored(ImVec4{1.000f, 0.443f, 0.384f, 1}, "Error");
+    }
 
     ImGui::End();
 }
