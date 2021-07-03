@@ -5,6 +5,8 @@
 #ifndef RRSPY2TESTAPP_GCCLASS_H
 #define RRSPY2TESTAPP_GCCLASS_H
 
+#include <vector>
+#include <string>
 
 #include "../../datatypes/DRString.h"
 
@@ -13,9 +15,9 @@ struct GCClass {
     int Ref;
     int Unk2; // 0x8
     int Unk3; // 0xc
-    int Unk4; // 0x10
+    int GCTypeHash; // 0x10
     DRString* TypeName; // 0x14
-    int Unk6; // 0x18
+    DRString* FQTypeName; // 0x18
     int Unk7; // 0x1c
     int Unk8; // 0x20
     int Unk9; // 0x24
@@ -39,5 +41,6 @@ struct GCClass {
     int Unk27; // 0x6c
 };
 
+std::vector<char*> GetGCCLassProperties();
 
 #endif //RRSPY2TESTAPP_GCCLASS_H

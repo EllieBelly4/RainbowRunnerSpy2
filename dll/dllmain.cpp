@@ -15,6 +15,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 ) {
     switch (ul_reason_for_call) {
         case DLL_PROCESS_ATTACH:
+            outLog.open("logs\\runlog.txt", std::ios_base::out | std::ios_base::app);
+            outLog << "Attach";
 //            hwnd = GetActiveWindow();
 //            MessageBox(NULL, "Hello", "There", MB_OKCANCEL | MB_DEFBUTTON2);
             Inject((DWORD) worldUpdatePatchAddress, 6, (DWORD) WorldUpdateHook);

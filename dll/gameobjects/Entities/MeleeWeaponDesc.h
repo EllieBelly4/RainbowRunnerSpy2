@@ -1,16 +1,13 @@
 //
-// Created by Sophie on 28/06/2021.
+// Created by Sophie on 01/07/2021.
 //
 
-#ifndef RRSPY2TESTAPP_MELEEWEAPON_H
-#define RRSPY2TESTAPP_MELEEWEAPON_H
-
-
-#include "../../datatypes/DRString.h"
+#ifndef RRSPY2TESTAPP_MELEEWEAPONDESC_H
+#define RRSPY2TESTAPP_MELEEWEAPONDESC_H
 
 #include "DFCNode.h"
 
-class MeleeWeapon : public DFCNode {
+class MeleeWeaponDesc : public DFCNode {
     int Unk34; // 0x88
     int Unk35; // 0x8c
     int Unk36; // 0x90
@@ -28,8 +25,11 @@ class MeleeWeapon : public DFCNode {
     int Unk48; // 0xc0
     int Unk49; // 0xc4
     int Unk50; // 0xc8
-    int Unk51; // 0xcc
+    short Unk51; // 0xcc
+    short Unk52; // 0xcd
+    short Unk53; // 0xce
+    short WeaponTypeFlags_mb; // 0xcf Flag | 0x04 = isEquippable
 };
 
 
-#endif //RRSPY2TESTAPP_MELEEWEAPON_H
+#endif //RRSPY2TESTAPP_MELEEWEAPONDESC_H

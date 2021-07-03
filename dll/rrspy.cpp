@@ -9,6 +9,7 @@
 #include "../lib/imgui/imgui_impl_win32.h"
 
 std::shared_ptr<RRSpyGUI> GUI;
+std::shared_ptr<log::Log> logger;
 
 //Returns the last Win32 error, in string format. Returns an empty string if there is no error.
 std::string GetLastErrorAsString() {
@@ -135,12 +136,14 @@ void DFCRootControlRenderHook() {
 
 void OnRender() {
 //    std::cout << "Render" << std::endl;
+    outLog << "render";
 
     GUI->Render();
 }
 
 void OnInit() {
-    GUI = std::make_shared<RRSpyGUI>();
+    logger = std::make_shared<log::Log>("logs/runlog.txt");
+    GUI = std::make_shared<RRSpyGUI>(logger);
     GUI->Init();
 }
 

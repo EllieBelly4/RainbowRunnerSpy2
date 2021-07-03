@@ -18,17 +18,17 @@ const std::vector<char*> GetEntityProperties() {
             (char*) "unk_7",
             (char*) "unk_8",
             (char*) "unk_9",
-            (char*) "unk_10",
-            (char*) "unk_11",
+            (char*) "VFTableIEventHandler",
+            (char*) "GCProperties",
             (char*) "unk_12",
-            (char*) "unk_13",
+            (char*) "VFTableEventSystem",
             (char*) "unk_14",
             (char*) "unk_15",
             (char*) "unk_16",
             (char*) "unk_17",
             (char*) "unk_18",
             (char*) "SuperClass",
-            (char*) "unk_20",
+            (char*) "GCClass",
             (char*) "Desc",
             (char*) "unk_22",
             (char*) "unk_23",
@@ -40,16 +40,6 @@ const std::vector<char*> GetEntityProperties() {
             (char*) "unk_29",
             (char*) "unk_30",
             (char*) "unk_31",
-            (char*) "unk_32",
-            (char*) "unk_33",
-            (char*) "unk_34",
-            (char*) "unk_35",
-            (char*) "unk_36",
-            (char*) "unk_37",
-            (char*) "unk_38",
-            (char*) "unk_39",
-            (char*) "unk_40",
-            (char*) "unk_41",
     };
 
     return properties;
@@ -197,6 +187,8 @@ std::string DFCNode::GetTypeString() {
             return "GCClass";
         case 0x00898370:
             return "EffectDesc";
+        case 0x0089EF18:
+            return "QuestManager";
         default:
             return "UnknownEntity";
     }
