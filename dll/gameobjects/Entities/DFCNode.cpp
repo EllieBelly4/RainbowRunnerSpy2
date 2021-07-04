@@ -189,6 +189,22 @@ std::string DFCNode::GetTypeString() {
             return "EffectDesc";
         case 0x0089EF18:
             return "QuestManager";
+        case 0x00868cd0:
+            return "World";
+        case 0x0086ad58:
+            return "WorldMap";
+        case 0x0086bc28:
+            return "WorldObjectGroup";
+        case 0x008676e8:
+            return "StaticObject";
+        case 0x0086a730:
+            return "WorldLight";
+        case 0x00897010:
+            return "AmbientSound";
+        case 0x0088da10:
+            return "SoundEnvironment";
+        case 0x008a7c18:
+            return "ClientEntityManager";
         default:
             return "UnknownEntity";
     }

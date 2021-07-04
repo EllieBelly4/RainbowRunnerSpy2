@@ -1,15 +1,17 @@
-#include "rrspy.h"
 #include "common.h"
+#include "rrspy.h"
 #include <iostream>
 #include <windows.h>
 #include <fstream>
 #include <iomanip>
+#include <Dbghelp.h>
 #include "gameobjects/World.h"
 #include "../lib/imgui/imgui_impl_dx9.h"
 #include "../lib/imgui/imgui_impl_win32.h"
 
 std::shared_ptr<RRSpyGUI> GUI;
 std::shared_ptr<log::Log> logger;
+std::shared_ptr<RRSpyState> state;
 
 //Returns the last Win32 error, in string format. Returns an empty string if there is no error.
 std::string GetLastErrorAsString() {
@@ -38,6 +40,7 @@ std::string GetLastErrorAsString() {
 
 void WorldUpdateHook() {
     asm (
+    ".intel_syntax;"
     "pushad;"
     );
 
@@ -53,6 +56,7 @@ void WorldUpdateHook() {
     "pop ebp;"
     "push %0;"
     "ret;"
+    ".att_syntax"
     :
     :"m" (worldUpdateReturnAddress)
     );
@@ -60,6 +64,7 @@ void WorldUpdateHook() {
 
 void GameExitInitResourcesHook() {
     asm (
+    ".intel_syntax;"
     "pushad;"
     );
 
@@ -72,6 +77,7 @@ void GameExitInitResourcesHook() {
     "pop ebp;"
     "push %0;"
     "ret;"
+    ".att_syntax"
     :
     :"m" (gameExitInitResourcesReturnAddress)
     );
@@ -79,6 +85,7 @@ void GameExitInitResourcesHook() {
 
 void RendererRenderHook() {
     asm (
+    ".intel_syntax;"
     "pushad;"
     );
 
@@ -91,6 +98,7 @@ void RendererRenderHook() {
     "pop ebp;"
     "push %0;"
     "ret;"
+    ".att_syntax"
     :
     :"m" (rendererRenderReturnAddress)
     );
@@ -98,6 +106,7 @@ void RendererRenderHook() {
 
 void WorldUIOnDrawHook() {
     asm (
+    ".intel_syntax;"
     "pushad;"
     );
 
@@ -110,6 +119,7 @@ void WorldUIOnDrawHook() {
     "pop ebp;"
     "push %0;"
     "ret;"
+    ".att_syntax"
     :
     :"m" (worldUIOnDrawReturnAddress)
     );
@@ -117,6 +127,7 @@ void WorldUIOnDrawHook() {
 
 void DFCRootControlRenderHook() {
     asm (
+    ".intel_syntax;"
     "pushad;"
     );
 
@@ -129,9 +140,17 @@ void DFCRootControlRenderHook() {
     "pop ebp;"
     "push %0;"
     "ret;"
+    ".att_syntax"
     :
     :"m" (DFCRootControlRenderReturnAddress)
     );
+}
+
+extern "C" int exc(_In_ EXCEPTION_POINTERS *lpEP);
+int exc(_In_ EXCEPTION_POINTERS *lpEP)
+{
+    printf("Exception code: %u  Flags: %u\n", lpEP->ExceptionRecord->ExceptionCode, lpEP->ExceptionRecord->ExceptionFlags);
+    return EXCEPTION_EXECUTE_HANDLER;
 }
 
 void OnRender() {
@@ -142,8 +161,9 @@ void OnRender() {
 }
 
 void OnInit() {
+    state = std::make_shared<RRSpyState>();
     logger = std::make_shared<log::Log>("logs/runlog.txt");
-    GUI = std::make_shared<RRSpyGUI>(logger);
+    GUI = std::make_shared<RRSpyGUI>(state, logger);
     GUI->Init();
 }
 
@@ -151,10 +171,14 @@ struct World* CurrentWorld = nullptr;
 
 void OnWorldUpdate() {
     asm (
+    ".intel_syntax noprefix;"
     "mov %0, ecx;"
+    ".att_syntax"
     : "=r"(CurrentWorld)
     :
     );
+
+    state->CurrentWorld = CurrentWorld;
 }
 
 void SetupLog() {

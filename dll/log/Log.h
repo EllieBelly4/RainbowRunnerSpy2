@@ -16,7 +16,7 @@ namespace log {
         logERROR, logWARNING, logINFO, logDEBUG
     };
 
-    static const char *StringLogLevel[] = {
+    static const char* StringLogLevel[] = {
             "ERROR", "WARNING", "INFO", "DEBUG"
     };
 
@@ -32,29 +32,9 @@ namespace log {
             this->logFilePointer.close();
         }
 
-        template<typename T>
-        void Write(const T &toLog, TLogLevel logLevel = TLogLevel::logDEBUG);
+        void Write(const char* toLog, TLogLevel logLevel = TLogLevel::logDEBUG);
+        void Write(const std::string &toLog, TLogLevel logLevel = TLogLevel::logDEBUG);
     };
-
-    template<typename T>
-    void Log::Write(const T &toLog, TLogLevel logLevel) {
-        this->template Write(std::to_string(toLog), logLevel);
-    }
-
-    template<>
-    inline void Log::Write(const std::string& toLog, TLogLevel logLevel) {
-        if (!this->logFilePointer.is_open()) {
-            this->logFilePointer.open(this->logFilePath,std::ios_base::app);
-        }
-
-        auto t = std::time(nullptr);
-        auto tm = *std::localtime(&t);
-
-        this->logFilePointer << "[ " << std::put_time(&tm, "%d-%m-%Y %H:%M:%S") << " ]";
-
-        this->logFilePointer << " [ " << log::StringLogLevel[logLevel] << " ]";
-        this->logFilePointer << " - " << toLog << std::endl;
-    }
 }
 
 extern std::shared_ptr<log::Log> Logger;

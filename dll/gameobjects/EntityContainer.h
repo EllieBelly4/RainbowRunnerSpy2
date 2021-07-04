@@ -1,23 +1,19 @@
 //
-// Created by Sophie on 26/06/2021.
+// Created by Sophie on 04/07/2021.
 //
 
-#ifndef RRSPY2TESTAPP_WORLD_H
-#define RRSPY2TESTAPP_WORLD_H
+#ifndef RRSPY2TESTAPP_ENTITYCONTAINER_H
+#define RRSPY2TESTAPP_ENTITYCONTAINER_H
 
-#include <vector>
-#include <string>
-#include "../datatypes/DRString.h"
+#include <cstdint>
 
-struct EntityManager;
-
-struct World {
-    void* VFTable;
-    int References;
+// Replaces ServerEntity and ClientEntity
+class EntityContainer {
+public:
     int Unk0;
-    int Unk1;
-    int Unk2;
-    int Unk3;
+    uintptr_t OwnedObjectsStart;
+    uintptr_t OwnedObjectsEnd;
+    uintptr_t OwnedObjectsEnd_2;
     int Unk4;
     int Unk5;
     int Unk6;
@@ -34,19 +30,19 @@ struct World {
     int Unk17;
     int Unk18;
     int Unk19;
-    int Unk20;
+    int SomeTimer;
     int Unk21;
-    int Unk22;
-    int Unk23;
-    DRString* MapName;
+    int SomeCountAddedToCounter;
+    int SomeCounter;
+    int Unk24;
     int Unk25;
     int Unk26;
     int Unk27;
     int Unk28;
     int Unk29;
     int Unk30;
-    int Unk31;
-    int Unk32;
+    int ProcessedMessagesThisMove;
+    int UpdateMessagesInQueue;
     int Unk33;
     int Unk34;
     int Unk35;
@@ -73,12 +69,7 @@ struct World {
     int Unk56;
     int Unk57;
     int Unk58;
-
-    EntityManager* EntityManager = nullptr;
 };
 
-//extern World* CurrentWorld;
 
-std::vector<char*> GetWorldProperties();
-
-#endif //RRSPY2TESTAPP_WORLD_H
+#endif //RRSPY2TESTAPP_ENTITYCONTAINER_H

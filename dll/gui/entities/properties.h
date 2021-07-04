@@ -12,8 +12,6 @@
 
 void RenderPropertiesForDFCNode(DFCNode* node);
 
-void RenderDFCNodeInner(DFCNode* pEntity);
-
 void RenderGCProperties(GCProperties* properties);
 
 void RenderMeleeWeaponProperties(MeleeWeapon* pWeapon);

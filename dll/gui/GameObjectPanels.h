@@ -14,12 +14,9 @@
 #include "../gameobjects/ServerEntity.h"
 #include "../gameobjects/Entities/MeleeWeapon.h"
 #include "../gameobjects/Entities/GCClass.h"
-#include "entities/list.h"
 
 extern DFCNode* SelectedDFCNode;
 extern ImGuiID SelectedDFCNodeID;
-
-void RenderGameClientStateManager();
 
 void RenderWorld();
 

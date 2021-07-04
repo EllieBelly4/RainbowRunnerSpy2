@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include "../common.h"
 #include "EntityManager.h"
 
 std::vector<char*> GetEntityManagerProperties() {
@@ -144,7 +145,7 @@ std::vector<char*> GetClientEntityManagerProperties() {
 }
 
 std::string GetEntityManagerTypeName(EntityManager* entityManager) {
-    if (entityManager == nullptr){
+    if (IsBadReadPtr(entityManager)){
         return "Null";
     }
 

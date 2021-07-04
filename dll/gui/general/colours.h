@@ -24,5 +24,7 @@ extern ImVec4 listAltBgLt;
 extern ImVec4 listSelected;
 extern ImVec4 titleBg;
 extern ImVec4 titleBgActive;
+extern ImVec4 titleAltText;
+extern ImVec4 textDisabled;
 
 #endif

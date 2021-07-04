@@ -6,11 +6,13 @@
 #define RRSPY2TESTAPP_RRSPYGUI_H
 
 #include <windows.h>
-
 #include <utility>
-#include "../common.h"
+
 #include "../../lib/imgui/imgui_impl_win32.h"
 #include "../gameobjects/EntityManager.h"
+#include "views/RRSpyGUIInfoView.h"
+#include "views/RRSpyGUIPropertyView.h"
+#include "entities/RRSpyGUIEntityWrapper.h"
 
 extern LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -18,7 +20,9 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 
 class RRSpyGUI {
 public:
-    explicit RRSpyGUI(std::shared_ptr<log::Log> logger) : logger(std::move(logger)) {};
+    explicit RRSpyGUI(std::shared_ptr<log::Log> logger) : logger(logger) {};
+
+    RRSpyGUI(std::shared_ptr<RRSpyState> state, std::shared_ptr<log::Log> logger);
 
     bool IsVisible = true;
 
@@ -30,15 +34,17 @@ public:
         IsVisible = !IsVisible;
     }
 
+    std::shared_ptr<RRSpyGUIEntityWrapper> CurrentSelectedEntity;
 private:
+    std::shared_ptr<RRSpyState> _state;
     std::shared_ptr<log::Log> logger;
+    std::shared_ptr<RRSpyGUIInfoView> infoView;
+    std::shared_ptr<RRSpyGUIPropertyView> propertyView;
 
     void RenderInfoBox();
 
     void RenderPropertyBox();
 };
-
-bool PasteToClipboard(const std::string &text);
 
 extern std::shared_ptr<RRSpyGUI> GUI;
 

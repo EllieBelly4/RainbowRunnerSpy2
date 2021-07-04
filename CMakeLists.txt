@@ -4,7 +4,7 @@ project(RRSpy2)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "-m32")
 
-add_compile_options(-masm=intel)
+#add_compile_options(-masm=intel)
 
 add_library(RRSpy2 SHARED
         dll/dllmain.h dll/dllmain.cpp
@@ -32,11 +32,9 @@ add_library(RRSpy2 SHARED
         dll/gameobjects/ServerEntity.cpp
         dll/gui/general/structs.cpp
         dll/gui/general/colours.h
-        dll/gui/entities/list.cpp
         dll/log/Log.h
         dll/log/Log.cpp
-        dll/gui/entities/list.cpp
-        dll/gui/RRSpyGUI.cpp dll/gui/RRSpyGUI.h dll/gameobjects/GameClientStateManager.cpp dll/gameobjects/GameClientStateManager.h dll/gui/GameObjectPanels.h dll/gui/GameObjectPanels.cpp dll/gameobjects/World.cpp dll/gameobjects/World.h dll/gameobjects/EntityManager.cpp dll/gameobjects/EntityManager.h dll/gameobjects/ClientEntity.cpp dll/gameobjects/ClientEntity.h dll/gameobjects/Entities/Player.cpp dll/gameobjects/Entities/Player.h dll/datatypes/DRString.cpp dll/datatypes/DRString.h dll/gameobjects/Entities/DFCNode.cpp dll/gameobjects/Entities/DFCNode.h dll/gameobjects/Entities/MeleeWeapon.cpp dll/gameobjects/Entities/MeleeWeapon.h dll/gameobjects/Entities/GCObject.cpp dll/gameobjects/Entities/GCObject.h dll/gameobjects/Entities/GCClass.cpp dll/gameobjects/Entities/GCClass.h dll/datatypes/DRLinkedList.cpp dll/datatypes/DRLinkedList.h dll/datatypes/GCProperties.cpp dll/datatypes/GCProperties.h dll/gameobjects/Entities/DFCClass.cpp dll/gameobjects/Entities/DFCClass.h dll/gameobjects/Entities/MeleeWeaponDesc.cpp dll/gameobjects/Entities/MeleeWeaponDesc.h dll/gui/entities/list.h dll/gui/entities/properties.cpp dll/gui/entities/properties.h dll/gui/general/gui_functions.cpp dll/gui/general/gui_functions.h)
+        dll/gui/RRSpyGUI.cpp dll/gui/RRSpyGUI.h dll/gameobjects/GameClientStateManager.cpp dll/gameobjects/GameClientStateManager.h dll/gui/GameObjectPanels.h dll/gui/GameObjectPanels.cpp dll/gameobjects/World.cpp dll/gameobjects/World.h dll/gameobjects/EntityManager.cpp dll/gameobjects/EntityManager.h dll/gameobjects/ClientEntity.cpp dll/gameobjects/ClientEntity.h dll/gameobjects/Entities/Player.cpp dll/gameobjects/Entities/Player.h dll/datatypes/DRString.cpp dll/datatypes/DRString.h dll/gameobjects/Entities/DFCNode.cpp dll/gameobjects/Entities/DFCNode.h dll/gameobjects/Entities/MeleeWeapon.cpp dll/gameobjects/Entities/MeleeWeapon.h dll/gameobjects/Entities/GCObject.cpp dll/gameobjects/Entities/GCObject.h dll/gameobjects/Entities/GCClass.cpp dll/gameobjects/Entities/GCClass.h dll/datatypes/DRLinkedList.cpp dll/datatypes/DRLinkedList.h dll/datatypes/GCProperties.cpp dll/datatypes/GCProperties.h dll/gameobjects/Entities/DFCClass.cpp dll/gameobjects/Entities/DFCClass.h dll/gameobjects/Entities/MeleeWeaponDesc.cpp dll/gameobjects/Entities/MeleeWeaponDesc.h dll/gui/entities/properties.cpp dll/gui/entities/properties.h dll/gui/general/gui_functions.cpp dll/gui/general/gui_functions.h dll/gui/entities/RRSpyGUIEntityWrapper.cpp dll/gui/entities/RRSpyGUIEntityWrapper.h dll/gui/components/RRSpyGUIList.cpp dll/gui/components/RRSpyGUIList.h dll/gui/views/RRSpyGUIInfoView.cpp dll/gui/views/RRSpyGUIInfoView.h dll/gui/views/RRSpyGUIPropertyView.cpp dll/gui/views/RRSpyGUIPropertyView.h dll/gui/RRSpyState.cpp dll/gui/RRSpyState.h dll/gameobjects/EntityContainer.cpp dll/gameobjects/EntityContainer.h dll/common.cpp dll/gui/views/viewhandlers/AvatarView.cpp dll/gui/views/viewhandlers/AvatarView.h dll/gui/views/viewhandlers/PlayerView.cpp dll/gui/views/viewhandlers/PlayerView.h dll/gui/views/viewhandlers/MeleeWeaponView.cpp dll/gui/views/viewhandlers/MeleeWeaponView.h dll/gui/views/viewhandlers/ViewHandler.cpp dll/gui/views/viewhandlers/ViewHandler.h)
 
 target_link_libraries(RRSpy2 -static-libgcc -static-libstdc++ -static -limm32 -ldwmapi)
 set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup, -Bstatic")

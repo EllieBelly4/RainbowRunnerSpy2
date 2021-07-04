@@ -3,16 +3,18 @@
 //
 
 #include <windows.h>
+#include <Dbghelp.h>
 #include <iostream>
 #include "RRSpyGUI.h"
 #include "../../lib/imgui/imgui_impl_dx9.h"
 #include "./GameObjectPanels.h"
 #include "../gameobjects/World.h"
 #include "entities/properties.h"
+#include "../common.h"
 
 //const ImVec4 &windowBackground = ImVec4(0.102f,0.071f,0.102f, 0.95);
-ImVec4 windowBackground = ImVec4(0.153f,0.153f,0.153f, 0.99);
-ImVec4 windowTitleBg = ImVec4(0.855f,0.255f,0.404f, 0.99);
+ImVec4 windowBackground = ImVec4(0.153f, 0.153f, 0.153f, 0.99);
+ImVec4 windowTitleBg = ImVec4(0.855f, 0.255f, 0.404f, 0.99);
 
 ImFont* consolasNormal;
 ImFont* consolasHeading;
@@ -21,8 +23,12 @@ ImFont* firaHeading;
 
 WNDPROC gameWndProcHandler;
 
+RRSpyGUI::RRSpyGUI(std::shared_ptr<RRSpyState> state, std::shared_ptr<log::Log> logger) : _state(state),
+                                                                                          logger(logger) {
+}
+
 void RRSpyGUI::Init() {
-    logger->Write<std::string>("Init");
+    logger->Write("Init GUI");
     gameWndProcHandler = (WNDPROC) SetWindowLongPtr(GetActiveWindow(), GWLP_WNDPROC, (LONG_PTR) windowProc_hook);
 
     ImGui::CreateContext();
@@ -30,6 +36,7 @@ void RRSpyGUI::Init() {
 
     (void) io;
 
+    io.ConfigWindowsMoveFromTitleBarOnly = true;
     consolasNormal = io.Fonts->AddFontFromFileTTF("consola.ttf", 16);
     consolasHeading = io.Fonts->AddFontFromFileTTF("consola.ttf", 20);
     firaNormal = io.Fonts->AddFontFromFileTTF("FiraSansCondensed-Medium.ttf", 18);
@@ -38,7 +45,8 @@ void RRSpyGUI::Init() {
     ImGui_ImplWin32_Init(GetActiveWindow());
     ImGui_ImplDX9_Init(rrSpyDirect3D9->GetRealDevice());
 
-    std::cout << "Init" << std::endl;
+    infoView = std::make_shared<RRSpyGUIInfoView>(_state, logger);
+    propertyView = std::make_shared<RRSpyGUIPropertyView>(_state, logger);
 }
 
 void RRSpyGUI::Render() {
@@ -57,14 +65,15 @@ void RRSpyGUI::Render() {
     ImGui::PushStyleColor(ImGuiCol_HeaderActive, titleBgActive);
     ImGui::PushStyleColor(ImGuiCol_HeaderHovered, titleBgActive);
 
-
     ImGui::PushFont(firaNormal);
-    RenderInfoBox();
+    infoView->Render();
     ImGui::PopFont();
 
-    ImGui::PushFont(firaNormal);
-    RenderPropertyBox();
-    ImGui::PopFont();
+    if(_state->IsSelectedEntityVisible()){
+        ImGui::PushFont(firaNormal);
+        propertyView->Render();
+        ImGui::PopFont();
+    }
 
     ImGui::ShowDemoWindow();
     ImGui::PopStyleColor(5);
@@ -73,41 +82,7 @@ void RRSpyGUI::Render() {
     ImGui::EndFrame();
     ImGui::Render();
     ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-}
-
-void RRSpyGUI::RenderInfoBox() {
-    static bool openMain = true;
-
-    ImGui::Begin("RRSpy2", &openMain);
-
-    try {
-        RenderGameClientStateManager();
-        RenderWorld();
-
-
-        if (ImGui::TreeNodeEx("Entities", ImGuiTreeNodeFlags_Framed)) {
-            if (CurrentWorld != nullptr && CurrentWorld->EntityManager != nullptr) {
-                RenderEntityManagerEntities(CurrentWorld->EntityManager);
-            }
-            ImGui::TreePop();
-        }
-    } catch (...) {
-        ImGui::TextColored(ImVec4{1.000f, 0.443f, 0.384f, 1}, "Error");
-    }
-
-    ImGui::End();
-}
-
-void RRSpyGUI::RenderPropertyBox() {
-    static bool openProperties = true;
-
-    ImGui::Begin("Properties", &openProperties);
-
-    if (SelectedDFCNode != nullptr){
-        RenderPropertiesForDFCNode(SelectedDFCNode);
-    }
-
-    ImGui::End();
+    _state->OnFrameEnd();
 }
 
 LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -127,26 +102,3 @@ LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
     CallWindowProc(gameWndProcHandler, hWnd, uMsg, wParam, lParam);
     return true;
 }
-
-bool PasteToClipboard(const std::string &text) {
-    std::cout << "Copy Value " << text << std::endl;
-
-    bool succeeded = false;
-
-    if (HANDLE clipdata = GlobalAlloc(GMEM_FIXED, text.length() + 1)) {
-        memcpy(clipdata, text.data(), text.length() + 1);
-
-        if (OpenClipboard(NULL)) {
-            if (EmptyClipboard() && SetClipboardData(CF_TEXT, clipdata))
-                succeeded = true;
-
-            CloseClipboard();
-        }
-
-        if (!succeeded)
-            GlobalFree(clipdata);
-    }
-
-    return succeeded;
-}
-
