@@ -59,7 +59,7 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
             isOpen = !isOpen;
             ImGui::GetStateStorage()->SetBool(openKey, isOpen);
         } else {
-            _state->SetSelectedEntity(std::make_shared<RRSpyGUIEntityWrapper>(pEntity, currentID));
+            _state->SetSelectedEntity(std::make_shared<RRSpyDFCNode>(pEntity, currentID));
         }
 
         _state->ItemSelectState.LastClickedTime = now;

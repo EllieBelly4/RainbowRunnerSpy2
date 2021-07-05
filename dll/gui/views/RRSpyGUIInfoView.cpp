@@ -7,6 +7,7 @@
 #include "../../gameobjects/EntityManager.h"
 #include "../../common.h"
 #include "../../gameobjects/GameClientStateManager.h"
+#include "viewhandlers/GameClientStateManagerView.h"
 
 #define EntityManagerTypeText(string) ImGui::SameLine();\
 ImGui::TextColored(titleAltText, string);
@@ -17,9 +18,6 @@ void RRSpyGUIInfoView::Render() {
     ImGui::Begin("RRSpy2 Info", &openMain);
 
     try {
-//        RenderGeneralInfo();
-//        RenderWorld();
-
         RenderGeneralInfo();
         RenderGlobalObjects();
         RenderEntities();
@@ -51,11 +49,11 @@ void RRSpyGUIInfoView::RenderGeneralInfo() {
 
     if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->MapName)) {
         ImGui::TextColored(titleAltText, _state->CurrentWorld->MapName->ToString().c_str());
-//        logger->Write(std::to_string(reinterpret_cast<int>(_state->CurrentWorld->MapName->String)));
-//        ImGui::TextColored(titleAltText, std::to_string(_state->CurrentWorld->MapName->Length).c_str());
     } else {
         ImGui::TextColored(textDisabled, "unknown");
     }
+
+    GameClientStateManagerView::RenderListItem(gameClientStateManager, 0);
 
 //    if (ImGui::TreeNode("GameClientStateManager")) {
 //        RenderStructPropertyTable(gameClientStateManagerPtr, GetGameClientStateManagerProperties());
@@ -65,7 +63,6 @@ void RRSpyGUIInfoView::RenderGeneralInfo() {
 }
 
 void RRSpyGUIInfoView::RenderEntities() {
-
     if (ImGui::TreeNodeEx("Managed Entities", ImGuiTreeNodeFlags_Framed)) {
         if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->EntityManager)) {
             auto manager = _state->CurrentWorld->EntityManager;

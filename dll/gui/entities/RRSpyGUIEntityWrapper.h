@@ -8,13 +8,32 @@
 
 #include "../../../lib/imgui/imgui.h"
 #include "../../gameobjects/Entities/DFCNode.h"
+#include "../../gameobjects/GameClientStateManager.h"
 
 class RRSpyGUIEntityWrapper {
 public:
-    explicit RRSpyGUIEntityWrapper(DFCNode* pNode, ImGuiID id);
+    explicit RRSpyGUIEntityWrapper(void* pNode, ImGuiID id);
+
+    template<class T>
+    inline T* GetEntity() {
+        return static_cast<T*>(_node);
+    }
 
     ImGuiID ImGui_ID;
-    DFCNode* _node;
+
+    virtual ~RRSpyGUIEntityWrapper() = default;
+private:
+    void* _node;
+};
+
+class RRSpyDFCNode: public RRSpyGUIEntityWrapper {
+public:
+    explicit RRSpyDFCNode(DFCNode* pNode, ImGuiID id);
+};
+
+class RRSpyGameClientStateManager : public RRSpyGUIEntityWrapper {
+public:
+    explicit RRSpyGameClientStateManager(GameClientStateManager* pNode, ImGuiID id);
 };
 
 

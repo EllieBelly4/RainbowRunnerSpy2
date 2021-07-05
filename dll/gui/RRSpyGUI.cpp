@@ -69,10 +69,18 @@ void RRSpyGUI::Render() {
     infoView->Render();
     ImGui::PopFont();
 
+    if (ImGui::IsMouseClicked(ImGuiMouseButton_Right)){
+        _state->DeselectEntity();
+    }
+
     if(_state->IsSelectedEntityVisible()){
         ImGui::PushFont(firaNormal);
         propertyView->Render();
         ImGui::PopFont();
+    }
+
+    if (!_state->PropertiesOpen && _state->CurrentSelectedEntity != nullptr) {
+        _state->CurrentSelectedEntity = nullptr;
     }
 
     ImGui::ShowDemoWindow();

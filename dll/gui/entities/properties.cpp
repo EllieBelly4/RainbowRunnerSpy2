@@ -63,10 +63,12 @@ void RenderPlayerProperties(Player* pPlayer) {
 
 void RenderDFCNodeProperties(DFCNode* pEntity) {
     auto vftable = (int) pEntity->VFTable;
-
     char hexBuf[64];
-
     std::string hexStr;
+
+    if (!IsBadReadPtr(pEntity->GCClass)) {
+        RenderGCCLass(pEntity->GCClass);
+    }
 
     sprintf(hexBuf, "0x%08x", reinterpret_cast<int>(pEntity));
     hexStr = hexBuf;
@@ -104,10 +106,6 @@ void RenderDFCNodeProperties(DFCNode* pEntity) {
     RenderNumberProperty("unk_31", pEntity->unk_31);
     RenderNumberProperty("unk_32", pEntity->unk_32);
     RenderNumberProperty("unk_33", pEntity->unk_33);
-
-    if (!IsBadReadPtr(pEntity->GCClass)) {
-        RenderGCCLass(pEntity->GCClass);
-    }
 }
 
 void RenderNumberProperty(const std::string &propertyName, unsigned int number) {

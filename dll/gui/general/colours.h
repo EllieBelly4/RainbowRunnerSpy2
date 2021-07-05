@@ -2,6 +2,8 @@
 #ifndef RRSPY2_GUI_COLOURS
 #define RRSPY2_GUI_COLOURS
 
+#include "../../../lib/imgui/imgui.h"
+
 #define TO_IMCOL32(colour) IM_COL32((colour).x * 255, (colour).y * 255, (colour).z * 255, 255)
 static const ImVec4 &defaultDFCNodeColour = ImVec4(0.929f, 0.682f, 0.286f, 1);
 

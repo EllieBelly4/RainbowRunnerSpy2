@@ -15,14 +15,31 @@ struct ItemSelectState {
     std::chrono::milliseconds LastClickedTime = std::chrono::milliseconds(0);
 };
 
+struct PropertyViewState {
+    int SelectedSuperClassIndex = 0;
+};
+
 class RRSpyState {
 public:
     World* CurrentWorld;
+    bool PropertiesOpen;
 
     std::shared_ptr<RRSpyGUIEntityWrapper> CurrentSelectedEntity;
     ItemSelectState ItemSelectState;
+
+    PropertyViewState PropertyViewState;
+
     void ConfirmSelectedIsVisible(ImGuiID id);
-    void SetSelectedEntity(std::shared_ptr<RRSpyGUIEntityWrapper> entity);
+
+    template <class T>
+    inline void SetSelectedEntity(T entity) {
+        _isCurrentSelectedEntityVisible = true;
+        PropertiesOpen = true;
+        CurrentSelectedEntity = std::static_pointer_cast<RRSpyGUIEntityWrapper>(entity);
+    }
+
+    void DeselectEntity();
+
     bool IsSelectedEntityVisible();
 
     void OnFrameEnd();

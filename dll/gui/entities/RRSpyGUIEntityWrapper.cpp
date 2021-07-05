@@ -4,6 +4,11 @@
 
 #include "RRSpyGUIEntityWrapper.h"
 
-RRSpyGUIEntityWrapper::RRSpyGUIEntityWrapper(DFCNode* pNode, ImGuiID id) : _node(pNode), ImGui_ID(id) {
+RRSpyGUIEntityWrapper::RRSpyGUIEntityWrapper(void* pNode, ImGuiID id) : _node(pNode), ImGui_ID(id) {}
 
-}
+RRSpyGameClientStateManager::RRSpyGameClientStateManager
+        (GameClientStateManager* pNode, ImGuiID id) : RRSpyGUIEntityWrapper(pNode, id) {}
+
+RRSpyDFCNode::RRSpyDFCNode
+        (DFCNode* pNode, ImGuiID id) : RRSpyGUIEntityWrapper(pNode, id) {}
+

@@ -18,12 +18,6 @@ public:
 private:
     std::shared_ptr<RRSpyState> _state;
     std::shared_ptr<log::Log> logger;
-
-    int _selectedSuperClassIndex = 0;
-
-    void RenderProperties(DFCNode* pNode);
-
-    void RenderNodeCrumblebar(DFCNode* pNode);
 };
 
 

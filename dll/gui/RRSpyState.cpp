@@ -16,11 +16,11 @@ bool RRSpyState::IsSelectedEntityVisible() {
     return CurrentSelectedEntity != nullptr && _isCurrentSelectedEntityVisible;
 }
 
-void RRSpyState::SetSelectedEntity(std::shared_ptr<RRSpyGUIEntityWrapper> entity) {
-    _isCurrentSelectedEntityVisible = true;
-    CurrentSelectedEntity = entity;
-}
-
 void RRSpyState::OnFrameEnd() {
     _isCurrentSelectedEntityVisible = false;
+}
+
+void RRSpyState::DeselectEntity() {
+    CurrentSelectedEntity = nullptr;
+    PropertiesOpen = false;
 }
