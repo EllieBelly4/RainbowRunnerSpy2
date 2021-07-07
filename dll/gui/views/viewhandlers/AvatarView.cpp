@@ -3,13 +3,16 @@
 //
 
 #include "AvatarView.h"
+#include "../../../common.h"
+#include <string>
 
-void AvatarView::RenderProperties(Avatar* entity) {
+void AvatarView::RenderProperties(Avatar* pEntity) {
+    EntityView::RenderProperties(pEntity);
+
+    BeginPropertyTable("avatarview");
     std::string stateString;
 
-    BeginPropertyTable();
-
-    if ((entity->SomeState2 & 0x40) > 0) {
+    if ((pEntity->SomeState2 & 0x40) > 0) {
         stateString += "Moving |";
     } else {
         stateString = "Standing |";
@@ -18,14 +21,9 @@ void AvatarView::RenderProperties(Avatar* entity) {
     stateString = stateString.substr(0, stateString.length() - 2);
 
     RenderProperty("State", stateString);
-
-    std::string posString;
-
-    posString += "X: " + std::__cxx11::to_string(entity->posX_maybe);
-    posString += " Y: " + std::__cxx11::to_string(entity->posY_maybe);
-
-    RenderProperty("Position", posString);
-    RenderProperty("Rotation", std::to_string((float) entity->rotation / (float) 255));
-
     EndPropertyTable();
+}
+
+void AvatarView::RenderProperties(void* pVoid) {
+    EntityView::RenderProperties(pVoid);
 }

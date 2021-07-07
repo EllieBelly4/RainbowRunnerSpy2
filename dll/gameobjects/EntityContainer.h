@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-// Replaces ServerEntity and ClientEntity
+// Replaces ServerEntity and ClientEntityList
 class EntityContainer {
 public:
     int Unk0;

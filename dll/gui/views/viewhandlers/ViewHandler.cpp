@@ -3,19 +3,17 @@
 //
 
 #include "ViewHandler.h"
-#include "../../../../lib/imgui/imgui.h"
 #include "../../general/colours.h"
 #include "../../general/gui_functions.h"
-#include "../../../gameobjects/Entities/DFCNode.h"
-#include "GCClassView.h"
 #include "../../../common.h"
+#include "../../RRSpyGUI.h"
 
-bool ViewHandler::BeginPropertyTable() {
-    return ImGui::BeginTable("PropertiesLayoutTable", 2,
+bool ViewHandler::BeginPropertyTable(std::string name) {
+    return ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), 2,
                              ImGuiTableFlags_NoBordersInBody | ImGuiTableFlags_SizingFixedFit);
 }
 
-void ViewHandler::EndPropertyTable(){
+void ViewHandler::EndPropertyTable() {
     ImGui::EndTable();
 }
 
@@ -60,7 +58,7 @@ ListItemResult ViewHandler::RenderSelectableListItem(int i, const char* label, I
         lineColour = hovered ? TO_IMCOL32(listAltBgLt) : TO_IMCOL32(listAltBg);
     }
 
-    if (!IsBadReadPtr(state->CurrentSelectedEntity.get()) && state->CurrentSelectedEntity->ImGui_ID == id) {
+    if (!IsBadReadPtr(state->CurrentSelectedEntity.get()) && state->CurrentID == id) {
         lineColour = TO_IMCOL32(listSelected);
         state->ConfirmSelectedIsVisible(id);
     }
@@ -76,4 +74,16 @@ ListItemResult ViewHandler::RenderSelectableListItem(int i, const char* label, I
     ImGui::Text(label);
 
     return result;
+}
+
+void ViewHandler::AddHeading(std::string text) {
+    ImGui::PushFont(firaHeading);
+
+    ImGui::TextColored(entityColour, text.c_str());
+
+    ImGui::PopFont();
+}
+
+void ViewHandler::RenderProperties(void*) {
+
 }

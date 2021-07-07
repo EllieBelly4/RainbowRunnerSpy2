@@ -4,16 +4,17 @@
 
 #include "RRSpyGUIInfoView.h"
 
-#include "../../gameobjects/EntityManager.h"
 #include "../../common.h"
-#include "../../gameobjects/GameClientStateManager.h"
 #include "viewhandlers/GameClientStateManagerView.h"
+#include "viewhandlers/ClientEntityManagerView.h"
+#include "viewhandlers/EntityContainerView.h"
 
 #define EntityManagerTypeText(string) ImGui::SameLine();\
 ImGui::TextColored(titleAltText, string);
 
 void RRSpyGUIInfoView::Render() {
     static bool openMain = true;
+    int i = 0;
 
     ImGui::Begin("RRSpy2 Info", &openMain);
 
@@ -53,16 +54,29 @@ void RRSpyGUIInfoView::RenderGeneralInfo() {
         ImGui::TextColored(textDisabled, "unknown");
     }
 
-    GameClientStateManagerView::RenderListItem(gameClientStateManager, 0);
+    int i = 0;
 
-//    if (ImGui::TreeNode("GameClientStateManager")) {
-//        RenderStructPropertyTable(gameClientStateManagerPtr, GetGameClientStateManagerProperties());
-
-//        ImGui::TreePop();
-//    }
+    GameClientStateManagerView::RenderListItem(gameClientStateManager, i++);
 }
 
 void RRSpyGUIInfoView::RenderEntities() {
+    int i = 0;
+    if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->EntityManager)) {
+        EntityContainer* container;
+        EntityManager* manager = _state->CurrentWorld->EntityManager;
+
+        if ((int) _state->CurrentWorld->EntityManager->VFTable == 0x008A7C18) {
+            auto pEntityManager = reinterpret_cast<ClientEntityManager*>(manager);
+            ClientEntityManagerView::RenderListItem(
+                    pEntityManager, i++);
+            container = (EntityContainer*) ((char*) manager + 0x0A38);
+        } else {
+            container = (EntityContainer*) ((char*) manager + 0x0AC8);
+        }
+
+        EntityContainerView::RenderListItem(container, i++);
+    }
+
     if (ImGui::TreeNodeEx("Managed Entities", ImGuiTreeNodeFlags_Framed)) {
         if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->EntityManager)) {
             auto manager = _state->CurrentWorld->EntityManager;

@@ -5,6 +5,7 @@
 #include <chrono>
 #include "RRSpyGUIList.h"
 #include "../../common.h"
+#include "../../gameobjects/map.h"
 
 void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
     auto textSize = ImGui::CalcTextSize(pEntity->GetTypeString().c_str());
@@ -33,7 +34,7 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
 
     ImGuiID currentID = ImGui::GetID("entity");
 
-    if (!IsBadReadPtr(_state->CurrentSelectedEntity.get()) && _state->CurrentSelectedEntity->ImGui_ID == currentID) {
+    if (!IsBadReadPtr(_state->CurrentSelectedEntity.get()) && _state->CurrentID == currentID) {
         lineColour = TO_IMCOL32(listSelected);
         _state->ConfirmSelectedIsVisible(currentID);
     }
@@ -59,7 +60,8 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
             isOpen = !isOpen;
             ImGui::GetStateStorage()->SetBool(openKey, isOpen);
         } else {
-            _state->SetSelectedEntity(std::make_shared<RRSpyDFCNode>(pEntity, currentID));
+            logger->Write(std::to_string((int)pEntity->VFTable));
+            _state->SetSelectedEntity(EntityMap[(int)pEntity->VFTable], pEntity, currentID);
         }
 
         _state->ItemSelectState.LastClickedTime = now;

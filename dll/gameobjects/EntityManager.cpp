@@ -153,7 +153,7 @@ std::string GetEntityManagerTypeName(EntityManager* entityManager) {
         case 0x008a8040:
             return "ServerEntityManager";
         case 0x008A7C18:
-            return "ClientEntityManager";
+            return "ClientEntityList";
         default:
             return "Unknown";
     }

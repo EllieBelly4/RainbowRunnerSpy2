@@ -10,17 +10,9 @@
 #include "../../gameobjects/Entities/Player.h"
 #include "../../gameobjects/Entities/Avatar.h"
 
-void RenderPropertiesForDFCNode(DFCNode* node);
-
 void RenderGCProperties(GCProperties* properties);
 
-void RenderMeleeWeaponProperties(MeleeWeapon* pWeapon);
-
 void RenderGCCLass(GCClass* pClass);
-
-void RenderPlayerProperties(Player* pPlayer);
-
-void RenderAvatarProperties(Avatar* pAvatar);
 
 void RenderDFCNodeProperties(DFCNode* pEntity);
 

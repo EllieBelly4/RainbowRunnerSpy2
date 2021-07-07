@@ -16,9 +16,6 @@ void RenderGCProperties(GCProperties* properties) {
     }
 }
 
-void RenderMeleeWeaponProperties(MeleeWeapon* pWeapon) {
-}
-
 void RenderGCCLass(GCClass* pClass) {
     if (!IsBadReadPtr(pClass->TypeName)) {
         RenderProperty("TypeName", pClass->TypeName->ToString());
@@ -32,34 +29,6 @@ void RenderGCCLass(GCClass* pClass) {
         RenderProperty("GCTypeHash", IntToHex(pClass->GCTypeHash));
     }
 }
-
-void RenderPlayerProperties(Player* pPlayer) {
-    if (!IsBadReadPtr(pPlayer->Name)) {
-        RenderProperty("Name", pPlayer->Name->ToString());
-    }
-}
-//
-//void RenderAvatarProperties(Avatar* pAvatar) {
-//    std::string stateString;
-//
-//    if ((pAvatar->SomeState2 & 0x40) > 0) {
-//        stateString += "Moving |";
-//    } else {
-//        stateString = "Standing |";
-//    }
-//
-//    stateString = stateString.substr(0, stateString.length() - 2);
-//
-//    RenderProperty("State", stateString);
-//
-//    std::string posString;
-//
-//    posString += "X: " + std::__cxx11::to_string(pAvatar->posX_maybe);
-//    posString += " Y: " + std::__cxx11::to_string(pAvatar->posY_maybe);
-//
-//    RenderProperty("Position", posString);
-//    RenderProperty("Rotation", std::to_string((float) pAvatar->rotation / (float) 255));
-//}
 
 void RenderDFCNodeProperties(DFCNode* pEntity) {
     auto vftable = (int) pEntity->VFTable;
@@ -78,9 +47,9 @@ void RenderDFCNodeProperties(DFCNode* pEntity) {
     hexStr = hexBuf;
     RenderProperty("VFTable", hexStr);
 
-    RenderProperty("SlotID (If Item)", std::__cxx11::to_string(pEntity->unk_24));
-    RenderProperty("UnkShort1", std::__cxx11::to_string(pEntity->unk_29));
-    RenderProperty("UnkShort2", std::__cxx11::to_string(pEntity->unk_30));
+//    RenderProperty("SlotID (If Item)", std::__cxx11::to_string(pEntity->unk_24));
+//    RenderProperty("UnkShort1", std::__cxx11::to_string(pEntity->unk_29));
+//    RenderProperty("UnkShort2", std::__cxx11::to_string(pEntity->unk_30));
 
     RenderNumberProperty("unk_0", pEntity->unk_0);
     RenderNumberProperty("unk_1", pEntity->unk_1);
@@ -97,15 +66,6 @@ void RenderDFCNodeProperties(DFCNode* pEntity) {
     RenderNumberProperty("unk_22", pEntity->unk_22);
     RenderNumberProperty("unk_23", pEntity->unk_23);
     RenderNumberProperty("unk_24", pEntity->unk_24);
-    RenderNumberProperty("unk_25", pEntity->unk_25);
-    RenderNumberProperty("unk_26", pEntity->unk_26);
-    RenderNumberProperty("unk_27", pEntity->unk_27);
-    RenderNumberProperty("unk_28", pEntity->unk_28);
-    RenderNumberProperty("unk_29", pEntity->unk_29);
-    RenderNumberProperty("unk_30", pEntity->unk_30);
-    RenderNumberProperty("unk_31", pEntity->unk_31);
-    RenderNumberProperty("unk_32", pEntity->unk_32);
-    RenderNumberProperty("unk_33", pEntity->unk_33);
 }
 
 void RenderNumberProperty(const std::string &propertyName, unsigned int number) {

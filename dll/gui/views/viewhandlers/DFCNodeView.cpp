@@ -17,11 +17,7 @@
 #include "GCClassView.h"
 
 void DFCNodeView::RenderProperties(DFCNode* pNode) {
-    RenderNodeCrumblebar(pNode);
-
     DFCNode* nodeToRender = GetCurrentSuperclassNode(pNode);
-
-    RenderSpecificNodeProperties(nodeToRender);
 
     if (!IsBadReadPtr(nodeToRender->GCClass)) {
         GCClassView::RenderProperties(nodeToRender->GCClass);
@@ -86,22 +82,22 @@ void DFCNodeView::RenderCommonProperties(DFCNode* nodeToRender) {
 
     ImGui::PopStyleColor(2);
 }
-
-void DFCNodeView::RenderSpecificNodeProperties(DFCNode* nodeToRender) {
-    auto vftable = (int) nodeToRender->VFTable;
-
-    switch (vftable) {
-        case 0x0089B468:
-            PlayerView::RenderProperties((Player*) nodeToRender);
-            break;
-        case 0x0086DE00:
-            AvatarView::RenderProperties((Avatar*) nodeToRender);
-            break;
-        case 0x00893490:
-            MeleeWeaponView::RenderProperties((MeleeWeapon*) nodeToRender);
-            break;
-    }
-}
+//
+//void DFCNodeView::RenderSpecificNodeProperties(DFCNode* nodeToRender) {
+//    auto vftable = (int) nodeToRender->VFTable;
+//
+//    switch (vftable) {
+//        case 0x0089B468:
+//            PlayerView::RenderProperties((Player*) nodeToRender);
+//            break;
+//        case 0x0086DE00:
+//            AvatarView::RenderProperties((Avatar*) nodeToRender);
+//            break;
+//        case 0x00893490:
+//            MeleeWeaponView::RenderProperties((MeleeWeapon*) nodeToRender);
+//            break;
+//    }
+//}
 
 DFCNode* DFCNodeView::GetCurrentSuperclassNode(DFCNode* pNode) {
     auto nodeToRender = pNode;
@@ -163,5 +159,14 @@ void DFCNodeView::RenderNodeCrumblebar(DFCNode* pNode) {
     }
 
     state->PropertyViewState.SelectedSuperClassIndex = newSelected;
+}
+
+void DFCNodeView::RenderListItem(DFCNode* pNode, int i) {
+    ImGui::Text("DFCNode");
+}
+
+void DFCNodeView::RenderProperties(void* pVoid) {
+    RenderNodeCrumblebar((DFCNode*) pVoid);
+    RenderProperties((DFCNode*) pVoid);
 }
 

@@ -9,11 +9,13 @@
 #include "ViewHandler.h"
 #include "../../../gameobjects/GameClientStateManager.h"
 
-class GameClientStateManagerView : ViewHandler {
+class GameClientStateManagerView : public ViewHandler {
 public:
     static void RenderListItem(GameClientStateManager*, int);
 
     static void RenderProperties(GameClientStateManager* pEntity);
+
+    void RenderProperties(void* pVoid) override;
 };
 
 

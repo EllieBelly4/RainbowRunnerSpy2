@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include "GCClass.h"
+#include "../EntityManager.h"
 
 struct GCProperties;
 
@@ -40,15 +41,6 @@ public:
     unsigned int unk_22; // 0x60
     unsigned int unk_23; // 0x64
     unsigned int unk_24; // 0x68
-    unsigned int unk_25; // 0x6c
-    unsigned int unk_26; // 0x70
-    unsigned int unk_27; // 0x74
-    unsigned int unk_28; // 0x78
-    unsigned short unk_29; // 0x7c
-    unsigned short unk_30; // 0x7e
-    unsigned short unk_31; // 0x80
-    unsigned short unk_32; // 0x82
-    unsigned int unk_33; // 0x84
 
     std::string GetTypeString();
 };

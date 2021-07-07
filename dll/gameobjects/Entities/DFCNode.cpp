@@ -3,6 +3,7 @@
 //
 
 #include "DFCNode.h"
+#include "../map.h"
 
 const std::vector<char*> GetEntityProperties() {
     static const std::vector<char*> properties{
@@ -46,166 +47,11 @@ const std::vector<char*> GetEntityProperties() {
 }
 
 std::string DFCNode::GetTypeString() {
-    switch ((int) VFTable) {
-        case 0x0089B468:
-            return "Player";
-        case 0x0086DE00:
-            return "Avatar";
-        case 0x0089a580:
-            return "Waypoint";
-        case 0x0087f228:
-            return "Skills";
-        case 0x00893040:
-            return "Equipment";
-        case 0x00892a70:
-            return "UnitContainer";
-        case 0x008726b0:
-            return "Modifiers";
-        case 0x008710e8:
-            return "Manipulators";
-        case 0x00878fb8:
-            return "UnitBehavior";
-        case 0x0086f608:
-            return "AvatarMetrics";
-        case 0x0089bb70:
-            return "DialogManager";
-        case 0x0087ea00:
-            return "SkillProfession";
-        case 0x0087c430:
-            return "ActiveSkill";
-        case 0x0087d690:
-            return "PassiveSkill";
-        case 0x00893490:
-            return "MeleeWeapon";
-        case 0x00892050:
-            return "ItemModifier";
-        case 0x00892b88:
-            return "Armor";
-        case 0x00890768:
-            return "ItemAttributeModifier";
-        case 0x00871200:
-            return "Modifier";
-        case 0x00889eb8:
-            return "AttributeModifier";
-        case 0x0088f8c0:
-            return "Inventory";
-        case 0x0088e158:
-            return "ActiveItem";
-        case 0x00869768:
-            return "WorldEntity";
-        case 0x008a7ce0:
-            return "Entity";
-        case 0x008a8a48:
-            return "GCObject";
-        case 0x0086e718:
-            return "AvatarDesc";
-        case 0x008700c8:
-            return "HeroDesc";
-        case 0x00874df8:
-            return "UnitDesc";
-        case 0x00869d80:
-            return "WorldEntityDesc";
-        case 0x00869e20:
-            return "EntityDesc";
-        case 0x00869ce0:
-            return "GCObjectDesc";
-        case 0x0086f9c0:
-            return "Hero";
-        case 0x00874500:
-            return "Unit";
-        case 0x00898160:
-            return "Effect";
-        case 0x0086b370:
-            return "LOSChecker";
-        case 0x00866bd8:
-            return "EntityObject";
-        case 0x008a7dd0:
-            return "EntityComponent";
-        case 0x0087f3b0:
-            return "SkillsDesc";
-        case 0x0087f450:
-            return "EntityComponentDesc";
-        case 0x00879208:
-            return "UnitBehaviorDesc";
-        case 0x00877168:
-            return "BehaviorDesc";
-        case 0x00877048:
-            return "Behavior";
-        case 0x00893130:
-            return "EquipmentDesc";
-        case 0x00893240:
-            return "EquipmentSlot";
-        case 0x00892cb0:
-            return "ArmorDesc";
-        case 0x00890b88:
-            return "ItemDesc";
-        case 0x00870a60:
-            return "ManipulatorDesc";
-        case 0x00889f98:
-            return "AttributeModifierDesc";
-        case 0x0086d3f0:
-            return "Attribute";
-        case 0x008a2d98:
-            return "CurveTable";
-        case 0x008935e0:
-            return "MeleeWeaponDesc";
-        case 0x00894100:
-            return "WeaponDesc";
-        case 0x00892288:
-            return "ItemModifierDesc";
-        case 0x00890860:
-            return "ItemAttributeModifierDesc";
-        case 0x0088f428:
-            return "Container";
-        case 0x0088fc80:
-            return "InventoryDesc";
-        case 0x0088e2f8:
-            return "Item";
-        case 0x008707d8:
-            return "Manipulator";
-        case 0x0088e4d0:
-            return "ActiveItemDesc";
-        case 0x0087fda0:
-            return "SpellEffect";
-        case 0x008838f8:
-            return "SpellModEffect";
-        case 0x008853c8:
-            return "SpellSoundEffect";
-        case 0x00871a58:
-            return "ModifierDesc";
-        case 0x00867c60:
-            return "MountedVisual";
-        case 0x00867bb8:
-            return "Visual";
-        case 0x0087f500:
-            return "SkillSlot";
-        case 0x0087eaa0:
-            return "SkillProfessionDesc";
-        case 0x00893dd8:
-            return "Weapon";
-        case 0x008A8114:
-            return "GCClass";
-        case 0x00898370:
-            return "EffectDesc";
-        case 0x0089EF18:
-            return "QuestManager";
-        case 0x00868cd0:
-            return "World";
-        case 0x0086ad58:
-            return "WorldMap";
-        case 0x0086bc28:
-            return "WorldObjectGroup";
-        case 0x008676e8:
-            return "StaticObject";
-        case 0x0086a730:
-            return "WorldLight";
-        case 0x00897010:
-            return "AmbientSound";
-        case 0x0088da10:
-            return "SoundEnvironment";
-        case 0x008a7c18:
-            return "ClientEntityManager";
-        default:
-            return "UnknownEntity";
+    auto vftable = reinterpret_cast<unsigned int>(VFTable);
+
+    if (!EntityMap.contains(vftable)) {
+        return "UnknownEntity";
     }
+    
+    return EntityMap[vftable]->Name;
 }

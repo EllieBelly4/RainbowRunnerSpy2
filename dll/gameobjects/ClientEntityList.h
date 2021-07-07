@@ -2,13 +2,13 @@
 // Created by Sophie on 27/06/2021.
 //
 
-#ifndef RRSPY2TESTAPP_CLIENTENTITY_H
-#define RRSPY2TESTAPP_CLIENTENTITY_H
+#ifndef RRSPY2TESTAPP_CLIENTENTITYLIST_H
+#define RRSPY2TESTAPP_CLIENTENTITYLIST_H
 
 #include <vector>
 
-// This is the entity type that is accessible through ClientEntityManager::getEntities.
-struct ClientEntity {
+// This is the entity type that is accessible through ClientEntityList::getEntities.
+struct ClientEntityList {
     int Unk0;
     uintptr_t OwnedObjectsStart;
     uintptr_t OwnedObjectsEnd;
@@ -73,4 +73,4 @@ struct ClientEntity {
 std::vector<char*> GetClientEntityProperties();
 
 
-#endif //RRSPY2TESTAPP_CLIENTENTITY_H
+#endif //RRSPY2TESTAPP_CLIENTENTITYLIST_H

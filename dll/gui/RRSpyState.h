@@ -8,7 +8,7 @@
 #include <memory>
 #include <chrono>
 #include "../gameobjects/World.h"
-#include "entities/RRSpyGUIEntityWrapper.h"
+#include "entities/RRSpyGUIBaseEntityWrapper.h"
 
 struct ItemSelectState {
     ImGuiID LastIDClicked;
@@ -24,18 +24,21 @@ public:
     World* CurrentWorld;
     bool PropertiesOpen;
 
-    std::shared_ptr<RRSpyGUIEntityWrapper> CurrentSelectedEntity;
+    std::shared_ptr<RRSpyGUIBaseEntityWrapper> CurrentSelectedEntity;
+    void* CurrentSelectedDREntity;
+    ImGuiID CurrentID;
     ItemSelectState ItemSelectState;
 
     PropertyViewState PropertyViewState;
 
     void ConfirmSelectedIsVisible(ImGuiID id);
 
-    template <class T>
-    inline void SetSelectedEntity(T entity) {
+    inline void SetSelectedEntity(std::shared_ptr<RRSpyGUIBaseEntityWrapper> entity, void* drEntity, ImGuiID id) {
         _isCurrentSelectedEntityVisible = true;
         PropertiesOpen = true;
-        CurrentSelectedEntity = std::static_pointer_cast<RRSpyGUIEntityWrapper>(entity);
+        CurrentSelectedEntity = entity;
+        CurrentSelectedDREntity = drEntity;
+        CurrentID = id;
     }
 
     void DeselectEntity();

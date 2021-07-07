@@ -11,6 +11,7 @@
 #include "../gameobjects/World.h"
 #include "entities/properties.h"
 #include "../common.h"
+#include "../gameobjects/map.h"
 
 //const ImVec4 &windowBackground = ImVec4(0.102f,0.071f,0.102f, 0.95);
 ImVec4 windowBackground = ImVec4(0.153f, 0.153f, 0.153f, 0.99);
@@ -28,6 +29,7 @@ RRSpyGUI::RRSpyGUI(std::shared_ptr<RRSpyState> state, std::shared_ptr<log::Log> 
 }
 
 void RRSpyGUI::Init() {
+    InitialiseEntityMap();
     logger->Write("Init GUI");
     gameWndProcHandler = (WNDPROC) SetWindowLongPtr(GetActiveWindow(), GWLP_WNDPROC, (LONG_PTR) windowProc_hook);
 

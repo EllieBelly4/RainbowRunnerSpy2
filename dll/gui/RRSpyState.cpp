@@ -5,7 +5,7 @@
 #include "RRSpyState.h"
 
 void RRSpyState::ConfirmSelectedIsVisible(ImGuiID id) {
-    if (CurrentSelectedEntity == nullptr || id != CurrentSelectedEntity->ImGui_ID) {
+    if (CurrentSelectedEntity == nullptr || id != CurrentID) {
         return;
     }
 

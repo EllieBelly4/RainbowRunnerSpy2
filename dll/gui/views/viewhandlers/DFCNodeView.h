@@ -8,17 +8,20 @@
 
 #include "ViewHandler.h"
 
-class DFCNodeView : ViewHandler{
+class DFCNodeView : public ViewHandler{
 public:
     static void RenderProperties(DFCNode*);
 
     static void RenderCommonProperties(DFCNode*);
 
-    static void RenderSpecificNodeProperties(DFCNode* nodeToRender);
-
     static DFCNode* GetCurrentSuperclassNode(DFCNode* pNode);
 
     static void RenderNodeCrumblebar(DFCNode* pNode);
+
+    static void RenderListItem(DFCNode*, int);
+
+private:
+    void RenderProperties(void* pVoid) override;
 
 private:
     int _selectedSuperClassIndex = 0;

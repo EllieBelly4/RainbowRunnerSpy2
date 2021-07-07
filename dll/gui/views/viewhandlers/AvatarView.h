@@ -8,10 +8,13 @@
 
 #include "../../../gameobjects/Entities/Avatar.h"
 #include "ViewHandler.h"
+#include "EntityView.h"
 
-class AvatarView : ViewHandler {
+class AvatarView : public EntityView {
 public:
-    static void RenderProperties(Avatar* entity);
+    static void RenderProperties(Avatar* pEntity);
+
+    void RenderProperties(void* pVoid) override;
 };
 
 

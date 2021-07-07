@@ -12,7 +12,7 @@
 #include "../gameobjects/EntityManager.h"
 #include "views/RRSpyGUIInfoView.h"
 #include "views/RRSpyGUIPropertyView.h"
-#include "entities/RRSpyGUIEntityWrapper.h"
+#include "entities/RRSpyGUIBaseEntityWrapper.h"
 
 extern LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -34,7 +34,7 @@ public:
         IsVisible = !IsVisible;
     }
 
-    std::shared_ptr<RRSpyGUIEntityWrapper> CurrentSelectedEntity;
+    std::shared_ptr<RRSpyGUIBaseEntityWrapper> CurrentSelectedEntity;
 private:
     std::shared_ptr<RRSpyState> _state;
     std::shared_ptr<log::Log> logger;

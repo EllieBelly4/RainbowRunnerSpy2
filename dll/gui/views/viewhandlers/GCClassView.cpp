@@ -7,7 +7,7 @@
 #include "../../general/gui_functions.h"
 
 void GCClassView::RenderProperties(GCClass* pClass) {
-    BeginPropertyTable();
+    BeginPropertyTable("gcclass");
 
     if (!IsBadReadPtr(pClass->TypeName)) {
         RenderProperty("TypeName", pClass->TypeName->ToString());
