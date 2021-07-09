@@ -48,7 +48,7 @@ void RenderDFCNodeProperties(DFCNode* pEntity) {
     RenderProperty("VFTable", hexStr);
 
 //    RenderProperty("SlotID (If Item)", std::__cxx11::to_string(pEntity->unk_24));
-//    RenderProperty("UnkShort1", std::__cxx11::to_string(pEntity->unk_29));
+//    RenderProperty("UnkShort1", std::__cxx11::to_string(pEntity->EntityList));
 //    RenderProperty("UnkShort2", std::__cxx11::to_string(pEntity->unk_30));
 
     RenderNumberProperty("unk_0", pEntity->unk_0);

@@ -1,6 +1,6 @@
-const propStartIndex = 0;
-const count = 19;
-const offsetStart = 0x6c;
+const propStartIndex = 20;
+const count = 50;
+const offsetStart = 0x00;
 let str = [];
 
 for (let i = 0; i < count; i++) {

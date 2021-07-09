@@ -3,12 +3,10 @@
 //
 
 #include "AvatarView.h"
-#include "../../../common.h"
+#include "DFCNodeView.h"
 #include <string>
 
 void AvatarView::RenderProperties(Avatar* pEntity) {
-    EntityView::RenderProperties(pEntity);
-
     BeginPropertyTable("avatarview");
     std::string stateString;
 
@@ -25,5 +23,8 @@ void AvatarView::RenderProperties(Avatar* pEntity) {
 }
 
 void AvatarView::RenderProperties(void* pVoid) {
-    EntityView::RenderProperties(pVoid);
+    DFCNodeView::RenderNodeCrumblebar((DFCNode*) pVoid);
+    RenderProperties((Avatar*) pVoid);
+    EntityView::RenderProperties((Entity*)pVoid);
+    DFCNodeView::RenderProperties((DFCNode*) pVoid);
 }

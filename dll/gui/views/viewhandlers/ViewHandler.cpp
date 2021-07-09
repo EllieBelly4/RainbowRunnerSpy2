@@ -2,15 +2,30 @@
 // Created by Sophie on 04/07/2021.
 //
 
-#include "ViewHandler.h"
-#include "../../general/colours.h"
-#include "../../general/gui_functions.h"
+#include "../../../gameobjects/map.h"
+#include "../../general/structs.h"
 #include "../../../common.h"
 #include "../../RRSpyGUI.h"
+#include "../../../state.h"
 
-bool ViewHandler::BeginPropertyTable(std::string name) {
-    return ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), 2,
-                             ImGuiTableFlags_NoBordersInBody | ImGuiTableFlags_SizingFixedFit);
+bool ViewHandler::BeginPropertyTable(std::string name, int cols) {
+    return ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), cols,
+                             ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_SizingFixedFit);
+}
+
+bool ViewHandler::BeginFullPropertyTable(std::string name) {
+    auto open = ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), 4,
+                             ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_SizingFixedFit);
+
+    if(open) {
+        ImGui::TableSetupColumn("Name");
+        ImGui::TableSetupColumn("Value");
+        ImGui::TableSetupColumn("ValueHex");
+        ImGui::TableSetupColumn("Location");
+        ImGui::TableHeadersRow();
+    }
+
+    return open;
 }
 
 void ViewHandler::EndPropertyTable() {

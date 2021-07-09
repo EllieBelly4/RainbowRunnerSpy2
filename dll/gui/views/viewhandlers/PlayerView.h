@@ -7,10 +7,13 @@
 
 
 #include "../../../gameobjects/Entities/Player.h"
+#include "DFCNodeView.h"
 
-class PlayerView {
+class PlayerView : public ViewHandler {
 public:
     static void RenderProperties(Player*);
+
+    void RenderProperties(void* pVoid) override;
 };
 
 

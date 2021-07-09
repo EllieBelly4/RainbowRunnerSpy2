@@ -5,9 +5,6 @@
 #include "RRSpyGUIInfoView.h"
 
 #include "../../common.h"
-#include "viewhandlers/GameClientStateManagerView.h"
-#include "viewhandlers/ClientEntityManagerView.h"
-#include "viewhandlers/EntityContainerView.h"
 
 #define EntityManagerTypeText(string) ImGui::SameLine();\
 ImGui::TextColored(titleAltText, string);
@@ -61,52 +58,86 @@ void RRSpyGUIInfoView::RenderGeneralInfo() {
 
 void RRSpyGUIInfoView::RenderEntities() {
     int i = 0;
+
+    EntityContainer* entityContainer = nullptr;
+    EntityContainer* componentList = nullptr;
+    const char* managerTypeText;
+
     if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->EntityManager)) {
-        EntityContainer* container;
         EntityManager* manager = _state->CurrentWorld->EntityManager;
 
         if ((int) _state->CurrentWorld->EntityManager->VFTable == 0x008A7C18) {
             auto pEntityManager = reinterpret_cast<ClientEntityManager*>(manager);
             ClientEntityManagerView::RenderListItem(
                     pEntityManager, i++);
-            container = (EntityContainer*) ((char*) manager + 0x0A38);
+            entityContainer = &pEntityManager->EntityList;
+            componentList = &pEntityManager->ComponentList;
+            managerTypeText = "ClientEntityManager";
+
         } else {
-            container = (EntityContainer*) ((char*) manager + 0x0AC8);
+            entityContainer = (EntityContainer*) ((char*) manager + 0x0AC8 + 0x04);
+            componentList = (EntityContainer*) ((char*) manager + 0x0AC8 + sizeof(EntityContainer));
+            managerTypeText = "ServerEntityManager";
         }
 
-        EntityContainerView::RenderListItem(container, i++);
+//        if (!IsBadReadPtr(entityContainer)) {
+//            EntityContainerView::RenderListItem(entityContainer, i++);
+//        }
+//
+//        if (!IsBadReadPtr(componentList)) {
+//            EntityContainerView::RenderListItem(componentList, i++);
+//        }
     }
 
-    if (ImGui::TreeNodeEx("Managed Entities", ImGuiTreeNodeFlags_Framed)) {
+    if (ImGui::TreeNodeEx("Entities", ImGuiTreeNodeFlags_Framed)) {
         if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->EntityManager)) {
             auto manager = _state->CurrentWorld->EntityManager;
-            EntityContainer* entities;
 
             if ((int) manager->VFTable == 0x008A7C18) {
-                entities = (EntityContainer*) ((char*) manager + 0x0A38);
                 ImGui::PushID("client");
-
-                EntityManagerTypeText("ClientEntityManager");
             } else {
-                entities = (EntityContainer*) ((char*) manager + 0x0AC8);
                 ImGui::PushID("server");
-
-                EntityManagerTypeText("ServerEntityManager");
             }
 
-            entityList->Render(entities);
+            EntityManagerTypeText(managerTypeText);
+
+            if (!IsBadReadPtr(reinterpret_cast<void*>(entityContainer))) {
+                entityList->Render(entityContainer);
+            }
+
             ImGui::PopID();
         }
         ImGui::TreePop();
     } else {
         if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->EntityManager)) {
+            EntityManagerTypeText(managerTypeText);
+        } else {
+            EntityManagerTypeText("None");
+        }
+    }
+
+    if (ImGui::TreeNodeEx("Components", ImGuiTreeNodeFlags_Framed)) {
+        if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->EntityManager)) {
             auto manager = _state->CurrentWorld->EntityManager;
 
             if ((int) manager->VFTable == 0x008A7C18) {
-                EntityManagerTypeText("ClientEntityManager");
+                ImGui::PushID("clientComponents");
             } else {
-                EntityManagerTypeText("ServerEntityManager");
+                ImGui::PushID("clientComponents");
             }
+
+            EntityManagerTypeText(managerTypeText);
+
+            if (!IsBadReadPtr(reinterpret_cast<void*>(componentList))) {
+                entityList->Render(componentList);
+            }
+
+            ImGui::PopID();
+        }
+        ImGui::TreePop();
+    } else {
+        if (!IsBadReadPtr(_state->CurrentWorld) && !IsBadReadPtr(_state->CurrentWorld->EntityManager)) {
+            EntityManagerTypeText(managerTypeText);
         } else {
             EntityManagerTypeText("None");
         }

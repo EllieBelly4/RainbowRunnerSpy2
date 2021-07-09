@@ -35,10 +35,10 @@ const std::vector<char*> GetEntityProperties() {
             (char*) "unk_23",
             (char*) "unk_24",
             (char*) "unk_25",
-            (char*) "unk_26",
+            (char*) "ManagerChannel",
             (char*) "unk_27",
             (char*) "unk_28",
-            (char*) "unk_29",
+            (char*) "EntityList",
             (char*) "unk_30",
             (char*) "unk_31",
     };

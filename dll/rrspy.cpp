@@ -8,6 +8,7 @@
 #include "gameobjects/World.h"
 #include "../lib/imgui/imgui_impl_dx9.h"
 #include "../lib/imgui/imgui_impl_win32.h"
+#include "state.h"
 
 std::shared_ptr<RRSpyGUI> GUI;
 std::shared_ptr<log::Log> logger;
@@ -48,9 +49,6 @@ void WorldUpdateHook() {
 
     asm(
     "popad;"
-    // TestApplication
-    //    "imul eax, 0x3E8;"
-    // DR Client
     "mov ecx, [edi+0xF4];"
     "mov esp, ebp;"
     "pop ebp;"

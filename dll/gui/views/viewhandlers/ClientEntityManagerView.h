@@ -13,6 +13,8 @@ class ClientEntityManagerView : public ViewHandler {
 public:
     static void RenderProperties(ClientEntityManager*);
     static void RenderListItem(ClientEntityManager*, int);
+
+    void RenderProperties(void* pVoid) override;
 };
 
 

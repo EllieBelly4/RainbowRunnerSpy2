@@ -17,13 +17,13 @@ std::vector<char*> GetEntityManagerProperties() {
             (char*) "Unk4",
             (char*) "Unk5",
             (char*) "Unk6",
-            (char*) "Unk7",
+            (char*) "SoundEnvironment",
             (char*) "Unk8",
             (char*) "Unk9",
             (char*) "EventSystemVFTable",
             (char*) "Unk11",
             (char*) "Unk12",
-            (char*) "Unk13",
+            (char*) "SomeMap",
             (char*) "Unk14",
             (char*) "LinkBufferVFTable",
             (char*) "Unk16",
@@ -86,13 +86,13 @@ std::vector<char*> GetClientEntityManagerProperties() {
             (char*) "Unk4",
             (char*) "Unk5",
             (char*) "Unk6",
-            (char*) "Unk7",
+            (char*) "SoundEnvironment",
             (char*) "Unk8",
             (char*) "Unk9",
             (char*) "EventSystemVFTable",
             (char*) "Unk11",
             (char*) "Unk12",
-            (char*) "Unk13",
+            (char*) "SomeMap",
             (char*) "Unk14",
             (char*) "LinkBufferVFTable",
             (char*) "Unk16",
@@ -153,7 +153,7 @@ std::string GetEntityManagerTypeName(EntityManager* entityManager) {
         case 0x008a8040:
             return "ServerEntityManager";
         case 0x008A7C18:
-            return "ClientEntityList";
+            return "ClientEntityManager";
         default:
             return "Unknown";
     }

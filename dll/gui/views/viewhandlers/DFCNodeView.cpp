@@ -3,18 +3,15 @@
 //
 
 #include "DFCNodeView.h"
-#include "../../../../lib/imgui/imgui.h"
 #include "../../general/colours.h"
 #include "../../../common.h"
 #include "../../../gameobjects/Entities/Player.h"
-#include "PlayerView.h"
-#include "AvatarView.h"
-#include "MeleeWeaponView.h"
 #include "../../entities/properties.h"
 #include "../../../datatypes/GCProperties.h"
 #include "../../general/structs.h"
 #include "../../RRSpyGUI.h"
 #include "GCClassView.h"
+#include "../../../state.h"
 
 void DFCNodeView::RenderProperties(DFCNode* pNode) {
     DFCNode* nodeToRender = GetCurrentSuperclassNode(pNode);
@@ -82,22 +79,6 @@ void DFCNodeView::RenderCommonProperties(DFCNode* nodeToRender) {
 
     ImGui::PopStyleColor(2);
 }
-//
-//void DFCNodeView::RenderSpecificNodeProperties(DFCNode* nodeToRender) {
-//    auto vftable = (int) nodeToRender->VFTable;
-//
-//    switch (vftable) {
-//        case 0x0089B468:
-//            PlayerView::RenderProperties((Player*) nodeToRender);
-//            break;
-//        case 0x0086DE00:
-//            AvatarView::RenderProperties((Avatar*) nodeToRender);
-//            break;
-//        case 0x00893490:
-//            MeleeWeaponView::RenderProperties((MeleeWeapon*) nodeToRender);
-//            break;
-//    }
-//}
 
 DFCNode* DFCNodeView::GetCurrentSuperclassNode(DFCNode* pNode) {
     auto nodeToRender = pNode;
@@ -128,7 +109,9 @@ void DFCNodeView::RenderNodeCrumblebar(DFCNode* pNode) {
             ImGui::PushStyleColor(ImGuiCol_Text, gcSuperclassColour);
         }
 
-        ImGui::SameLine();
+        if(!first){
+            ImGui::SameLine();
+        }
 
         auto cursorPos = ImGui::GetCursorScreenPos();
         auto textSize = ImGui::CalcTextSize(currentNode->GetTypeString().c_str());

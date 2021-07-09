@@ -87,11 +87,11 @@ private:
 //
 //public:
 //    inline void RenderListItem(void* pVoid, int i) override {
-//        EntityContainerView::RenderListItem((EntityContainer*) pVoid, i);
+//        EntityContainerView::RenderListItem((EntityList*) pVoid, i);
 //    }
 //
 //    inline void RenderProperties(void* pVoid) override {
-//        EntityContainerView::RenderProperties((EntityContainer*) pVoid);
+//        EntityContainerView::RenderProperties((EntityList*) pVoid);
 //    }
 //};
 //

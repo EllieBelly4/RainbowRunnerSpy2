@@ -13,7 +13,7 @@ const std::vector<char*> GetGCPropertiesProperties() {
             (char*) "Unk4",
             (char*) "Unk5",
             (char*) "Unk6",
-            (char*) "Unk7",
+            (char*) "SoundEnvironment",
             (char*) "Unk8",
             (char*) "Unk9",
     };

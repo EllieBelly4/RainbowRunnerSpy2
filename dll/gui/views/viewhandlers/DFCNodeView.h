@@ -20,7 +20,6 @@ public:
 
     static void RenderListItem(DFCNode*, int);
 
-private:
     void RenderProperties(void* pVoid) override;
 
 private:

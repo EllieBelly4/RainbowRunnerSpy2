@@ -4,12 +4,8 @@
 
 #include <windows.h>
 #include <Dbghelp.h>
-#include <iostream>
 #include "RRSpyGUI.h"
 #include "../../lib/imgui/imgui_impl_dx9.h"
-#include "./GameObjectPanels.h"
-#include "../gameobjects/World.h"
-#include "entities/properties.h"
 #include "../common.h"
 #include "../gameobjects/map.h"
 
@@ -85,7 +81,7 @@ void RRSpyGUI::Render() {
         _state->CurrentSelectedEntity = nullptr;
     }
 
-    ImGui::ShowDemoWindow();
+//    ImGui::ShowDemoWindow();
     ImGui::PopStyleColor(5);
     ImGui::PopStyleVar(1);
 
