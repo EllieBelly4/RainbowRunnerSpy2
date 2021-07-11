@@ -45,7 +45,7 @@ void EntityContainerView::RenderProperties(EntityContainer* pEntity) {
 //    RenderPropertyWithHex("Unk19", &pEntity->Unk19);
 //    RenderPropertyWithHex("SomeTimer", &pEntity->SomeTimer);
 //    RenderPropertyWithHex("Unk21", &pEntity->Unk21);
-//    RenderPropertyWithHex("SomeCountAddedToCounter", &pEntity->SomeCountAddedToCounter);
+//    RenderPropertyWithHex("FrameThisSecond", &pEntity->FrameThisSecond);
 //    RenderPropertyWithHex("SomeCounter", &pEntity->SomeCounter);
 //    RenderPropertyWithHex("Unk24", &pEntity->Unk24);
 //    RenderPropertyWithHex("Unk25", &pEntity->Unk25);

@@ -31,7 +31,7 @@ public:
 //    int Unk19;
 //    int SomeTimer;
 //    int Unk21;
-//    int SomeCountAddedToCounter;
+//    int FrameThisSecond;
 //    int SomeCounter;
 //    int Unk24;
 //    int Unk25;

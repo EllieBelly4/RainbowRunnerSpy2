@@ -11,6 +11,7 @@
 #include "../gui/entities/RRSpyGUIBaseEntityWrapper.h"
 
 extern std::map<unsigned int, std::shared_ptr<RRSpyGUIBaseEntityWrapper>> EntityMap;
+std::shared_ptr<RRSpyGUIBaseEntityWrapper> GetEntityWrapper(void* vftable);
 
 void InitialiseEntityMap();
 

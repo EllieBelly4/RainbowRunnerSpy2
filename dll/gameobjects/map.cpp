@@ -4,10 +4,12 @@
 
 #include "map.h"
 #include "../gui/views/viewhandlers/AvatarView.h"
+#include "../gui/views/viewhandlers/UnknownView.h"
 
 std::map<unsigned int, std::shared_ptr<RRSpyGUIBaseEntityWrapper>> EntityMap;
 
 void InitialiseEntityMap() {
+    EntityMap[0] = std::make_shared<RRSpyGUIBaseEntityWrapper>("UnknownEntity", new UnknownView());
     EntityMap[0x0089B468] = std::make_shared<RRSpyGUIBaseEntityWrapper>("Player", new DFCNodeView());
     EntityMap[0x0086DE00] = std::make_shared<RRSpyGUIBaseEntityWrapper>("Avatar", new AvatarView());
     EntityMap[0x0089a580] = std::make_shared<RRSpyGUIBaseEntityWrapper>("Waypoint", new DFCNodeView());
@@ -86,5 +88,15 @@ void InitialiseEntityMap() {
     EntityMap[0x0086a730] = std::make_shared<RRSpyGUIBaseEntityWrapper>("WorldLight", new DFCNodeView());
     EntityMap[0x00897010] = std::make_shared<RRSpyGUIBaseEntityWrapper>("AmbientSound", new DFCNodeView());
     EntityMap[0x0088da10] = std::make_shared<RRSpyGUIBaseEntityWrapper>("SoundEnvironment", new DFCNodeView());
-    EntityMap[0x008a7c18] = std::make_shared<RRSpyGUIBaseEntityWrapper>("ClientEntityManager", new ClientEntityManagerView());
+    EntityMap[0x008a7c18] = std::make_shared<RRSpyGUIBaseEntityWrapper>("ClientEntityManager",
+                                                                        new ClientEntityManagerView());
+    EntityMap[0x00872940] = std::make_shared<RRSpyGUIBaseEntityWrapper>("StockUnit", new DFCNodeView());
+}
+
+std::shared_ptr<RRSpyGUIBaseEntityWrapper> GetEntityWrapper(void* vftable) {
+    if (EntityMap.contains((unsigned int) vftable)) {
+        return EntityMap.at((unsigned int) vftable);
+    }
+
+    return EntityMap.at(0);
 }

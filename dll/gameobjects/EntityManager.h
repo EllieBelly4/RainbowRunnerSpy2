@@ -124,9 +124,9 @@ struct ClientEntityManager {
 //    int unk_39;
 //    int unk_40;
 //    int unk_41;
-    int SomeTimer;
     int unk_42;
-    int SomeCountAddedToCounter;
+    int SomeTimer;
+    int FrameThisSecond;
     int SomeCounter;
     int unk_43;
     int unk_44;
@@ -135,9 +135,9 @@ struct ClientEntityManager {
     int unk_47;
     int unk_48;
     int unk_49;
+    int unk_50;
     int ProcessedMessagesThisMove;
     int UpdateMessagesInQueue;
-    int unk_50;
     int unk_51;
     int unk_52;
     int unk_53;

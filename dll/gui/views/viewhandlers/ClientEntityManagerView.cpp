@@ -14,7 +14,7 @@ void ClientEntityManagerView::RenderListItem(ClientEntityManager* pEntity, int i
     ImGuiID id = ImGui::GetID(label);
 
     if (RenderSelectableListItem(i, label, id) == ListItemClicked) {
-        state->SetSelectedEntity(EntityMap[(int) pEntity->VFTable], pEntity, id);
+        state->SetSelectedEntity(GetEntityWrapper(pEntity->VFTable), pEntity, id);
     }
 }
 
@@ -65,9 +65,9 @@ void ClientEntityManagerView::RenderProperties(ClientEntityManager* pEntity) {
 //    RenderPropertyWithHex("unk_39", &pEntity->unk_39);
 //    RenderPropertyWithHex("unk_40", &pEntity->unk_40);
 //    RenderPropertyWithHex("unk_41", &pEntity->unk_41);
-    RenderPropertyWithHex("SomeTimer", &pEntity->SomeTimer);
     RenderPropertyWithHex("unk_42", &pEntity->unk_42);
-    RenderPropertyWithHex("SomeCountAddedToCounter", &pEntity->SomeCountAddedToCounter);
+    RenderPropertyWithHex("SomeTimer", &pEntity->SomeTimer);
+    RenderPropertyWithHex("FrameThisSecond", &pEntity->FrameThisSecond);
     RenderPropertyWithHex("SomeCounter", &pEntity->SomeCounter);
     RenderPropertyWithHex("unk_43", &pEntity->unk_43);
     RenderPropertyWithHex("unk_44", &pEntity->unk_44);
@@ -76,9 +76,9 @@ void ClientEntityManagerView::RenderProperties(ClientEntityManager* pEntity) {
     RenderPropertyWithHex("unk_47", &pEntity->unk_47);
     RenderPropertyWithHex("unk_48", &pEntity->unk_48);
     RenderPropertyWithHex("unk_49", &pEntity->unk_49);
+    RenderPropertyWithHex("unk_50", &pEntity->unk_50);
     RenderPropertyWithHex("ProcessedMessagesThisMove", &pEntity->ProcessedMessagesThisMove);
     RenderPropertyWithHex("UpdateMessagesInQueue", &pEntity->UpdateMessagesInQueue);
-    RenderPropertyWithHex("unk_50", &pEntity->unk_50);
     RenderPropertyWithHex("unk_51", &pEntity->unk_51);
     RenderPropertyWithHex("unk_52", &pEntity->unk_52);
     RenderPropertyWithHex("unk_53", &pEntity->unk_53);

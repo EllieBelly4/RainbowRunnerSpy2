@@ -60,8 +60,8 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
             isOpen = !isOpen;
             ImGui::GetStateStorage()->SetBool(openKey, isOpen);
         } else {
-            logger->Write(std::to_string((int)pEntity->VFTable));
-            _state->SetSelectedEntity(EntityMap[(int)pEntity->VFTable], pEntity, currentID);
+            logger->Write(std::to_string((int) pEntity->VFTable));
+            _state->SetSelectedEntity(GetEntityWrapper(pEntity->VFTable), pEntity, currentID);
         }
 
         _state->ItemSelectState.LastClickedTime = now;
@@ -81,7 +81,11 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
 
         ImGui::PopStyleColor(1);
     } else {
-        ImGui::Text(pEntity->GetTypeString().c_str());
+        if (!IsBadReadPtr(pEntity)) {
+            ImGui::Text(pEntity->GetTypeString().c_str());
+        } else {
+            ImGui::Text("UnknownEntity");
+        }
     }
 }
 

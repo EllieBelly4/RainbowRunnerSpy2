@@ -3,8 +3,6 @@
 //
 
 #include "RRSpyGUIPropertyView.h"
-#include "../../common.h"
-#include "../general/gui_functions.h"
 
 RRSpyGUIPropertyView::RRSpyGUIPropertyView(std::shared_ptr<RRSpyState> state, std::shared_ptr<log::Log> logger)
         : _state(state), logger(logger) {

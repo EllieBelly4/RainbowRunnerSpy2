@@ -49,9 +49,14 @@ const std::vector<char*> GetEntityProperties() {
 std::string DFCNode::GetTypeString() {
     auto vftable = reinterpret_cast<unsigned int>(VFTable);
 
-    if (!EntityMap.contains(vftable)) {
-        return "UnknownEntity";
+    if (!IsBadReadPtr((void*) vftable) && EntityMap.contains(vftable)) {
+        return EntityMap.at(vftable)->Name;
     }
-    
-    return EntityMap[vftable]->Name;
+
+    char hexStr[128];
+
+    sprintf(hexStr, "Unknown VFTable 0x%08X", vftable);
+
+    logger->Write(hexStr);
+    return "UnknownEntity " + std::string(hexStr);
 }

@@ -28,7 +28,7 @@ std::vector<char*> GetClientEntityProperties() {
             (char*) "Unk19",
             (char*) "CurrentFrame",
             (char*) "Unk21",
-            (char*) "SomeCountAddedToCounter",
+            (char*) "FrameThisSecond",
             (char*) "SomeCounter",
             (char*) "Unk24",
             (char*) "Unk25",
