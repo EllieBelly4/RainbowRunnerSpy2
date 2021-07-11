@@ -90,7 +90,8 @@ void InitialiseEntityMap() {
     EntityMap[0x0088da10] = std::make_shared<RRSpyGUIBaseEntityWrapper>("SoundEnvironment", new DFCNodeView());
     EntityMap[0x008a7c18] = std::make_shared<RRSpyGUIBaseEntityWrapper>("ClientEntityManager",
                                                                         new ClientEntityManagerView());
-    EntityMap[0x00872940] = std::make_shared<RRSpyGUIBaseEntityWrapper>("StockUnit", new DFCNodeView());
+    EntityMap[0x00872940] = std::make_shared<RRSpyGUIBaseEntityWrapper>("StockUnit", new EntityView());
+    EntityMap[0x00877FD8] = std::make_shared<RRSpyGUIBaseEntityWrapper>("MonsterBehavior2", new DFCNodeView());
 }
 
 std::shared_ptr<RRSpyGUIBaseEntityWrapper> GetEntityWrapper(void* vftable) {
