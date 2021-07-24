@@ -8,7 +8,7 @@
 
 #include "ViewHandler.h"
 
-class DFCNodeView : public ViewHandler{
+class DFCNodeView : public ViewHandler {
 public:
     static void RenderProperties(DFCNode*);
 
@@ -19,6 +19,8 @@ public:
     static void RenderNodeCrumblebar(DFCNode* pNode);
 
     static void RenderListItem(DFCNode*, int);
+
+    static void RenderDFCNodeAllProperties(DFCNode* pEntity);
 
     void RenderProperties(void* pVoid) override;
 

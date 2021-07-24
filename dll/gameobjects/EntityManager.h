@@ -135,7 +135,8 @@ struct ClientEntityManager {
     int unk_47;
     int unk_48;
     int unk_49;
-    int unk_50;
+    // This value increases over time by an amount of 1 -> , but the time between updates and the value increases exponentially
+    int unk_increases_slowly;
     int ProcessedMessagesThisMove;
     int UpdateMessagesInQueue;
     int unk_51;
@@ -230,6 +231,7 @@ struct ClientEntityManager {
 };
 
 std::vector<char*> GetEntityManagerProperties();
+
 std::vector<char*> GetClientEntityManagerProperties();
 
 std::string GetEntityManagerTypeName(EntityManager* entityManager);

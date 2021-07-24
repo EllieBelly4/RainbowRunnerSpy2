@@ -9,8 +9,7 @@
 #include <string>
 #include "GCClass.h"
 #include "../EntityManager.h"
-
-struct GCProperties;
+#include "../../datatypes/GCProperties.h"
 
 class DFCNode {
 public:
@@ -23,7 +22,7 @@ public:
     unsigned int FirstChild; // 0x18
     unsigned int LastChild; // 0x1c
     unsigned int NextSibling; // 0x20
-    unsigned int unk_7; // 0x24
+    unsigned int PreviousSibling; // 0x24
     unsigned int unk_8; // 0x28
     unsigned int unk_9; // 0x2c
     unsigned int VFTableIEventHandler; // 0x30

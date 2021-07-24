@@ -3,24 +3,69 @@
 //
 
 #include "DFCNodeView.h"
-#include "../../general/colours.h"
-#include "../../../common.h"
-#include "../../../gameobjects/Entities/Player.h"
-#include "../../entities/properties.h"
-#include "../../../datatypes/GCProperties.h"
-#include "../../general/structs.h"
 #include "../../RRSpyGUI.h"
 #include "GCClassView.h"
 #include "../../../state.h"
+#include "GCPropertiesView.h"
 
 void DFCNodeView::RenderProperties(DFCNode* pNode) {
     DFCNode* nodeToRender = GetCurrentSuperclassNode(pNode);
+
+    RenderDFCNodeAllProperties(nodeToRender);
 
     if (!IsBadReadPtr(nodeToRender->GCClass)) {
         GCClassView::RenderProperties(nodeToRender->GCClass);
     }
 
-    RenderCommonProperties(nodeToRender);
+    if (!IsBadReadPtr(nodeToRender->GCProperties)) {
+        GCPropertiesView::RenderProperties(nodeToRender->GCProperties);
+    }
+
+    if (!IsBadReadPtr(nodeToRender->Desc)) {
+        if (ImGui::BeginTabItem("desc")) {
+            ImGui::TextColored(entityColour, nodeToRender->Desc->GetTypeString().c_str());
+            if (ImGui::BeginTabBar("desctabbar")) {
+                RenderProperties(nodeToRender->Desc);
+                ImGui::EndTabBar();
+            }
+            ImGui::EndTabItem();
+        }
+    }
+
+//    RenderCommonProperties(nodeToRender);
+}
+
+void DFCNodeView::RenderDFCNodeAllProperties(DFCNode* pEntity) {
+    if (BeginFullPropertyTable("dfcnode")) {
+        RenderPropertyWithHex("VFTable", (unsigned int*) &pEntity->VFTable);
+        RenderPropertyWithHex("unk_0", &pEntity->unk_0);
+        RenderPropertyWithHex("unk_1", &pEntity->unk_1);
+        RenderPropertyWithHex("unk_2", &pEntity->unk_2);
+        RenderPropertyWithHex("Parent", &pEntity->Parent);
+        RenderPropertyWithHex("FirstChild", &pEntity->FirstChild);
+        RenderPropertyWithHex("LastChild", &pEntity->LastChild);
+        RenderPropertyWithHex("NextSibling", &pEntity->NextSibling);
+        RenderPropertyWithHex("PreviousSibling", &pEntity->PreviousSibling);
+        RenderPropertyWithHex("unk_8", &pEntity->unk_8);
+        RenderPropertyWithHex("unk_9", &pEntity->unk_9);
+        RenderPropertyWithHex("VFTableIEventHandler", &pEntity->VFTableIEventHandler);
+        RenderPropertyWithHex("GCProperties", (unsigned int*) &pEntity->GCProperties);
+        RenderPropertyWithHex("unk_12", &pEntity->unk_12);
+        RenderPropertyWithHex("VFTableEventSystem", &pEntity->VFTableEventSystem);
+        RenderPropertyWithHex("unk_14", &pEntity->unk_14);
+        RenderPropertyWithHex("unk_15", &pEntity->unk_15);
+        RenderPropertyWithHex("unk_16", &pEntity->unk_16);
+        RenderPropertyWithHex("unk_17", &pEntity->unk_17);
+        RenderPropertyWithHex("unk_18", &pEntity->unk_18);
+        RenderPropertyWithHex("SuperClass", (unsigned int*) &pEntity->SuperClass);
+        RenderPropertyWithHex("GCClass", (unsigned int*) &pEntity->GCClass);
+        RenderPropertyWithHex("Desc", (unsigned int*) &pEntity->Desc);
+        RenderPropertyWithHex("unk_22", &pEntity->unk_22);
+        RenderPropertyWithHex("unk_23", &pEntity->unk_23);
+        RenderPropertyWithHex("unk_24", &pEntity->unk_24);
+
+        EndPropertyTable();
+    }
 }
 
 void DFCNodeView::RenderCommonProperties(DFCNode* nodeToRender) {
@@ -29,50 +74,40 @@ void DFCNodeView::RenderCommonProperties(DFCNode* nodeToRender) {
     ImGui::PushStyleColor(ImGuiCol_TabActive, tabSelectedColour);
 
     if (ImGui::BeginTabBar("DFCNodeProperties", tab_bar_flags)) {
-        if (ImGui::BeginTabItem("DFC Node properties")) {
-            if (ImGui::BeginTable("PropertyTable", 4,
-                                  ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingFixedFit)) {
-                RenderDFCNodeProperties(nodeToRender);
+//        if (ImGui::BeginTabItem("DFC Node properties")) {
+//
+//            ImGui::PushStyleColor(ImGuiCol_Header, gcclassColour);
+//
+////            if (!IsBadReadPtr(nodeToRender->GCProperties) && ImGui::TreeNode("GCCProperties Raw Properties")) {
+////                RenderStructPropertyTable((char*) nodeToRender->GCProperties, GetGCPropertiesProperties(), 10,
+////                                          "GCCProperties Raw Properties");
+////                ImGui::TreePop();
+////            }
+//
+////            if(!IsBadReadPtr(nodeToRender->GCClass)){
+////                GCClassView::RenderProperties(nodeToRender->GCClass);
+////            }
+//
+////            if (!IsBadReadPtr(nodeToRender->GCClass) && ImGui::TreeNode("GCCLass Raw Properties")) {
+////                RenderStructPropertyTable((char*) nodeToRender->GCClass, GetGCCLassProperties(), 70,
+////                                          "GCCLassRawProperties");
+////                ImGui::TreePop();
+////            }
+//
+//            ImGui::PopStyleColor(1);
+//
+//            ImGui::EndTabItem();
+//        }
 
-                ImGui::EndTable();
-            }
+//        if (!IsBadReadPtr(nodeToRender->Desc) && ImGui::BeginTabItem(nodeToRender->Desc->GetTypeString().c_str())) {
+//            RenderProperties(nodeToRender->Desc);
+//            ImGui::EndTabItem();
+//        }
 
-            if (!IsBadReadPtr(nodeToRender->GCProperties) && ImGui::BeginTable("SomePropertiesStruct", 3,
-                                                                               ImGuiTableFlags_Borders |
-                                                                               ImGuiTableFlags_RowBg |
-                                                                               ImGuiTableFlags_SizingFixedFit)) {
-                RenderGCProperties(nodeToRender->GCProperties);
-                ImGui::EndTable();
-            }
-
-            ImGui::PushStyleColor(ImGuiCol_Header, gcclassColour);
-
-            if (!IsBadReadPtr(nodeToRender->GCProperties) && ImGui::TreeNode("GCCProperties Raw Properties")) {
-                RenderStructPropertyTable((char*) nodeToRender->GCProperties, GetGCPropertiesProperties(), 10,
-                                          "GCCProperties Raw Properties");
-                ImGui::TreePop();
-            }
-
-            if (!IsBadReadPtr(nodeToRender->GCClass) && ImGui::TreeNode("GCCLass Raw Properties")) {
-                RenderStructPropertyTable((char*) nodeToRender->GCClass, GetGCCLassProperties(), 70,
-                                          "GCCLassRawProperties");
-                ImGui::TreePop();
-            }
-
-            ImGui::PopStyleColor(1);
-
-            ImGui::EndTabItem();
-        }
-
-        if (!IsBadReadPtr(nodeToRender->Desc) && ImGui::BeginTabItem(nodeToRender->Desc->GetTypeString().c_str())) {
-            RenderProperties(nodeToRender->Desc);
-            ImGui::EndTabItem();
-        }
-
-        if (ImGui::BeginTabItem("RawProperties")) {
-            RenderStructPropertyTable((char*) nodeToRender, GetPlayerProperties(), 40);
-            ImGui::EndTabItem();
-        }
+//        if (ImGui::BeginTabItem("RawProperties")) {
+//            RenderStructPropertyTable((char*) nodeToRender, GetPlayerProperties(), 40);
+//            ImGui::EndTabItem();
+//        }
 
         ImGui::EndTabBar();
     }
@@ -109,7 +144,7 @@ void DFCNodeView::RenderNodeCrumblebar(DFCNode* pNode) {
             ImGui::PushStyleColor(ImGuiCol_Text, gcSuperclassColour);
         }
 
-        if(!first){
+        if (!first) {
             ImGui::SameLine();
         }
 
@@ -149,7 +184,6 @@ void DFCNodeView::RenderListItem(DFCNode* pNode, int i) {
 }
 
 void DFCNodeView::RenderProperties(void* pVoid) {
-    RenderNodeCrumblebar((DFCNode*) pVoid);
     RenderProperties((DFCNode*) pVoid);
 }
 

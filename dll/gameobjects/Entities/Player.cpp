@@ -15,7 +15,7 @@ const std::vector<char*> GetPlayerProperties() {
             (char*) "unk_4",
             (char*) "unk_5",
             (char*) "unk_6",
-            (char*) "unk_7",
+            (char*) "PreviousSibling",
             (char*) "unk_8",
             (char*) "unk_9",
             (char*) "unk_10",

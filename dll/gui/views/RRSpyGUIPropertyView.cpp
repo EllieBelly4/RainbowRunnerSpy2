@@ -17,7 +17,7 @@ void RRSpyGUIPropertyView::Render() {
     if (currentSelectedEntity != nullptr && !IsBadReadPtr(entity)) {
         char hexStr[16];
 
-        sprintf(hexStr, "0x%08X", (int)entity);
+        sprintf(hexStr, "0x%08X", (int) entity);
 
         ImGui::Text("Location:");
         ImGui::SameLine();
@@ -25,7 +25,19 @@ void RRSpyGUIPropertyView::Render() {
         ImGui::SameLine();
         AddCopyText(hexStr);
 
-        currentSelectedEntity->RenderProperties(entity);
+        ImGui::PushStyleColor(ImGuiCol_Tab, tabColour);
+        ImGui::PushStyleColor(ImGuiCol_TabActive, tabSelectedColour);
+
+        if (dynamic_cast<DFCNodeView*>(currentSelectedEntity->View) != nullptr) {
+            DFCNodeView::RenderNodeCrumblebar((DFCNode*) entity);
+        }
+
+        if (ImGui::BeginTabBar("propertyview")) {
+            currentSelectedEntity->RenderProperties(entity);
+            ImGui::EndTabBar();
+        }
+
+        ImGui::PopStyleColor(2);
     }
 
     ImGui::End();

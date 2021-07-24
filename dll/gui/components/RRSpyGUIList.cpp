@@ -8,7 +8,18 @@
 #include "../../gameobjects/map.h"
 
 void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
-    auto textSize = ImGui::CalcTextSize(pEntity->GetTypeString().c_str());
+    std::string listItemLabel = pEntity->GetTypeString();
+
+    auto entityDef = EntityMap.at((unsigned int) pEntity->VFTable);
+
+    if (entityDef != nullptr && dynamic_cast<DFCNodeView*>(entityDef->View) != nullptr) {
+        if (!IsBadReadPtr(pEntity->SuperClass) && !IsBadReadPtr(pEntity->SuperClass->GCClass) &&
+            !IsBadReadPtr(pEntity->SuperClass->GCClass->FQTypeName)) {
+            listItemLabel = listItemLabel + " (" + pEntity->SuperClass->GCClass->FQTypeName->ToString() + ")";
+        }
+    }
+
+    auto textSize = ImGui::CalcTextSize(listItemLabel.c_str());
     auto cursorPos = ImGui::GetCursorScreenPos();
     auto openKey = ImGui::GetID("openKey");
     auto isOpen = ImGui::GetStateStorage()->GetBool(openKey);
@@ -42,6 +53,7 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
     ImDrawList* windowDrawList = ImGui::GetWindowDrawList();
     windowDrawList->AddRectFilled(lineMin, lineMax, lineColour, 2);
 
+    // Add child indicator icon
     if (pEntity->FirstChild != 0) {
         windowDrawList->AddCircleFilled(ImVec2(lineMin.x + 11, lineMin.y + 12), 5, IM_COL32_WHITE);
 
@@ -50,6 +62,7 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
         }
     }
 
+    // Handle selection and open clicks
     if (hovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
         auto now = duration_cast<std::chrono::milliseconds>(
                 std::chrono::system_clock::now().time_since_epoch()
@@ -68,25 +81,23 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i) {
         _state->ItemSelectState.LastIDClicked = currentID;
     }
 
-    if (!IsBadReadPtr((void*) pEntity->FirstChild)) {
-        ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32_WHITE);
+    ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32_WHITE);
 
-        ImGui::Text(pEntity->GetTypeString().c_str());
-
-        if (isOpen) {
-            ImGui::Indent();
-            Render(pEntity);
-            ImGui::Unindent();
-        }
-
-        ImGui::PopStyleColor(1);
+    // Render list item text
+    if (!IsBadReadPtr(pEntity)) {
+        ImGui::Text(listItemLabel.c_str());
     } else {
-        if (!IsBadReadPtr(pEntity)) {
-            ImGui::Text(pEntity->GetTypeString().c_str());
-        } else {
-            ImGui::Text("UnknownEntity");
-        }
+        ImGui::Text("UnknownEntity");
     }
+
+    // Render children if expanded
+    if (isOpen && !IsBadReadPtr((void*) pEntity->FirstChild)) {
+        ImGui::Indent();
+        Render(pEntity);
+        ImGui::Unindent();
+    }
+
+    ImGui::PopStyleColor(1);
 }
 
 void RRSpyGUIList::Render(EntityContainer* pContainer) {

@@ -8,8 +8,9 @@
 
 #include "ViewHandler.h"
 #include "../../../gameobjects/Entities/Avatar.h"
+#include "DFCNodeView.h"
 
-class EntityView : public ViewHandler{
+class EntityView : public DFCNodeView {
 
 public:
     static void RenderProperties(Entity*);

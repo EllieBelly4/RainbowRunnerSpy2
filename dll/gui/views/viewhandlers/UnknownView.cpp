@@ -3,7 +3,8 @@
 //
 
 #include "UnknownView.h"
+#include "../../general/structs.h"
 
 void UnknownView::RenderProperties(void* pVoid) {
-    ImGui::Text("Unknown");
+    RenderStructPropertyTable((char*) pVoid, std::vector<char*>{}, 200);
 }

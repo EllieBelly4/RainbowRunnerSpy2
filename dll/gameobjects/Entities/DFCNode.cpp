@@ -16,7 +16,7 @@ const std::vector<char*> GetEntityProperties() {
             (char*) "FirstChild",
             (char*) "LastChild",
             (char*) "NextSibling",
-            (char*) "unk_7",
+            (char*) "PreviousSibling",
             (char*) "unk_8",
             (char*) "unk_9",
             (char*) "VFTableIEventHandler",

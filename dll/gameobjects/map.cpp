@@ -92,6 +92,9 @@ void InitialiseEntityMap() {
                                                                         new ClientEntityManagerView());
     EntityMap[0x00872940] = std::make_shared<RRSpyGUIBaseEntityWrapper>("StockUnit", new EntityView());
     EntityMap[0x00877FD8] = std::make_shared<RRSpyGUIBaseEntityWrapper>("MonsterBehavior2", new DFCNodeView());
+    EntityMap[0x00867818] = std::make_shared<RRSpyGUIBaseEntityWrapper>("StaticObjectDesc", new DFCNodeView());
+    EntityMap[0x008B4120] = std::make_shared<RRSpyGUIBaseEntityWrapper>("DFC3DNode", new DFCNodeView());
+    EntityMap[0x008B46BC] = std::make_shared<RRSpyGUIBaseEntityWrapper>("DFC3DChannelArray", new DFCNodeView());
 }
 
 std::shared_ptr<RRSpyGUIBaseEntityWrapper> GetEntityWrapper(void* vftable) {

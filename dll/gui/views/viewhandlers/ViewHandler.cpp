@@ -4,25 +4,30 @@
 
 #include "../../../gameobjects/map.h"
 #include "../../general/structs.h"
-#include "../../../common.h"
 #include "../../RRSpyGUI.h"
 #include "../../../state.h"
 
 bool ViewHandler::BeginPropertyTable(std::string name, int cols) {
+    ImGui::PushFont(firaHeading);
+    ImGui::TextColored(entityColour, (name + " properties").c_str());
+    ImGui::PopFont();
+
     return ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), cols,
                              ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_SizingFixedFit);
 }
 
 bool ViewHandler::BeginFullPropertyTable(std::string name) {
-    auto open = ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), 4,
-                             ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_SizingFixedFit);
+    auto open = ImGui::BeginTabItem(name.c_str());
 
-    if(open) {
-        ImGui::TableSetupColumn("Name");
-        ImGui::TableSetupColumn("Value");
-        ImGui::TableSetupColumn("ValueHex");
-        ImGui::TableSetupColumn("Location");
-        ImGui::TableHeadersRow();
+    if (open) {
+        if (ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), 4,
+                              ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_SizingFixedFit)) {
+            ImGui::TableSetupColumn("Name");
+            ImGui::TableSetupColumn("Value");
+            ImGui::TableSetupColumn("ValueHex");
+            ImGui::TableSetupColumn("Location");
+            ImGui::TableHeadersRow();
+        }
     }
 
     return open;
@@ -30,6 +35,7 @@ bool ViewHandler::BeginFullPropertyTable(std::string name) {
 
 void ViewHandler::EndPropertyTable() {
     ImGui::EndTable();
+    ImGui::EndTabItem();
 }
 
 void ViewHandler::RenderProperty(const std::string &name, const std::string &value) {

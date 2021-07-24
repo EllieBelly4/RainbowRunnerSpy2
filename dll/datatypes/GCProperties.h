@@ -8,7 +8,8 @@
 #include <vector>
 #include <string>
 
-struct GCProperties {
+class GCProperties {
+public:
     unsigned int Unk0;
     void* Unk1;
     unsigned int Unk2;

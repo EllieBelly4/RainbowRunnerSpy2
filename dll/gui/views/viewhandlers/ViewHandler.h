@@ -19,7 +19,6 @@ enum ListItemResult {
 
 class ViewHandler {
 public:
-
     static void RenderProperty(const std::string &name, const std::string &value);
 
     static bool BeginPropertyTable(std::string, int cols = 2);

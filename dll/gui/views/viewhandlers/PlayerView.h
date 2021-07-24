@@ -9,7 +9,7 @@
 #include "../../../gameobjects/Entities/Player.h"
 #include "DFCNodeView.h"
 
-class PlayerView : public ViewHandler {
+class PlayerView : public DFCNodeView {
 public:
     static void RenderProperties(Player*);
 
