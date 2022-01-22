@@ -39,21 +39,21 @@ void ViewHandler::EndPropertyTable() {
 }
 
 void ViewHandler::RenderProperty(const std::string &name, const std::string &value) {
-    ImGui::PushID(name.c_str());
+	ImGui::PushID(name.c_str());
 
-    ImGui::TableNextColumn();
-    ImGui::PushID("PropertyName");
-    ImGui::TextColored(propertyColour, name.c_str());
-    ImGui::PopID();
+	ImGui::TableNextColumn();
+	ImGui::PushID("PropertyName");
+	ImGui::TextColored(propertyColour, name.c_str());
+	ImGui::PopID();
 
-    ImGui::TableNextColumn();
-    ImGui::PushID("PropertyValue");
-    ImGui::TextColored(titleAltText, value.c_str());
-    ImGui::SameLine();
-    AddCopyText(value);
-    ImGui::PopID();
+	ImGui::TableNextColumn();
+	ImGui::PushID("PropertyValue");
+	ImGui::TextColored(titleAltText, value.c_str());
+	ImGui::SameLine();
+	AddCopyText(value);
+	ImGui::PopID();
 
-    ImGui::PopID();
+	ImGui::PopID();
 }
 
 ListItemResult ViewHandler::RenderSelectableListItem(int i, const char* label, ImGuiID id) {

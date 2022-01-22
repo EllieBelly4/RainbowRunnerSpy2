@@ -5,7 +5,7 @@
 #include <iomanip>
 #include "Log.h"
 
-namespace log {
+namespace RRLog {
     void Log::Write(const char* toLog, TLogLevel logLevel) {
         std::string logString(toLog);
         this->Write(logString, logLevel);
@@ -21,7 +21,7 @@ namespace log {
 
         this->logFilePointer << "[ " << std::put_time(&tm, "%d-%m-%Y %H:%M:%S") << " ]";
 
-        this->logFilePointer << " [ " << log::StringLogLevel[logLevel] << " ]";
+        this->logFilePointer << " [ " << RRLog::StringLogLevel[logLevel] << " ]";
         this->logFilePointer << " - " << toLog << std::endl;
     }
 }

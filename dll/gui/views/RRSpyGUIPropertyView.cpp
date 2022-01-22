@@ -4,7 +4,7 @@
 
 #include "RRSpyGUIPropertyView.h"
 
-RRSpyGUIPropertyView::RRSpyGUIPropertyView(std::shared_ptr<RRSpyState> state, std::shared_ptr<log::Log> logger)
+RRSpyGUIPropertyView::RRSpyGUIPropertyView(std::shared_ptr<RRSpyState> state, std::shared_ptr<RRLog::Log> logger)
         : _state(state), logger(logger) {
 }
 

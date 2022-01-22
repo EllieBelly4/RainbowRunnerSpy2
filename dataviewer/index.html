@@ -1,0 +1,136 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>RRSpy2 Dataviewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div>
+    <input type="file" id="dataFile">
+    <button onclick="loadFile()">Load</button>
+    <canvas id="dataCanvas"></canvas>
+
+    <script>
+        function bigEndianIntTransform(val) {
+            let bigEndian = "";
+
+            for (let i = val.length - 2; i >= 0; i -= 2) {
+                bigEndian += val[i]
+                bigEndian += val[i + 1]
+            }
+
+            return parseInt(bigEndian, 16)
+        }
+
+        async function loadFile() {
+            var file = document.getElementById("dataFile").files[0];
+            let res, rej;
+            const promise = new Promise((r, j) => {
+                res = r;
+                rej = j
+            })
+
+            if (file) {
+                var reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = function (evt) {
+                    res(evt.target.result);
+                }
+                reader.onerror = function (evt) {
+                    rej(evt.target);
+                }
+            } else {
+                alert("no file");
+                return;
+            }
+
+            const fileData = await promise;
+
+            if (!fileData) {
+                alert("no data");
+                return;
+            }
+
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+
+            const rawData = [];
+
+            for (const line of fileData.split("\n")) {
+                if (line.trim() === "") {
+                    continue;
+                }
+
+                console.log(line);
+                rawData.push(JSON.parse(line));
+            }
+
+            const data = extractData(rawData, {
+                Frame: bigEndianIntTransform
+            })
+
+            function extractData(dataSet, valueTransformers) {
+                let finalData = {};
+                let frameLow = dataSet[0].event.frame;
+                let frameHigh = dataSet[dataSet.length - 1].event.frame;
+
+                let transformer;
+
+                for (let entry of dataSet) {
+                    if (valueTransformers[entry.event.name] === undefined) {
+                        transformer = bigEndianIntTransform;
+                    } else {
+                        transformer = valueTransformers[entry.event.name];
+                    }
+
+                    if (finalData[entry.event.name] === undefined) {
+                        finalData[entry.event.name] = {
+                            label: entry.event.name,
+                            data: []
+                        };
+                    }
+
+                    finalData[entry.event.name].data[entry.event.frame - frameLow] = transformer(entry.event.value);
+                }
+
+                return {
+                    datasets: finalData,
+                    frameLow,
+                    frameHigh
+                };
+            }
+
+            const colours = [
+                'rgb(255, 99, 132)',
+                'rgb(104,99,255)',
+                'rgb(99,255,154)',
+                'rgb(255,252,99)',
+                'rgb(255,141,99)',
+            ];
+
+
+            const dataConf = {
+                labels: Array.from({length: data.frameHigh - data.frameLow}, (x, i) => i + data.frameLow),
+                datasets: Object.values(data.datasets).map((d, i) => {
+                    d.backgroundColor = colours[i];
+                    d.borderColor = colours[i];
+                    return d;
+                })
+            };
+
+            const config = {
+                type: 'line',
+                data: dataConf,
+                options: {}
+            };
+
+            window.myChart = new Chart(
+                document.getElementById('dataCanvas'),
+                config
+            );
+        }
+    </script>
+</div>
+</body>
+</html>

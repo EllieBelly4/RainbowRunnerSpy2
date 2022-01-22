@@ -11,7 +11,7 @@
 #include <fstream>
 #include <ctime>
 
-namespace log {
+namespace RRLog {
     enum TLogLevel {
         logERROR, logWARNING, logINFO, logDEBUG
     };
@@ -37,6 +37,6 @@ namespace log {
     };
 }
 
-extern std::shared_ptr<log::Log> Logger;
+extern std::shared_ptr<RRLog::Log> Logger;
 
 #endif //PACKERC___LOG_H

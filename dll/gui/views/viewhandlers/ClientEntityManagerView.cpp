@@ -66,7 +66,7 @@ void ClientEntityManagerView::RenderProperties(ClientEntityManager* pEntity) {
     //    RenderPropertyWithHex("unk_41", &pEntity->unk_41);
         RenderPropertyWithHex("unk_42", &pEntity->unk_42);
         RenderPropertyWithHex("SomeTimer", &pEntity->SomeTimer);
-        RenderPropertyWithHex("FrameThisSecond", &pEntity->FrameThisSecond);
+        RenderPropertyWithHex("Frame_or_RNG?", &pEntity->FrameThisSecond);
         RenderPropertyWithHex("SomeCounter", &pEntity->SomeCounter);
         RenderPropertyWithHex("unk_43", &pEntity->unk_43);
         RenderPropertyWithHex("unk_44", &pEntity->unk_44);

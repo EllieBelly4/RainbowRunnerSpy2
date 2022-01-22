@@ -24,6 +24,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 //            Inject((DWORD) worldUIOnDrawPatchAddress, 6, (DWORD) WorldUIOnDrawHook);
             Inject((DWORD) DFCRootControlRenderPatchAddress, 7, (DWORD) DFCRootControlRenderHook);
             Inject((DWORD) gameExitInitResourcesPatchAddress, 6, (DWORD) GameExitInitResourcesHook);
+            Inject((DWORD) GameClientUpdateAppPatchAddress, 7, (DWORD) GameClientUpdateAppHook);
+
             direct3dHandle = LoadLibraryA(
                     "C:\\Windows\\SysWOW64\\d3d9.dll"
             );

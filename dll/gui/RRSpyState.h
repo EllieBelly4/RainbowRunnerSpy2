@@ -11,45 +11,50 @@
 #include "entities/RRSpyGUIBaseEntityWrapper.h"
 #include "views/viewhandlers/UnknownView.h"
 
-struct ItemSelectState {
-    ImGuiID LastIDClicked;
-    std::chrono::milliseconds LastClickedTime = std::chrono::milliseconds(0);
+struct ItemSelectState
+{
+	ImGuiID LastIDClicked;
+	std::chrono::milliseconds LastClickedTime = std::chrono::milliseconds(0);
 };
 
-struct PropertyViewState {
-    int SelectedSuperClassIndex = 0;
+struct PropertyViewState
+{
+	int SelectedSuperClassIndex = 0;
 };
 
-class RRSpyState {
+class RRSpyState
+{
 public:
-    World* CurrentWorld;
-    bool PropertiesOpen;
+	World* CurrentWorld;
+	GameClientStateManager* GameClientStateManager;
+	bool PropertiesOpen;
 
-    std::shared_ptr<RRSpyGUIBaseEntityWrapper> CurrentSelectedEntity;
-    void* CurrentSelectedDREntity;
-    ImGuiID CurrentID;
-    ItemSelectState ItemSelectState;
+	std::shared_ptr<RRSpyGUIBaseEntityWrapper> CurrentSelectedEntity;
+	void* CurrentSelectedDREntity;
+	ImGuiID CurrentID;
+	ItemSelectState ItemSelectState;
 
-    PropertyViewState PropertyViewState;
+	PropertyViewState PropertyViewState;
 
-    void ConfirmSelectedIsVisible(ImGuiID id);
+	void ConfirmSelectedIsVisible(ImGuiID id);
 
-    inline void SetSelectedEntity(std::shared_ptr<RRSpyGUIBaseEntityWrapper> entity, void* drEntity, ImGuiID id) {
-        _isCurrentSelectedEntityVisible = true;
-        PropertiesOpen = true;
-        CurrentSelectedEntity = entity;
-        CurrentSelectedDREntity = drEntity;
-        CurrentID = id;
-    }
+	inline void SetSelectedEntity(std::shared_ptr<RRSpyGUIBaseEntityWrapper> entity, void* drEntity, ImGuiID id)
+	{
+		_isCurrentSelectedEntityVisible = true;
+		PropertiesOpen = true;
+		CurrentSelectedEntity = entity;
+		CurrentSelectedDREntity = drEntity;
+		CurrentID = id;
+	}
 
-    void DeselectEntity();
+	void DeselectEntity();
 
-    bool IsSelectedEntityVisible();
+	bool IsSelectedEntityVisible();
 
-    void OnFrameEnd();
+	void OnFrameEnd();
 
 private:
-    bool _isCurrentSelectedEntityVisible;
+	bool _isCurrentSelectedEntityVisible;
 };
 
 

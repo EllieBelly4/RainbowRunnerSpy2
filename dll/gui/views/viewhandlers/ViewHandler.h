@@ -13,67 +13,103 @@
 #include "../../general/gui_functions.h"
 #include "../../../common.h"
 
-enum ListItemResult {
-    ListItemOK, ListItemClicked
+enum ListItemResult
+{
+	ListItemOK, ListItemClicked
 };
 
-class ViewHandler {
+class ViewHandler
+{
 public:
-    static void RenderProperty(const std::string &name, const std::string &value);
+	static void RenderProperty(const std::string& name, const std::string& value);
 
-    static bool BeginPropertyTable(std::string, int cols = 2);
+	static bool BeginPropertyTable(std::string, int cols = 2);
 
-    static bool BeginFullPropertyTable(std::string);
+	static bool BeginFullPropertyTable(std::string);
 
-    static void EndPropertyTable();
+	static void EndPropertyTable();
 
-    static void AddHeading(std::string);
+	static void AddHeading(std::string);
 
-    template<typename T>
-    static void RenderPropertyWithHex(const std::string &name, T* value);
+	template<typename T>
+	static void RenderPropertyWithHex(const std::string& name, T* value);
 
-    static ListItemResult RenderSelectableListItem(int i, const char* label, ImGuiID id);
+	static ListItemResult RenderSelectableListItem(int i, const char* label, ImGuiID id);
 
-    virtual void RenderProperties(void*);
+	virtual void RenderProperties(void*);
+
+	template<typename T>
+	static void RenderPropertyLocation(const std::string& name, const T* value);
 };
 
 template<typename T>
-void ViewHandler::RenderPropertyWithHex(const std::string &name, T* value) {
-    if (IsBadReadPtr(value)) {
-        ImGui::TableNextColumn();
-        ImGui::PushID("PropertyName");
-        ImGui::TextColored(propertyColour, name.c_str());
-        ImGui::PopID();
+void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
+{
+	if (IsBadReadPtr(value))
+	{
+		ImGui::TableNextColumn();
+		ImGui::PushID("PropertyName");
+		ImGui::TextColored(propertyColour, name.c_str());
+		ImGui::PopID();
 
-        ImGui::TableNextColumn();
-        ImGui::TextColored(ImVec4(0.95, 0.1, 0.15, 1), "error");
-        return;
-    }
+		ImGui::TableNextColumn();
+		ImGui::TextColored(ImVec4(0.95, 0.1, 0.15, 1), "error");
+		return;
+	}
 
-    ImGui::PushID(name.c_str());
-    char hexVal[32];
+	ImGui::PushID(name.c_str());
+	char hexVal[32];
 
-    sprintf(hexVal, (std::string("0x%0") + std::to_string(sizeof(T)) + "X").c_str(), *value);
+	sprintf(hexVal, (std::string("0x%0") + std::to_string(sizeof(T)) + "X").c_str(), *value);
 
-    RenderProperty(name, std::to_string(*value));
+	// Code from this function has been copied here, so we can add the DataText
+//	RenderProperty(name, std::to_string(*value));
 
-    ImGui::TableNextColumn();
-    ImGui::PushID("PropertyHex");
-    ImGui::TextColored(titleAltText, hexVal);
-    ImGui::SameLine();
-    AddCopyText(hexVal);
-    ImGui::PopID();
+	ImGui::PushID(name.c_str());
 
-    sprintf(hexVal, "0x%08X", reinterpret_cast<unsigned int>(value));
+	ImGui::TableNextColumn();
+	ImGui::PushID("PropertyName");
 
-    ImGui::TableNextColumn();
-    ImGui::PushID("PropertyLocation");
-    ImGui::TextColored(titleAltText, hexVal);
-    ImGui::SameLine();
-    AddCopyText(hexVal);
-    ImGui::PopID();
+	AddDataText(name, reinterpret_cast<unsigned int>(value), sizeof(T));
+	ImGui::SameLine();
 
-    ImGui::PopID();
+	ImGui::TextColored(propertyColour, name.c_str());
+	ImGui::PopID();
+
+	ImGui::TableNextColumn();
+	ImGui::PushID("PropertyValue");
+	ImGui::TextColored(titleAltText, std::to_string(*value).c_str());
+	ImGui::SameLine();
+	AddCopyText(std::to_string(*value));
+	ImGui::PopID();
+
+	ImGui::PopID();
+
+	ImGui::TableNextColumn();
+	ImGui::PushID("PropertyHex");
+	ImGui::TextColored(titleAltText, hexVal);
+	ImGui::SameLine();
+	AddCopyText(hexVal);
+	ImGui::PopID();
+
+	RenderPropertyLocation(name, value);
+
+	ImGui::PopID();
+}
+
+template<typename T>
+void ViewHandler::RenderPropertyLocation(const std::string& name, const T* value)
+{
+	char hexVal[32];
+
+	sprintf(hexVal, "0x%08X", reinterpret_cast<unsigned int>(value));
+
+	ImGui::TableNextColumn();
+	ImGui::PushID("PropertyLocation");
+	ImGui::TextColored(titleAltText, hexVal);
+	ImGui::SameLine();
+	AddCopyText(hexVal);
+	ImGui::PopID();
 }
 
 

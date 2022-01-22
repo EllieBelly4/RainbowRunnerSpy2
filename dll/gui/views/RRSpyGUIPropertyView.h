@@ -12,12 +12,12 @@
 
 class RRSpyGUIPropertyView {
 public:
-    explicit RRSpyGUIPropertyView(std::shared_ptr<RRSpyState> state, std::shared_ptr<log::Log> logger);
+    explicit RRSpyGUIPropertyView(std::shared_ptr<RRSpyState> state, std::shared_ptr<RRLog::Log> logger);
 
     void Render();
 private:
     std::shared_ptr<RRSpyState> _state;
-    std::shared_ptr<log::Log> logger;
+    std::shared_ptr<RRLog::Log> logger;
 };
 
 

@@ -24,6 +24,9 @@ const DWORD worldUIOnDrawReturnAddress = worldUIOnDrawPatchAddress + 6;
 const DWORD DFCRootControlRenderPatchAddress = 0x00684E44;
 const DWORD DFCRootControlRenderReturnAddress = DFCRootControlRenderPatchAddress + 6;
 
+const DWORD GameClientUpdateAppPatchAddress = 0x00408D12;
+const DWORD GameClientUpdateAppReturnAddress = GameClientUpdateAppPatchAddress + 6;
+
 void OnWorldUpdate();
 
 void WorldUpdateHook();
@@ -33,13 +36,17 @@ void OnInit();
 
 void GameExitInitResourcesHook();
 
+void GameClientUpdateAppHook();
 
 void OnRender();
 
-void RendererRenderHook();
-void WorldUIOnDrawHook();
-void DFCRootControlRenderHook();
+void OnUpdate();
 
+void RendererRenderHook();
+
+void WorldUIOnDrawHook();
+
+void DFCRootControlRenderHook();
 
 void Inject(DWORD address, int bytesToPatch, DWORD func);
 

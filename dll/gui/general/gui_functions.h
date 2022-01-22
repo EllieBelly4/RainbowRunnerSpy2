@@ -15,6 +15,8 @@ ImVec2 Add(ImVec2 a, ImVec2 b);
 
 bool PasteToClipboard(const std::string &text);
 
+void AddDataText(const std::string& name, unsigned int address, unsigned int i);
+
 //bool IsBadReadPtr(void* p);
 
 #endif //RRSPY2TESTAPP_GUI_FUNCTIONS_H
