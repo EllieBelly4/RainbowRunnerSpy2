@@ -115,20 +115,11 @@ struct ClientEntityManager {
     unsigned int unk_28;
     EntityContainer EntityList;
     EntityContainer ComponentList;
-//    int unk_33;
-//    int unk_34;
-//    int unk_35;
-//    int unk_36;
-//    int unk_37;
-//    int unk_38;
-//    int unk_39;
-//    int unk_40;
-//    int unk_41;
     int unk_42;
-    int SomeTimer;
+    int SystemTime;
     int FrameThisSecond;
-    int SomeCounter;
-    int unk_43;
+    int TicksWithoutServerResponse;
+    int ServerTick;
     int unk_44;
     int unk_45;
     int unk_46;
@@ -164,70 +155,55 @@ struct ClientEntityManager {
     int unk_73;
     int unk_74;
     int unk_75;
-
-    //debug442:157CB160     dd 0
-    //debug442:157CB164     dd 0BAADF00Dh
-    //debug442:157CB168     dd offset off_157DC350
-    //debug442:157CB16C     dd 0
-    //debug442:157CB170     dd 0BAADF00Dh
-    //debug442:157CB174     dd 0BAADF00Dh
-    //debug442:157CB178     dd offset off_8BCE778
-    //debug442:157CB17C     dd 0
-    //debug442:157CB180     dd 0BAADF00Dh
-    //debug442:157CB184     dd offset off_157D5E90
-    //debug442:157CB188     dd offset dword_157D5E98
-    //debug442:157CB18C     dd offset dword_157D5E98
-    //debug442:157CB190     dd 0BAADF00Dh
-    //debug442:157CB194     dd 0BAADF00Dh
-    //debug442:157CB198     dd offset off_157DCCE0
-    //debug442:157CB19C     dd 2
-    //debug442:157CB1A0     dd 0BAADF00Dh
-    //debug442:157CB1A4     dd 0BAADF00Dh
-    //debug442:157CB1A8     dd offset off_157EE348
-    //debug442:157CB1AC     dd offset unk_157EE368
-    //debug442:157CB1B0     dd offset unk_157EE36C
-    //debug442:157CB1B4     dd 0BAADF00Dh
-    //debug442:157CB1B8     dd 0BAADF00Dh
-    //debug442:157CB1BC     dd offset off_157CA6A8
-    //debug442:157CB1C0     dd 8
-    //debug442:157CB1C4     dd 0BAADF00Dh
-    //debug442:157CB1C8     dd 21h
-    //debug442:157CB1CC     dd 0Bh
-    //debug442:157CB1D0     dd 44934C28h
-    //debug442:157CB1D4     dd 19h
-    //debug442:157CB1D8     dd 0Bh
-    //debug442:157CB1DC     dd 6D8h
-    //debug442:157CB1E0     dd 0BAAD0101h
-    //debug442:157CB1E4     off_157CB1E4 dd offset off_157CA170     ; DATA XREF: debug442:off_157CA170↑o
-    //debug442:157CB1E8     dd 0BAADF00Dh
-    //debug442:157CB1EC     dd 0BAADF00Dh
-    //debug442:157CB1F0     dd 0BAADF00Dh
-    //debug442:157CB1F4     dd offset unk_157D1328
-    //debug442:157CB1F8     dd 8
-    //debug442:157CB1FC     dd 0
-    //debug442:157CB200     dd 0
-    //debug442:157CB204     dd offset unk_FC201
-    //debug442:157CB208     dd 0BAADF000h
-    //debug442:157CB20C     dd 0ABABABABh
-    //debug442:157CB210     dd 0ABABABABh
-    //debug442:157CB214     dd 0FEEEFEEEh
-    //debug442:157CB218     dd 0
-    //debug442:157CB21C     dd 0
-    //debug442:157CB220     dd 0AB5E7EF0h
-    //debug442:157CB224     dd 1C72C7D0h
-    //debug442:157CB228     dd offset ??_7dx3DEffect@@6B@           ; const dx3DEffect::`vftable'
-    //debug442:157CB22C     dd 1
-    //debug442:157CB230     dd 0BAADF00Dh
-    //debug442:157CB234     dd 0BAADF00Dh
-    //debug442:157CB238     dd 0
-    //debug442:157CB23C     dd offset unk_157C8C70
-    //debug442:157CB240     dd offset unk_157DC170
-    //debug442:157CB244     dd offset unk_EB7FFE8
-    //debug442:157CB248     dd 0BAADF000h
-    //debug442:157CB24C     dd 0BAADF00Dh
-    //debug442:157CB250     dd 0
-    //debug442:157CB254     dd 0
-    //debug442:157CB258     dd 0
+	unsigned int unk_76;
+	unsigned int unk_77;
+	unsigned int unk_78;
+	unsigned int unk_79;
+	unsigned int unk_80;
+	unsigned int unk_81;
+	unsigned int unk_82;
+	unsigned int unk_83;
+	unsigned int unk_84;
+	unsigned int unk_85;
+	unsigned int unk_86;
+	unsigned int unk_87;
+	unsigned int unk_88;
+	unsigned int unk_89;
+	unsigned int unk_90;
+	unsigned int unk_91;
+	unsigned int unk_92;
+	unsigned int unk_93;
+	unsigned int unk_94;
+	unsigned int unk_95;
+	unsigned int unk_96;
+	unsigned int unk_97;
+	unsigned int unk_98;
+	unsigned int unk_100;
+	unsigned int unk_101;
+	unsigned int unk_102;
+	unsigned int unk_103;
+	unsigned int unk_104;
+	unsigned int unk_105;
+	unsigned int unk_106;
+	unsigned int unk_107;
+	unsigned int unk_108;
+	unsigned int unk_109;
+	unsigned int unk_110;
+	unsigned int unk_111;
+	unsigned int unk_112;
+	unsigned int unk_113;
+	unsigned int unk_114;
+	unsigned int unk_115;
+	unsigned int unk_116;
+	unsigned int unk_117;
+	unsigned int unk_118;
+	unsigned int unk_119;
+	unsigned int unk_120;
+	unsigned int unk_121;
+	unsigned int unk_122;
+	unsigned int unk_123;
+	unsigned int unk_124;
+	unsigned int unk_125;
 };
 
 std::vector<char*> GetEntityManagerProperties();

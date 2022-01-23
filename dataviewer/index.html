@@ -2,13 +2,17 @@
 <head>
     <meta charset="UTF-8">
     <title>RRSpy2 Dataviewer</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
 </head>
 <body>
 <div>
     <input type="file" id="dataFile">
     <button onclick="loadFile()">Load</button>
-    <canvas id="dataCanvas"></canvas>
+    <!--    <canvas id="dataCanvas"></canvas>-->
+    <div id="chartContainer" style="height: 50%; width: 100%;">
+    </div>
 
     <script>
         function bigEndianIntTransform(val) {
@@ -51,9 +55,9 @@
                 return;
             }
 
-            if (window.myChart) {
-                window.myChart.destroy();
-            }
+            // if (window.myChart) {
+            //     window.myChart.destroy();
+            // }
 
             const rawData = [];
 
@@ -62,7 +66,6 @@
                     continue;
                 }
 
-                console.log(line);
                 rawData.push(JSON.parse(line));
             }
 
@@ -120,15 +123,69 @@
             };
 
             const config = {
-                type: 'line',
-                data: dataConf,
+                data: [{
+                    type: "line",
+                    dataPoints: dataConf.datasets
+                }],
                 options: {}
             };
 
-            window.myChart = new Chart(
-                document.getElementById('dataCanvas'),
-                config
-            );
+            const names = Object.keys(data.datasets)
+            let canvasData = Object.values(data.datasets).map((d, i) => {
+                const dataPoints = d.data;
+                const name = names[i]
+
+                for (let j = 0; j < dataPoints.length; j++) {
+                    const entry = dataPoints[j]
+                    dataPoints[j] = {
+                        x: j + data.frameLow,
+                        y: !entry ? null : entry
+                    }
+                }
+
+                return {
+                    type: "line",
+                    showInLegend: true,
+                    name: name,
+                    legendText: name,
+                    connectNullData: true,
+                    dataPoints
+                }
+            });
+
+            window.chart = new CanvasJS.Chart("chartContainer",
+                {
+                    zoomEnabled: true,
+                    zoomType: 'xy',
+                    title: {
+                        text: "DATA"
+                    },
+                    data: canvasData,
+                    legend: {
+                        cursor: "pointer",
+                        itemclick: function (e) {
+                            //console.log("legend click: " + e.dataPointIndex);
+                            //console.log(e);
+                            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                                e.dataSeries.visible = false;
+                            } else {
+                                e.dataSeries.visible = true;
+                            }
+
+                            e.chart.render();
+                        }
+                    }
+                }
+            )
+
+            console.log(canvasData);
+
+            window.chart.render();
+
+            // window.myChart = new Chart(
+            //     document.getElementById('dataCanvas'),
+            //     config
+            // );
         }
     </script>
 </div>
