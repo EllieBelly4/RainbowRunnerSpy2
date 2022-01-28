@@ -34,7 +34,15 @@ public:
     std::string Name;
 
     inline virtual void RenderProperties(void* pEntity) {
-        View->RenderProperties(pEntity);
+		__try
+		{
+			View->RenderProperties(pEntity);
+
+		}
+		__catch (...)
+		{
+			puts("in except");
+		}
     };
 
     inline virtual void RenderListItem(void*, int) {};
@@ -42,71 +50,6 @@ public:
 private:
     void* _node;
 };
-
-//class RRSpyDFCNode : public RRSpyGUIBaseEntityWrapper {
-//    using RRSpyGUIBaseEntityWrapper::RRSpyGUIBaseEntityWrapper;
-//
-//public:
-//    inline void RenderListItem(void* pVoid, int i) override {
-//        DFCNodeView::RenderListItem((DFCNode*) pVoid, i);
-//    }
-//
-//    inline void RenderProperties(void* pVoid) override {
-//        DFCNodeView::RenderProperties((DFCNode*) pVoid);
-//    }
-//};
-//
-//class RRSpyGameClientStateManager : public RRSpyGUIBaseEntityWrapper {
-//    using RRSpyGUIBaseEntityWrapper::RRSpyGUIBaseEntityWrapper;
-//
-//public:
-//    inline void RenderListItem(void* pVoid, int i) override {
-//        GameClientStateManagerView::RenderListItem((GameClientStateManager*) pVoid, i);
-//    }
-//
-//    inline void RenderProperties(void* pVoid) override {
-//        GameClientStateManagerView::RenderProperties((GameClientStateManager*) pVoid);
-//    }
-//};
-//
-//class RRSpyClientEntityManager : public RRSpyGUIBaseEntityWrapper {
-//    using RRSpyGUIBaseEntityWrapper::RRSpyGUIBaseEntityWrapper;
-//
-//public:
-//    inline void RenderListItem(void* pVoid, int i) override {
-//        ClientEntityManagerView::RenderListItem((ClientEntityManager*) pVoid, i);
-//    }
-//
-//    inline void RenderProperties(void* pVoid) override {
-//        ClientEntityManagerView::RenderProperties((ClientEntityManager*) pVoid);
-//    }
-//};
-//
-//class RRSpyEntityContainer : public RRSpyGUIBaseEntityWrapper {
-//    using RRSpyGUIBaseEntityWrapper::RRSpyGUIBaseEntityWrapper;
-//
-//public:
-//    inline void RenderListItem(void* pVoid, int i) override {
-//        EntityContainerView::RenderListItem((EntityList*) pVoid, i);
-//    }
-//
-//    inline void RenderProperties(void* pVoid) override {
-//        EntityContainerView::RenderProperties((EntityList*) pVoid);
-//    }
-//};
-//
-//class RRSpyEntity : public RRSpyGUIBaseEntityWrapper {
-//    using RRSpyGUIBaseEntityWrapper::RRSpyGUIBaseEntityWrapper;
-//
-//public:
-//    inline void RenderListItem(void* pVoid, int i) override {
-//        EntityView::RenderListItem((Entity*) pVoid, i);
-//    }
-//
-//    inline void RenderProperties(void* pVoid) override {
-//        EntityView::RenderProperties((Entity*) pVoid);
-//    }
-//};
 
 
 #endif //RRSPY2TESTAPP_RRSPYGUIBASEENTITYWRAPPER_H
