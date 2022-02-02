@@ -43,10 +43,6 @@ void GCClassView::RenderProperties(GCClass* pClass) {
         RenderPropertyWithHex("Unk21", &pClass->Unk21);
         RenderPropertyWithHex("Unk22", &pClass->Unk22);
         RenderPropertyWithHex("Unk23", &pClass->Unk23);
-        RenderPropertyWithHex("Unk24", &pClass->Unk24);
-        RenderPropertyWithHex("Unk25", &pClass->Unk25);
-        RenderPropertyWithHex("Unk26", &pClass->Unk26);
-        RenderPropertyWithHex("Unk27", &pClass->Unk27);
 
         EndPropertyTable();
     }

@@ -35,10 +35,6 @@ struct GCClass {
     int Unk21; // 0x54
     int Unk22; // 0x58
     int Unk23; // 0x5c
-    int Unk24; // 0x60
-    int Unk25; // 0x64
-    int Unk26; // 0x68
-    int Unk27; // 0x6c
 };
 
 std::vector<char*> GetGCCLassProperties();

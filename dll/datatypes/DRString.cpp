@@ -3,15 +3,23 @@
 //
 
 #include "DRString.h"
+#include "common.h"
 
-std::string DRString::ToString() {
-    char* addr = String;
+std::string DRString::ToString()
+{
+	char* addr = String;
 
-    std::string strName;
+	std::string strName;
 
-    for (int i = 0; i < Length; ++i) {
-        strName += *(addr + i);
-    }
+	for (int i = 0; i < Length; ++i)
+	{
+		if (IsBadReadPtr(addr + i))
+		{
+			return "Error during string read";
+		}
 
-    return strName;
+		strName += *(addr + i);
+	}
+
+	return strName;
 }

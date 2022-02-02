@@ -87,8 +87,8 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i)
 				std::chrono::system_clock::now().time_since_epoch()
 		);
 
-		if (_state->ItemSelectState.LastIDClicked == currentID &&
-			now.count() - _state->ItemSelectState.LastClickedTime.count() < 200)
+		if ((_state->ItemSelectState.LastIDClicked == currentID &&
+			now.count() - _state->ItemSelectState.LastClickedTime.count() < 500) || ImGui::IsMouseHoveringRect(lineMin, ImVec2{lineMin.x + 15, lineMin.y + 24}))
 		{
 			isOpen = !isOpen;
 			ImGui::GetStateStorage()->SetBool(openKey, isOpen);

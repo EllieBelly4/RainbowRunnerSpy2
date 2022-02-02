@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include "DRString.h"
 
 class GCProperties {
 public:
@@ -20,6 +21,11 @@ public:
     unsigned int Unk7;
     unsigned int Unk8;
     unsigned int Unk9;
+	unsigned int Unk10;
+	unsigned int Unk11;
+	unsigned int Unk12;
+	unsigned int Unk13;
+	DRString Name;
 };
 
 const std::vector<char*> GetGCPropertiesProperties();

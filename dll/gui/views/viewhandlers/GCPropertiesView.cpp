@@ -21,6 +21,16 @@ void GCPropertiesView::RenderProperties(GCProperties* pEntity) {
         RenderPropertyWithHex("Unk7", &pEntity->Unk7);
         RenderPropertyWithHex("Unk8", &pEntity->Unk8);
         RenderPropertyWithHex("Unk9", &pEntity->Unk9);
+		//TODO verify these work
+        RenderPropertyWithHex("Unk10", &pEntity->Unk10);
+        RenderPropertyWithHex("Unk11", &pEntity->Unk11);
+        RenderPropertyWithHex("Unk12", &pEntity->Unk12);
+        RenderPropertyWithHex("Unk13", &pEntity->Unk13);
+
+		if (!IsBadReadPtr(&pEntity->Name)) {
+			RenderProperty("Name", (pEntity->Name).ToString());
+			ImGui::TableNextRow();
+		}
 
         EndPropertyTable();
     }
