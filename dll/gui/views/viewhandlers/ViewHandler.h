@@ -45,7 +45,7 @@ public:
 template<typename T>
 void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
 {
-	if (IsBadReadPtr(value))
+	if (IsBadReadPtr(value) || value == nullptr)
 	{
 		ImGui::TableNextColumn();
 		ImGui::PushID("PropertyName");

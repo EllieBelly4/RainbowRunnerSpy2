@@ -25,7 +25,6 @@ public:
 	unsigned int Unk11;
 	unsigned int Unk12;
 	unsigned int Unk13;
-	DRString Name;
 };
 
 const std::vector<char*> GetGCPropertiesProperties();

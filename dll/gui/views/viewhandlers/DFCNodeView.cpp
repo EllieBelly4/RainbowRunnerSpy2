@@ -10,7 +10,12 @@
 
 void DFCNodeView::RenderProperties(DFCNode* pNode)
 {
-	DFCNode* nodeToRender = GetCurrentSuperclassNode(pNode);
+	DFCNode* nodeToRender = pNode;
+
+	if (pNode == state->CurrentSelectedDREntity)
+	{
+		nodeToRender = GetCurrentSuperclassNode(pNode);
+	}
 
 	if (nodeToRender == nullptr)
 	{
@@ -73,9 +78,9 @@ void DFCNodeView::RenderDFCNodeAllProperties(DFCNode* pEntity)
 		RenderPropertyWithHex("SuperClass", (unsigned int*)&pEntity->SuperClass);
 		RenderPropertyWithHex("GCClass", (unsigned int*)&pEntity->GCClass);
 		RenderPropertyWithHex("Desc", (unsigned int*)&pEntity->Desc);
-		RenderPropertyWithHex("unk_22", &pEntity->unk_22);
-		RenderPropertyWithHex("unk_23", &pEntity->unk_23);
-		RenderPropertyWithHex("ID?", &pEntity->ID);
+//		RenderPropertyWithHex("unk_22", &pEntity->unk_22);
+//		RenderPropertyWithHex("unk_23", &pEntity->unk_23);
+//		RenderPropertyWithHex("ID?", &pEntity->ID);
 
 		EndPropertyTable();
 	}
@@ -136,6 +141,11 @@ DFCNode* DFCNodeView::GetCurrentSuperclassNode(DFCNode* pNode)
 
 	for (auto i = 0; i != state->PropertyViewState.SelectedSuperClassIndex; i++)
 	{
+		if (IsBadReadPtr(nodeToRender->SuperClass))
+		{
+			break;
+		}
+
 		nodeToRender = nodeToRender->SuperClass;
 	}
 
