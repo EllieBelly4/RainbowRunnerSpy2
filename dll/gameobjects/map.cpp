@@ -6,6 +6,7 @@
 #include "../gui/views/viewhandlers/AvatarView.h"
 #include "../gui/views/viewhandlers/UnknownView.h"
 #include "gui/views/viewhandlers/StaticObjectView.h"
+#include "gui/views/viewhandlers/WorldView.h"
 
 std::map<unsigned int, std::shared_ptr<RRSpyGUIBaseEntityWrapper>> EntityMap;
 
@@ -83,7 +84,7 @@ void InitialiseEntityMap()
 	EntityMap[0x008A8114] = std::make_shared<RRSpyGUIBaseEntityWrapper>("GCClass", new DFCNodeView());
 	EntityMap[0x00898370] = std::make_shared<RRSpyGUIBaseEntityWrapper>("EffectDesc", new DFCNodeView());
 	EntityMap[0x0089EF18] = std::make_shared<RRSpyGUIBaseEntityWrapper>("QuestManager", new DFCNodeView());
-	EntityMap[0x00868cd0] = std::make_shared<RRSpyGUIBaseEntityWrapper>("World", new DFCNodeView());
+	EntityMap[0x00868cd0] = std::make_shared<RRSpyGUIBaseEntityWrapper>("World", new WorldView());
 	EntityMap[0x0086ad58] = std::make_shared<RRSpyGUIBaseEntityWrapper>("WorldMap", new DFCNodeView());
 	EntityMap[0x0086bc28] = std::make_shared<RRSpyGUIBaseEntityWrapper>("WorldObjectGroup", new DFCNodeView());
 	EntityMap[0x008676e8] = std::make_shared<RRSpyGUIBaseEntityWrapper>("StaticObject", new StaticObjectView());

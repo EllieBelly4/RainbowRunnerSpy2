@@ -8,36 +8,11 @@
 #include <vector>
 #include <string>
 #include "../datatypes/DRString.h"
+#include "gameobjects/Entities/DFCNode.h"
 
 struct EntityManager;
 
-struct World {
-    	void* VFTable;
-    	int References;
-    	int Unk0;
-    	int Unk1;
-    	int Unk2;
-    	int Unk3;
-    	int Unk4;
-    	int Unk5;
-    	int Unk6;
-    	int Unk7;
-    	int Unk8;
-    	int Unk9;
-    	int Unk10;
-    	int Unk11;
-    	int Unk12;
-    	int Unk13;
-    	int Unk14;
-    	int Unk15;
-    	int Unk16;
-    	int Unk17;
-    	int Unk18;
-    	int Unk19;
-    	int Unk20;
-    	int Unk21;
-    	int Unk22;
-    	int Unk23;
+struct World : DFCNode {
     	DRString* MapName;
     	int Unk25;
     	int Unk26;

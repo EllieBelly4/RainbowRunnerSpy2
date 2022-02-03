@@ -54,6 +54,7 @@ void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
 
 		ImGui::TableNextColumn();
 		ImGui::TextColored(ImVec4(0.95, 0.1, 0.15, 1), "error");
+		ImGui::TableNextRow();
 		return;
 	}
 
