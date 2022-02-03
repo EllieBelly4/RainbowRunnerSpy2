@@ -10,7 +10,8 @@
 
 class Entity : DFCNode {
 public:
-    void* VFTable; // 0x6c
+	void* VFTable; // 0x6c
+	unsigned int unk_00; // 0x68
     unsigned int unk_26; // 0x70
     unsigned int unk_27; // 0x74
     unsigned int unk_28; // 0x78

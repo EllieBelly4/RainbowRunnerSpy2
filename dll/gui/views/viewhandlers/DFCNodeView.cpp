@@ -80,7 +80,7 @@ void DFCNodeView::RenderDFCNodeAllProperties(DFCNode* pEntity)
 		RenderPropertyWithHex("Desc", (unsigned int*)&pEntity->Desc);
 		RenderPropertyWithHex("unk_22", &pEntity->unk_22);
 		RenderPropertyWithHex("unk_23", &pEntity->unk_23);
-		RenderPropertyWithHex("ID?", &pEntity->ID);
+//		RenderPropertyWithHex("ID?", &pEntity->ID);
 
 		EndPropertyTable();
 	}

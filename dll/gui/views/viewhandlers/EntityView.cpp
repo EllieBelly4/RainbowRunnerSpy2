@@ -23,6 +23,7 @@ void EntityView::RenderProperties(Entity* pEntity) {
         RenderProperty("Pos", posString);
         ImGui::TableNextRow();
 
+        RenderPropertyWithHex("unk_00", &pEntity->unk_00);
         RenderPropertyWithHex("unk_26", &pEntity->unk_26);
         RenderPropertyWithHex("unk_27", &pEntity->unk_27);
         RenderPropertyWithHex("unk_28", &pEntity->unk_28);

@@ -11,24 +11,25 @@
 #include "DFCNode.h"
 
 class MeleeWeapon : public DFCNode {
-    int Unk34; // 0x88
-    int Unk35; // 0x8c
-    int Unk36; // 0x90
-    int Unk37; // 0x94
-    int Unk38; // 0x98
-    int Unk39; // 0x9c
-    int Unk40; // 0xa0
-    int Unk41; // 0xa4
-    int Unk42; // 0xa8
-    int Unk43; // 0xac
-    int Unk44; // 0xb0
-    int Unk45; // 0xb4
-    int Unk46; // 0xb8
-    int Unk47; // 0xbc
-    int Unk48; // 0xc0
-    int Unk49; // 0xc4
-    int Unk50; // 0xc8
-    int Unk51; // 0xcc
+	unsigned int unk_00; // 0x68
+	int Unk34;
+    int Unk35;
+    int Unk36;
+    int Unk37;
+    int Unk38;
+    int Unk39;
+    int Unk40;
+    int Unk41;
+    int Unk42;
+    int Unk43;
+    int Unk44;
+    int Unk45;
+    int Unk46;
+    int Unk47;
+    int Unk48;
+    int Unk49;
+    int Unk50;
+    int Unk51;
 };
 
 

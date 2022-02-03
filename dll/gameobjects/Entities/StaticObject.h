@@ -9,6 +9,7 @@
 
 class StaticObject : DFCNode {
 public:
+	unsigned int unk_00; // 0x68
 	unsigned int unk_0; // 0x6c
 	unsigned int unk_1; // 0x70
 	unsigned int unk_2; // 0x74

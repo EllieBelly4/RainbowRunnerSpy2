@@ -40,8 +40,6 @@ public:
 	DFCNode* Desc; // 0x5c
 	unsigned int unk_22; // 0x60
 	unsigned int unk_23; // 0x64
-	// Unconfirmed
-	unsigned int ID; // 0x68
 
 	std::string GetTypeString() const;
 };
