@@ -1,7 +1,7 @@
-const propStartIndex = 76;
-const count = 50;
-const offsetStart = 0x00;
-const addOffset = false;
+const propStartIndex = 0;
+const count = 35;
+const offsetStart = 0x68+4;
+const addOffset = true;
 
 let str = [];
 

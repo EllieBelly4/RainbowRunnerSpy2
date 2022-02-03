@@ -65,7 +65,7 @@ void RenderDFCNodeProperties(DFCNode* pEntity) {
     RenderNumberProperty("unk_18", pEntity->unk_18);
     RenderNumberProperty("unk_22", pEntity->unk_22);
     RenderNumberProperty("unk_23", pEntity->unk_23);
-    RenderNumberProperty("unk_24", pEntity->ID);
+//    RenderNumberProperty("unk_24", pEntity->ID);
 }
 
 void RenderNumberProperty(const std::string &propertyName, unsigned int number) {

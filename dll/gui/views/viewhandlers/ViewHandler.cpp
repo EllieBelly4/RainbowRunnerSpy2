@@ -20,10 +20,11 @@ bool ViewHandler::BeginFullPropertyTable(std::string name) {
     auto open = ImGui::BeginTabItem(name.c_str());
 
     if (open) {
-        if (ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), 4,
+        if (ImGui::BeginTable((std::string("PropertiesLayoutTable##") + name).c_str(), 5,
                               ImGuiTableFlags_RowBg | ImGuiTableFlags_Borders | ImGuiTableFlags_SizingFixedFit)) {
             ImGui::TableSetupColumn("Name");
-            ImGui::TableSetupColumn("Value");
+            ImGui::TableSetupColumn("ValueInt");
+            ImGui::TableSetupColumn("ValueFloat");
             ImGui::TableSetupColumn("ValueHex");
             ImGui::TableSetupColumn("Location");
             ImGui::TableHeadersRow();

@@ -57,7 +57,7 @@ void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
 		return;
 	}
 
-	ImGui::PushID(name.c_str());
+//	ImGui::PushID(name.c_str());
 	char hexVal[32];
 
 	sprintf(hexVal, (std::string("0x%0") + std::to_string(sizeof(T)) + "X").c_str(), *value);
@@ -77,12 +77,19 @@ void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
 	ImGui::PopID();
 
 	ImGui::TableNextColumn();
-	ImGui::PushID("PropertyValue");
+	ImGui::PushID("PropertyInt");
 	ImGui::TextColored(titleAltText, std::to_string(*value).c_str());
 	ImGui::SameLine();
 	AddCopyText(std::to_string(*value));
 	ImGui::PopID();
 
+//	ImGui::PopID();
+
+	ImGui::TableNextColumn();
+	ImGui::PushID("PropertyFloat");
+	ImGui::TextColored(titleAltText, std::to_string(*reinterpret_cast<float*>(value)).c_str());
+	ImGui::SameLine();
+	AddCopyText(std::to_string(*reinterpret_cast<float*>(value)));
 	ImGui::PopID();
 
 	ImGui::TableNextColumn();

@@ -5,10 +5,13 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "-m32")
 set(CMAKE_BUILD_TYPE Debug)
 
+file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true dll/*.h dll/*.cpp)
+set(SOURCES ${SOURCES})
+
 #add_compile_options(-masm=intel)
 add_compile_options(-g)
 
-add_library(RRSpy2 SHARED
+add_library(RRSpy2 SHARED ${SOURCES}
         lib/nlohmann/json.hpp
         lib/imgui/imconfig.h
         lib/imgui/imgui.cpp
@@ -117,7 +120,10 @@ add_library(RRSpy2 SHARED
         dll/gui/views/viewhandlers/GCPropertiesView.h
         dll/log/DataStream.cpp
         dll/log/DataStream.h
-        dll/log/MemoryDataStream.cpp dll/log/MemoryDataStream.h)
+        dll/log/MemoryDataStream.cpp dll/log/MemoryDataStream.h
+        dll/gameobjects/Entities/StaticObject.h
+        dll/gui/views/viewhandlers/StaticObjectView.h
+        )
 
 include_directories(lib dll)
 

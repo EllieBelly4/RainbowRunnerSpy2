@@ -5,6 +5,7 @@
 #include "map.h"
 #include "../gui/views/viewhandlers/AvatarView.h"
 #include "../gui/views/viewhandlers/UnknownView.h"
+#include "gui/views/viewhandlers/StaticObjectView.h"
 
 std::map<unsigned int, std::shared_ptr<RRSpyGUIBaseEntityWrapper>> EntityMap;
 
@@ -85,7 +86,7 @@ void InitialiseEntityMap()
 	EntityMap[0x00868cd0] = std::make_shared<RRSpyGUIBaseEntityWrapper>("World", new DFCNodeView());
 	EntityMap[0x0086ad58] = std::make_shared<RRSpyGUIBaseEntityWrapper>("WorldMap", new DFCNodeView());
 	EntityMap[0x0086bc28] = std::make_shared<RRSpyGUIBaseEntityWrapper>("WorldObjectGroup", new DFCNodeView());
-	EntityMap[0x008676e8] = std::make_shared<RRSpyGUIBaseEntityWrapper>("StaticObject", new DFCNodeView());
+	EntityMap[0x008676e8] = std::make_shared<RRSpyGUIBaseEntityWrapper>("StaticObject", new StaticObjectView());
 	EntityMap[0x0086a730] = std::make_shared<RRSpyGUIBaseEntityWrapper>("WorldLight", new DFCNodeView());
 	EntityMap[0x00897010] = std::make_shared<RRSpyGUIBaseEntityWrapper>("AmbientSound", new DFCNodeView());
 	EntityMap[0x0088da10] = std::make_shared<RRSpyGUIBaseEntityWrapper>("SoundEnvironment", new DFCNodeView());
