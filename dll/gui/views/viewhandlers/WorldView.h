@@ -14,9 +14,11 @@ class WorldView : public DFCNodeView {
 
 public:
     static void RenderProperties(World*);
-    static void RenderListItem(World*, int);
+	void RenderCustomView(DFCNode* pEntity);
 
     void RenderProperties(void* pVoid) override;
+
+	void DumpStaticObjects(DFCNode* pNode);
 };
 
 

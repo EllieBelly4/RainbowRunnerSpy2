@@ -37,6 +37,7 @@ public:
 	static ListItemResult RenderSelectableListItem(int i, const char* label, ImGuiID id);
 
 	virtual void RenderProperties(void*);
+	virtual void RenderCustomView(DFCNode*);
 
 	template<typename T>
 	static void RenderPropertyLocation(const std::string& name, const T* value);

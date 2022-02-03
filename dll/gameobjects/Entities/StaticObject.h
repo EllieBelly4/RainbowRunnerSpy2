@@ -7,7 +7,8 @@
 
 #include "DFCNode.h"
 
-class StaticObject : DFCNode {
+class StaticObject : DFCNode
+{
 public:
 	unsigned int unk_00; // 0x68
 	unsigned int unk_0; // 0x6c
@@ -21,10 +22,10 @@ public:
 	unsigned int unk_8; // 0x8c
 	unsigned int unk_9; // 0x90
 	unsigned int unk_10; // 0x94
-	unsigned int unk_11; // 0x98
-	unsigned int unk_12; // 0x9c
-	unsigned int unk_13; // 0xa0
-	unsigned int unk_14; // 0xa4
+	float positionX; // 0x98
+	float positionY; // 0x9c
+	float positionZ; // 0xa0
+	float rotation; // 0xa4
 	unsigned int unk_15; // 0xa8
 	unsigned int unk_16; // 0xac
 	unsigned int unk_17; // 0xb0

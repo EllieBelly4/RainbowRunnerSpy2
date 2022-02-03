@@ -6,6 +6,7 @@
 #define RRSPY2TESTAPP_DFCNODE_H
 
 #include <vector>
+#include <functional>
 #include <string>
 #include "GCClass.h"
 #include "../EntityManager.h"
@@ -19,11 +20,11 @@ public:
 	unsigned int unk_0; // 0x8
 	unsigned int unk_1; // 0xc
 	unsigned int Inventory; // 0x10
-	unsigned int Parent; // 0x14
-	unsigned int FirstChild; // 0x18
-	unsigned int LastChild; // 0x1c
-	unsigned int NextSibling; // 0x20
-	unsigned int PreviousSibling; // 0x24
+	DFCNode* Parent; // 0x14
+	DFCNode* FirstChild; // 0x18
+	DFCNode* LastChild; // 0x1c
+	DFCNode* NextSibling; // 0x20
+	DFCNode* PreviousSibling; // 0x24
 	unsigned int unk_8; // 0x28
 	unsigned int unk_9; // 0x2c
 	unsigned int VFTableIEventHandler; // 0x30
@@ -42,6 +43,8 @@ public:
 	unsigned int unk_23; // 0x64
 
 	std::string GetTypeString() const;
+
+	void WalkChildren(const std::function<void(DFCNode*)>&) const;
 };
 
 const std::vector<char*> GetEntityProperties();

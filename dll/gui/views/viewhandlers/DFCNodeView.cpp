@@ -59,11 +59,11 @@ void DFCNodeView::RenderDFCNodeAllProperties(DFCNode* pEntity)
 		RenderPropertyWithHex("unk_0", &pEntity->unk_0);
 		RenderPropertyWithHex("unk_1", &pEntity->unk_1);
 		RenderPropertyWithHex("Inventory", &pEntity->Inventory);
-		RenderPropertyWithHex("Parent", &pEntity->Parent);
-		RenderPropertyWithHex("FirstChild", &pEntity->FirstChild);
-		RenderPropertyWithHex("LastChild", &pEntity->LastChild);
-		RenderPropertyWithHex("NextSibling", &pEntity->NextSibling);
-		RenderPropertyWithHex("PreviousSibling", &pEntity->PreviousSibling);
+		RenderPropertyWithHex("Parent", reinterpret_cast<unsigned int*> (&pEntity->Parent));
+		RenderPropertyWithHex("FirstChild", reinterpret_cast<unsigned int*> (&pEntity->FirstChild));
+		RenderPropertyWithHex("LastChild", reinterpret_cast<unsigned int*> (&pEntity->LastChild));
+		RenderPropertyWithHex("NextSibling", reinterpret_cast<unsigned int*> (&pEntity->NextSibling));
+		RenderPropertyWithHex("PreviousSibling", reinterpret_cast<unsigned int* > (&pEntity->PreviousSibling));
 		RenderPropertyWithHex("unk_8", &pEntity->unk_8);
 		RenderPropertyWithHex("unk_9", &pEntity->unk_9);
 		RenderPropertyWithHex("VFTableIEventHandler", &pEntity->VFTableIEventHandler);
@@ -216,9 +216,9 @@ void DFCNodeView::RenderNodeCrumblebar(DFCNode* pNode)
 	state->PropertyViewState.SelectedSuperClassIndex = newSelected;
 }
 
-void DFCNodeView::RenderListItem(DFCNode* pNode, int i)
+void DFCNodeView::RenderCustomView(DFCNode*)
 {
-	ImGui::Text("DFCNode");
+//	ImGui::Text("DFCNode");
 }
 
 void DFCNodeView::RenderProperties(void* pVoid)

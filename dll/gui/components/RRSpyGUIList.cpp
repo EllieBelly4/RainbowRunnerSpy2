@@ -95,7 +95,7 @@ void RRSpyGUIList::RenderItem(DFCNode* pEntity, int i)
 		}
 		else
 		{
-			logger->Write(std::to_string((int)pEntity->VFTable));
+//			logger->Write(std::to_string((int)pEntity->VFTable));
 			_state->SetSelectedEntity(GetEntityWrapper(pEntity->VFTable), pEntity, currentID);
 		}
 

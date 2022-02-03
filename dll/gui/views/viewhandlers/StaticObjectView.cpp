@@ -21,10 +21,10 @@ void StaticObjectView::RenderProperties(StaticObject* pEntity)
 		RenderPropertyWithHex("unk_8", &pEntity->unk_8);
 		RenderPropertyWithHex("unk_9", &pEntity->unk_9);
 		RenderPropertyWithHex("unk_10", &pEntity->unk_10);
-		RenderPropertyWithHex("positionX", &pEntity->unk_11);
-		RenderPropertyWithHex("positionY", &pEntity->unk_12);
-		RenderPropertyWithHex("positionZ", &pEntity->unk_13);
-		RenderPropertyWithHex("rotation", &pEntity->unk_14);
+		RenderPropertyWithHex("positionX", &pEntity->positionX);
+		RenderPropertyWithHex("positionY", &pEntity->positionY);
+		RenderPropertyWithHex("positionZ", &pEntity->positionZ);
+		RenderPropertyWithHex("rotation", &pEntity->rotation);
 		RenderPropertyWithHex("unk_15", &pEntity->unk_15);
 		RenderPropertyWithHex("unk_16", &pEntity->unk_16);
 		RenderPropertyWithHex("unk_17", &pEntity->unk_17);

@@ -54,7 +54,7 @@ void RenderDFCNodeProperties(DFCNode* pEntity) {
     RenderNumberProperty("unk_0", pEntity->unk_0);
     RenderNumberProperty("unk_1", pEntity->unk_1);
     RenderNumberProperty("unk_2", pEntity->Inventory);
-    RenderNumberProperty("PreviousSibling", pEntity->PreviousSibling);
+    RenderNumberProperty("PreviousSibling", *reinterpret_cast<unsigned int*>(pEntity->PreviousSibling));
     RenderNumberProperty("unk_8", pEntity->unk_8);
     RenderNumberProperty("unk_9", pEntity->unk_9);
     RenderNumberProperty("unk_12", pEntity->unk_12);

@@ -5,6 +5,7 @@
 #include "WorldView.h"
 #include <gameobjects/World.h>
 #include "DFCNodeView.h"
+#include "gameobjects/Entities/StaticObject.h"
 
 void WorldView::RenderProperties(World* pEntity)
 {
@@ -60,8 +61,12 @@ void WorldView::RenderProperties(World* pEntity)
 	}
 }
 
-void WorldView::RenderListItem(World* pEntity, int)
+void WorldView::RenderCustomView(DFCNode* pEntity)
 {
+	if (ImGui::Button("Dump Static Objects"))
+	{
+		DumpStaticObjects(pEntity);
+	}
 }
 
 void WorldView::RenderProperties(void* pVoid)
@@ -69,4 +74,39 @@ void WorldView::RenderProperties(void* pVoid)
 	pVoid = GetCurrentSuperclassNode((DFCNode*)pVoid);
 	RenderProperties((World*)pVoid);
 	DFCNodeView::RenderProperties((DFCNode*)pVoid);
+}
+
+void WorldView::DumpStaticObjects(DFCNode* pNode)
+{
+	nlohmann::json result = nlohmann::json::array();
+
+	pNode->WalkChildren([&result](DFCNode* child) -> void
+	{
+		// StaticObject VFTable
+		if (reinterpret_cast<unsigned int>(child->VFTable) != 0x8676E8)
+		{
+			return;
+		}
+
+		StaticObject* staticObject = (StaticObject*)child;
+
+		nlohmann::json objectData = {
+				{ "gctypename", child->SuperClass->GCClass->FQTypeName->ToString() },
+				{ "gctypehash", child->SuperClass->GCClass->GCTypeHash },
+				{ "position",   {
+										{ "x", staticObject->positionX },
+										{ "y", staticObject->positionY },
+										{ "z", staticObject->positionZ },
+										{ "rotation", staticObject->rotation },
+								}}
+		};
+
+		result.push_back(objectData);
+
+//		logger->Write(std::to_string(*reinterpret_cast<unsigned int*>(child->VFTable)));
+	});
+
+	auto jsonString = to_string(result);
+
+	logger->Write(jsonString);
 }
