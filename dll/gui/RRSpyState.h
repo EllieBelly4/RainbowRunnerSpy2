@@ -9,7 +9,6 @@
 #include <chrono>
 #include "../gameobjects/World.h"
 #include "entities/RRSpyGUIBaseEntityWrapper.h"
-#include "views/viewhandlers/UnknownView.h"
 
 struct ItemSelectState
 {
@@ -33,6 +32,7 @@ public:
 	void* CurrentSelectedDREntity;
 	ImGuiID CurrentID;
 	ItemSelectState ItemSelectState;
+	ViewState CurrentViewState;
 
 	PropertyViewState PropertyViewState;
 

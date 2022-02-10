@@ -11,6 +11,7 @@ std::shared_ptr<RRLog::Log> logger;
 std::shared_ptr<RRLog::DataStream> dataStream;
 std::shared_ptr<RRLog::MemoryDataStream> memoryDataStream;
 std::shared_ptr<RRSpyState> state;
+std::shared_ptr<ViewState> viewState;
 
 //Returns the last Win32 error, in string format. Returns an empty string if there is no error.
 std::string GetLastErrorAsString()
@@ -198,6 +199,7 @@ void OnUpdate()
 void OnInit()
 {
 	state = std::make_shared<RRSpyState>();
+	viewState = std::make_shared<ViewState>();
 	logger = std::make_shared<RRLog::Log>("logs/runlog.txt");
 	dataStream = std::make_shared<RRLog::DataStream>(R"(F:\Projects\DungeonRunners\Logs)");
 

@@ -12,6 +12,7 @@
 #include "../../general/colours.h"
 #include "../../general/gui_functions.h"
 #include "../../../common.h"
+#include <gui/views/ViewState.h>
 
 enum ListItemResult
 {
@@ -34,13 +35,20 @@ public:
 	template<typename T>
 	static void RenderPropertyWithHex(const std::string& name, T* value);
 
+	template<typename T>
+	static void AddValueProperty(const std::string& label, T* value);
+
 	static ListItemResult RenderSelectableListItem(int i, const char* label, ImGuiID id);
 
 	virtual void RenderProperties(void*);
+
 	virtual void RenderCustomView(DFCNode*);
 
 	template<typename T>
 	static void RenderPropertyLocation(const std::string& name, const T* value);
+
+	template<typename T>
+	static void writeStringValue(const char* stringValue, T* Value);
 };
 
 template<typename T>
@@ -62,7 +70,7 @@ void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
 //	ImGui::PushID(name.c_str());
 	char hexVal[32];
 
-	sprintf(hexVal, (std::string("0x%0") + std::to_string(sizeof(T)) + "X").c_str(), *value);
+	sprintf(hexVal, (std::string("0x%0") + std::to_string(sizeof(T)) + "X").c_str());
 
 	// Code from this function has been copied here, so we can add the DataText
 //	RenderProperty(name, std::to_string(*value));
@@ -78,21 +86,8 @@ void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
 	ImGui::TextColored(propertyColour, name.c_str());
 	ImGui::PopID();
 
-	ImGui::TableNextColumn();
-	ImGui::PushID("PropertyInt");
-	ImGui::TextColored(titleAltText, std::to_string(*value).c_str());
-	ImGui::SameLine();
-	AddCopyText(std::to_string(*value));
-	ImGui::PopID();
-
-//	ImGui::PopID();
-
-	ImGui::TableNextColumn();
-	ImGui::PushID("PropertyFloat");
-	ImGui::TextColored(titleAltText, std::to_string(*reinterpret_cast<float*>(value)).c_str());
-	ImGui::SameLine();
-	AddCopyText(std::to_string(*reinterpret_cast<float*>(value)));
-	ImGui::PopID();
+	AddValueProperty("PropertyInt", reinterpret_cast<int*>(value));
+	AddValueProperty("PropertyFloat", reinterpret_cast<float*>(value));
 
 	ImGui::TableNextColumn();
 	ImGui::PushID("PropertyHex");
@@ -102,6 +97,58 @@ void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
 	ImGui::PopID();
 
 	RenderPropertyLocation(name, value);
+
+	ImGui::PopID();
+}
+
+template<typename T>
+void ViewHandler::AddValueProperty(const std::string& label, T* value)
+{
+	ImGui::TableNextColumn();
+	ImGui::PushID(label.c_str());
+
+	auto textSize = ImGui::CalcTextSize(std::to_string(*value).c_str());
+	auto rectMin = ImGui::GetCursorScreenPos();
+	auto rectMax = Add(rectMin, textSize);
+
+	rectMin.y += 1;
+	rectMax.y += 4;
+
+//	ImDrawList* windowDrawList = ImGui::GetWindowDrawList();
+//	windowDrawList->AddRectFilled(rectMin, rectMax, TO_IMCOL32(ImVec4(1, 1, 1, 1)), 2);
+
+	ImGuiID id = ImGui::GetID("");
+
+	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && ImGui::IsMouseHoveringRect(rectMin, rectMax))
+	{
+		if (viewState->CurrentSelectedEditBox == id)
+		{
+			viewState->CurrentSelectedEditBox = -1;
+		}
+		else
+		{
+			viewState->CurrentSelectedEditBox = id;
+			strcpy(viewState->CurrentEditValue, std::to_string(*value).c_str());
+		}
+	}
+
+	if (viewState->CurrentSelectedEditBox == id)
+	{
+		ImGui::InputText("", viewState->CurrentEditValue, 1024);
+
+		if (ImGui::IsKeyDown(13))
+		{
+			writeStringValue(viewState->CurrentEditValue, value);
+			viewState->CurrentSelectedEditBox = -1;
+		}
+	}
+	else
+	{
+		ImGui::TextColored(titleAltText, std::to_string(*value).c_str());
+	}
+
+	ImGui::SameLine();
+	AddCopyText(std::to_string(*value));
 
 	ImGui::PopID();
 }

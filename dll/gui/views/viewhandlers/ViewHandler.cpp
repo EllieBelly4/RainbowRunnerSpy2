@@ -6,6 +6,8 @@
 #include "../../general/structs.h"
 #include "../../RRSpyGUI.h"
 #include "../../../state.h"
+#include "ViewHandler.h"
+
 
 bool ViewHandler::BeginPropertyTable(std::string name, int cols)
 {
@@ -128,3 +130,59 @@ void ViewHandler::RenderCustomView(DFCNode*)
 {
 
 }
+
+template<>
+void ViewHandler::writeStringValue<float>(const char* stringValue, float* value)
+{
+	float newFloatVal;
+
+	try
+	{
+		newFloatVal = std::stof(stringValue);
+	}
+	catch (std::invalid_argument& e)
+	{
+		logger->Write("Failed to parse float from string");
+		return;
+	}
+
+	*value = newFloatVal;
+}
+
+template<>
+void ViewHandler::writeStringValue<unsigned int>(const char* stringValue, unsigned int* value)
+{
+	unsigned int newFloatVal;
+
+	try
+	{
+		newFloatVal = std::stoi(stringValue);
+	}
+	catch (std::invalid_argument& e)
+	{
+		logger->Write("Failed to parse unsigned int from string");
+		return;
+	}
+
+	*value = reinterpret_cast<unsigned int>(newFloatVal);
+}
+
+template<>
+void ViewHandler::writeStringValue<int>(const char* stringValue, int* value)
+{
+	int newFloatVal;
+
+	try
+	{
+		newFloatVal = std::stoi(stringValue);
+	}
+	catch (std::invalid_argument& e)
+	{
+		logger->Write("Failed to parse int from string");
+		return;
+	}
+
+	*value = reinterpret_cast<int>(newFloatVal);
+}
+
+
