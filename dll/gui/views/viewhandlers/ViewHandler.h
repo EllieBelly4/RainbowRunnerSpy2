@@ -70,7 +70,7 @@ void ViewHandler::RenderPropertyWithHex(const std::string& name, T* value)
 //	ImGui::PushID(name.c_str());
 	char hexVal[32];
 
-	sprintf(hexVal, (std::string("0x%0") + std::to_string(sizeof(T)) + "X").c_str());
+	sprintf(hexVal, (std::string("0x%0") + std::to_string(sizeof(T)) + "X").c_str(), *value);
 
 	// Code from this function has been copied here, so we can add the DataText
 //	RenderProperty(name, std::to_string(*value));

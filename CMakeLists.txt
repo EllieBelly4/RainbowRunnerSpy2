@@ -128,14 +128,18 @@ add_library(RRSpy2 SHARED ${SOURCES}
 include_directories(lib dll)
 
 target_link_libraries(RRSpy2 -static-libgcc -static-libstdc++ -static -limm32 -ldwmapi)
-set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup, -Bstatic")
+set_target_properties(RRSpy2 PROPERTIES LINK_FLAGS "-Wl,--enable-stdcall-fixup,-Bstatic")
 set_target_properties(RRSpy2 PROPERTIES PREFIX "")
 
-#echo ${CMAKE_CURRENT_BINARY_DIR}/RRSpy2.dll "E:/Games/DungeonRunners v666/d3d9.dll"
-add_custom_command(TARGET RRSpy2 POST_BUILD
-        COMMAND copy E:\\Projects\\DungeonRunners\\RRSpy2\\cmake-build-debug\\RRSpy2.dll "E:\\Games\\DungeonRunners v666\\d3d9.dll"
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMENT "Copying DLL to DungeonRunners directory..."
-        )
+if (DEFINED ENV{DR_GAME_DIR)
+    message("Attempting to copy DLL to DR_GAME_DIR($ENV{DR_GAME_DIR})")
+    add_custom_command(TARGET RRSpy2 POST_BUILD
+            COMMAND copy ${CMAKE_CURRENT_BINARY_DIR}/RRSpy2.dll "$ENV{DR_GAME_DIR}"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            COMMENT "Copying DLL to DungeonRunners directory..."
+            )
+else ()
+    message("DLL created at ${CMAKE_CURRENT_BINARY_DIR}/RRSpy2.dll")
+endif ()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/testapp/CMakeLists.txt)
