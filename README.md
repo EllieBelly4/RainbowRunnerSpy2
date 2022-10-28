@@ -32,8 +32,10 @@ This has only been tested while using Jetbrains Clion to build.
 * Modify any property value (int or float fields only)
 * View properties of all objects in inheritance chain (e.g. `Avatar < Hero < Unit < WorldEntity < Entity < GCObject`)
 * Display attached data object properties (e.g. `Avatar: AvatarDesc` or `Avatar : GCProperties`)
-* (Experimental) Dump property value over time, will output the property value every tick into a log file in JSON
-  format with timestamps for further analysis **(WARNING you must restart the game to stop dumping)**
+* (Experimental) DataStream - Dump property value over time, will output the property value every tick into a log file
+  in JSON
+  format with timestamps for further analysis **(WARNING you must restart the game to stop dumping)**,
+  Create `logs/datastream` directory in main DungeonRunners game dir for this to work.
 * Supreme instability - it will crash
 
 ## Screenshots

@@ -201,7 +201,7 @@ void OnInit()
 	state = std::make_shared<RRSpyState>();
 	viewState = std::make_shared<ViewState>();
 	logger = std::make_shared<RRLog::Log>("logs/runlog.txt");
-	dataStream = std::make_shared<RRLog::DataStream>(R"(F:\Projects\DungeonRunners\Logs)");
+	dataStream = std::make_shared<RRLog::DataStream>(R"(logs/datastream)");
 
 	const std::string& fileName = dataStream->OpenTimed();
 
