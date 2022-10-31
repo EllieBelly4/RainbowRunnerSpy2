@@ -10,13 +10,17 @@ void EntityView::RenderProperties(Entity* pEntity) {
     if(BeginFullPropertyTable("entity")){
         std::string posString;
 
-        posString += "X: " + std::to_string(pEntity->posX_maybe);
-        posString += " Y: " + std::to_string(pEntity->posY_maybe);
-        posString += " Z: " + std::to_string(pEntity->posZ_maybe);
+        auto posX = (float)pEntity->posX_maybe / (float)256;
+        auto posY = (float)pEntity->posY_maybe / (float)256;
+        auto posZ = (float)pEntity->posZ_maybe / (float)256;
+
+        posString += "X: " + std::to_string(posX);
+        posString += " Y: " + std::to_string(posY);
+        posString += " Z: " + std::to_string(posZ);
 
         char rotString[128];
 
-        sprintf(rotString, "%.2f", (float) pEntity->rotation / (float) 255);
+        sprintf(rotString, "%.2f", (float) pEntity->rotation / (float) 256);
 
         posString += " Rot: " + std::string(rotString);
 
@@ -34,9 +38,9 @@ void EntityView::RenderProperties(Entity* pEntity) {
         RenderPropertyWithHex("unk_33", &pEntity->unk_33);
         RenderPropertyWithHex("EntityManager", (unsigned int*) &pEntity->EntityManager);
         RenderPropertyWithHex("unk_34", &pEntity->unk_34);
-        RenderPropertyWithHex("posX_maybe", &pEntity->posX_maybe);
-        RenderPropertyWithHex("posY_maybe", &pEntity->posY_maybe);
-        RenderPropertyWithHex("posZ_maybe", &pEntity->posZ_maybe);
+        RenderPropertyWithHex("posX", &posX);
+        RenderPropertyWithHex("posY", &posY);
+        RenderPropertyWithHex("posZ", &posZ);
         RenderPropertyWithHex("rotation", &pEntity->rotation);
         RenderPropertyWithHex("unk_35", &pEntity->unk_35);
         RenderPropertyWithHex("World", (unsigned int*) &pEntity->World);
