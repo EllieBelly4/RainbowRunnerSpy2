@@ -100,6 +100,7 @@ void InitialiseEntityMap()
 	EntityMap[0x008B46BC] = std::make_shared<RRSpyGUIBaseEntityWrapper>("DFC3DChannelArray", new DFCNodeView());
 	EntityMap[0x008B46BC] = std::make_shared<RRSpyGUIBaseEntityWrapper>("DFC3DChannelArray", new DFCNodeView());
 	EntityMap[0x008928c8] = std::make_shared<RRSpyGUIBaseEntityWrapper>("ItemObject", new DFCNodeView());
+	EntityMap[0x0089BE80] = std::make_shared<RRSpyGUIBaseEntityWrapper>("CheckpointEntity", new EntityView());
 }
 
 std::shared_ptr<RRSpyGUIBaseEntityWrapper> GetEntityWrapper(void* vftable)

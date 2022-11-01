@@ -44,7 +44,7 @@ void EntityView::RenderProperties(Entity* pEntity) {
         RenderPropertyWithHex("rotation", &pEntity->rotation);
         RenderPropertyWithHex("unk_35", &pEntity->unk_35);
         RenderPropertyWithHex("World", (unsigned int*) &pEntity->World);
-        RenderPropertyWithHex("unk_37", &pEntity->unk_37);
+        RenderPropertyWithHex("ID", &pEntity->ID);
         RenderPropertyWithHex("unk_38", &pEntity->unk_38);
         RenderPropertyWithHex("EntityObject", &pEntity->EntityObject);
         RenderPropertyWithHex("unk_40", &pEntity->unk_40);

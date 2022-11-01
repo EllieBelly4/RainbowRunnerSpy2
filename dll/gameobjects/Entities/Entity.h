@@ -28,7 +28,7 @@ public:
     unsigned int rotation; // 0x9c
     unsigned int unk_35; // 0xa0
     struct World* World; // 0xa4
-    unsigned int unk_37; // 0xa8
+    unsigned int ID; // 0xa8
     unsigned int unk_38; // 0xac
     unsigned int EntityObject; // 0xb0
     unsigned int unk_40; // 0xb4

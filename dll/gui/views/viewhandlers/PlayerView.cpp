@@ -47,7 +47,7 @@ void PlayerView::RenderProperties(Player* pEntity) {
         RenderPropertyWithHex("unk_34", &pEntity->unk_34);
         RenderPropertyWithHex("unk_35", &pEntity->unk_35);
         RenderPropertyWithHex("unk_36", &pEntity->unk_36);
-        RenderPropertyWithHex("unk_37", &pEntity->unk_37);
+        RenderPropertyWithHex("ID", &pEntity->unk_37);
         RenderPropertyWithHex("unk_38", &pEntity->unk_38);
         RenderPropertyWithHex("unk_39", &pEntity->unk_39);
         RenderPropertyWithHex("unk_40", &pEntity->unk_40);
