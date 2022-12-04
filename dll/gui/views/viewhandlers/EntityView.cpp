@@ -42,7 +42,7 @@ void EntityView::RenderProperties(Entity* pEntity) {
         RenderPropertyWithHex("posY", &posY);
         RenderPropertyWithHex("posZ", &posZ);
         RenderPropertyWithHex("rotation", &pEntity->rotation);
-        RenderPropertyWithHex("unk_35", &pEntity->unk_35);
+        RenderPropertyWithHex("worldEntityFlags", &pEntity->worldEntityFlags);
         RenderPropertyWithHex("World", (unsigned int*) &pEntity->World);
         RenderPropertyWithHex("ID", &pEntity->ID);
         RenderPropertyWithHex("unk_38", &pEntity->unk_38);

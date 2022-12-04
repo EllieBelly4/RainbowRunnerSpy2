@@ -26,7 +26,7 @@ public:
     int posY_maybe; // 0x94
     int posZ_maybe; // 0x98
     unsigned int rotation; // 0x9c
-    unsigned int unk_35; // 0xa0
+    unsigned int worldEntityFlags; // 0xa0
     struct World* World; // 0xa4
     unsigned int ID; // 0xa8
     unsigned int unk_38; // 0xac

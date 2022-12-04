@@ -9,6 +9,8 @@
 #include "../components/RRSpyGUIList.h"
 #include "../RRSpyState.h"
 #include "../../log/Log.h"
+#include "state.h"
+#include "../../gameobjects/map.h"
 
 class RRSpyGUIInfoView {
 public:
@@ -26,7 +28,18 @@ private:
     void RenderGlobalObjects();
 
     void RenderGeneralInfo();
+
+    const char *AddEntityManagerListItem(EntityContainer **pEntityContainer, EntityContainer **pComponentList, int i);
+
 };
 
+template<class T>
+void RenderListItem(const char *label, T *entity, int i) {
+    ImGuiID id = ImGui::GetID(label);
+
+    if (ViewHandler::RenderSelectableListItem(i, label, id) == ListItemClicked) {
+        state->SetSelectedEntity(GetEntityWrapper((void *) reinterpret_cast<unsigned int*>(entity)[0]), entity, id);
+    }
+}
 
 #endif //RRSPY2TESTAPP_RRSPYGUIINFOVIEW_H

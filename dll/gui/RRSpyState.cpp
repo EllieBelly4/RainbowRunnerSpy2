@@ -17,7 +17,7 @@ bool RRSpyState::IsSelectedEntityVisible() {
 }
 
 void RRSpyState::OnFrameEnd() {
-    _isCurrentSelectedEntityVisible = false;
+//    _isCurrentSelectedEntityVisible = false;
 }
 
 void RRSpyState::DeselectEntity() {

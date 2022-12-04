@@ -43,7 +43,7 @@ const std::vector<char*> GetPlayerProperties() {
             (char*) "ComponentList",
             (char*) "unk_33",
             (char*) "unk_34",
-            (char*) "unk_35",
+            (char*) "worldEntityFlags",
             (char*) "unk_36",
             (char*) "ID",
             (char*) "unk_38",

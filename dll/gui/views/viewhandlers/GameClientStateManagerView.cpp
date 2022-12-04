@@ -35,7 +35,7 @@ void GameClientStateManagerView::RenderProperties(GameClientStateManager* pEntit
         RenderPropertyWithHex("State1", &pEntity->State1);
         RenderPropertyWithHex("State2", &pEntity->State2);
         RenderPropertyWithHex("State3", &pEntity->State3);
-        RenderPropertyWithHex("field_18", &pEntity->field_18);
+        RenderPropertyWithHex("world_collision_helper", &pEntity->field_18);
         RenderPropertyWithHex("IEventHandlerVFTable", &pEntity->IEventHandlerVFTable);
         RenderPropertyWithHex("SomeMap", &pEntity->SomeMap);
         RenderPropertyWithHex("field_2C", &pEntity->field_2C);

@@ -7,106 +7,133 @@
 #include "DFCNodeView.h"
 #include "gameobjects/Entities/StaticObject.h"
 
-void WorldView::RenderProperties(World* pEntity)
-{
-	if (BeginFullPropertyTable("world"))
-	{
-		if (!IsBadReadPtr(pEntity->MapName))
-		{
-			RenderProperty("MapName", pEntity->MapName->ToString());
-		}
-		else
-		{
-			RenderProperty("MapName", "Unknown");
-		}
+void WorldView::RenderProperties(World *pEntity) {
+    if (BeginFullPropertyTable("world")) {
+        if (!IsBadReadPtr(pEntity->MapName)) {
+            RenderProperty("MapName", pEntity->MapName->ToString());
+        } else {
+            RenderProperty("MapName", "Unknown");
+        }
 
-		ImGui::TableNextRow();
+        ImGui::TableNextRow();
 
-		RenderPropertyWithHex("Unk25", &pEntity->Unk25);
-		RenderPropertyWithHex("Unk26", &pEntity->Unk26);
-		RenderPropertyWithHex("Unk27", &pEntity->Unk27);
-		RenderPropertyWithHex("Unk28", &pEntity->Unk28);
-		RenderPropertyWithHex("Unk29", &pEntity->Unk29);
-		RenderPropertyWithHex("Unk30", &pEntity->Unk30);
-		RenderPropertyWithHex("Unk31", &pEntity->Unk31);
-		RenderPropertyWithHex("Unk32", &pEntity->Unk32);
-		RenderPropertyWithHex("Unk33", &pEntity->Unk33);
-		RenderPropertyWithHex("Unk34", &pEntity->Unk34);
-		RenderPropertyWithHex("Unk35", &pEntity->Unk35);
-		RenderPropertyWithHex("Unk36", &pEntity->Unk36);
-		RenderPropertyWithHex("Unk37", &pEntity->Unk37);
-		RenderPropertyWithHex("Unk38", &pEntity->Unk38);
-		RenderPropertyWithHex("Unk39", &pEntity->Unk39);
-		RenderPropertyWithHex("Unk40", &pEntity->Unk40);
-		RenderPropertyWithHex("Unk41", &pEntity->Unk41);
-		RenderPropertyWithHex("Unk42", &pEntity->Unk42);
-		RenderPropertyWithHex("Unk43", &pEntity->Unk43);
-		RenderPropertyWithHex("Unk44", &pEntity->Unk44);
-		RenderPropertyWithHex("Unk45", &pEntity->Unk45);
-		RenderPropertyWithHex("Unk46", &pEntity->Unk46);
-		RenderPropertyWithHex("Unk47", &pEntity->Unk47);
-		RenderPropertyWithHex("Unk48", &pEntity->Unk48);
-		RenderPropertyWithHex("Unk49", &pEntity->Unk49);
-		RenderPropertyWithHex("Unk50", &pEntity->Unk50);
-		RenderPropertyWithHex("Unk51", &pEntity->Unk51);
-		RenderPropertyWithHex("Unk52", &pEntity->Unk52);
-		RenderPropertyWithHex("Unk53", &pEntity->Unk53);
-		RenderPropertyWithHex("Unk54", &pEntity->Unk54);
-		RenderPropertyWithHex("Unk55", &pEntity->Unk55);
-		RenderPropertyWithHex("Unk56", &pEntity->Unk56);
-		RenderPropertyWithHex("Unk57", &pEntity->Unk57);
-		RenderPropertyWithHex("Unk58", &pEntity->Unk58);
+        RenderPropertyWithHex("unk_25", &pEntity->unk_25);
+        RenderPropertyWithHex("unk_26", &pEntity->unk_26);
+        RenderPropertyWithHex("unk_27", &pEntity->unk_27);
+        RenderPropertyWithHex("unk_28", &pEntity->unk_28);
+        RenderPropertyWithHex("unk_29", &pEntity->unk_29);
+        RenderPropertyWithHex("unk_30", &pEntity->unk_30);
+        RenderPropertyWithHex("unk_31", &pEntity->unk_31);
+        RenderPropertyWithHex("unk_32", &pEntity->unk_32);
+        RenderPropertyWithHex("unk_33", &pEntity->unk_33);
+        RenderPropertyWithHex("unk_34", &pEntity->unk_34);
+        RenderPropertyWithHex("unk_35", &pEntity->unk_35);
+        RenderPropertyWithHex("unk_36", &pEntity->unk_36);
+        RenderPropertyWithHex("unk_37", &pEntity->unk_37);
+        RenderPropertyWithHex("unk_38", &pEntity->unk_38);
+        RenderPropertyWithHex("unk_39", &pEntity->unk_39);
+        RenderPropertyWithHex("unk_40", &pEntity->unk_40);
+        RenderPropertyWithHex("unk_41", &pEntity->unk_41);
+        RenderPropertyWithHex("unk_42", &pEntity->unk_42);
+        RenderPropertyWithHex("unk_43", &pEntity->unk_43);
+        RenderPropertyWithHex("unk_44", &pEntity->unk_44);
+        RenderPropertyWithHex("unk_45", &pEntity->unk_45);
+        RenderPropertyWithHex("unk_46", &pEntity->unk_46);
+        RenderPropertyWithHex("unk_47", &pEntity->unk_47);
+        RenderPropertyWithHex("unk_48", &pEntity->unk_48);
+        RenderPropertyWithHex("unk_49", &pEntity->unk_49);
+        RenderPropertyWithHex("unk_50", &pEntity->unk_50);
+        RenderPropertyWithHex("unk_51", &pEntity->unk_51);
+        RenderPropertyWithHex("unk_52", &pEntity->unk_52);
+        RenderPropertyWithHex("unk_53", &pEntity->unk_53);
+        RenderPropertyWithHex("unk_54", &pEntity->unk_54);
+        RenderPropertyWithHex("unk_55", &pEntity->unk_55);
+        RenderPropertyWithHex("unk_56", &pEntity->unk_56);
+        RenderPropertyWithHex("unk_57", &pEntity->unk_57);
+        RenderPropertyWithHex("EntityManager", &pEntity->EntityManager);
+        RenderPropertyWithHex("world_scene_manager", &pEntity->world_scene_manager);
+        RenderPropertyWithHex("world_collision_manager", &pEntity->world_collision_manager);
+        RenderPropertyWithHex("world_collision_helper", &pEntity->world_collision_helper);
+        RenderPropertyWithHex("path_manager", &pEntity->path_manager);
+        RenderPropertyWithHex("unit_finder", &pEntity->unit_finder);
+        RenderPropertyWithHex("gcobject_0", &pEntity->gcobject_0);
+        RenderPropertyWithHex("gcobject_1", &pEntity->gcobject_1);
+        RenderPropertyWithHex("worldmap", &pEntity->worldmap);
+        RenderPropertyWithHex("zonedef", &pEntity->zonedef);
+        RenderPropertyWithHex("unk_68", &pEntity->unk_68);
+        RenderPropertyWithHex("unk_69", &pEntity->unk_69);
+        RenderPropertyWithHex("unk_70", &pEntity->unk_70);
+        RenderPropertyWithHex("unk_71", &pEntity->unk_71);
+        RenderPropertyWithHex("unk_72", &pEntity->unk_72);
+        RenderPropertyWithHex("unk_73", &pEntity->unk_73);
+        RenderPropertyWithHex("unk_74", &pEntity->unk_74);
+        RenderPropertyWithHex("unk_75", &pEntity->unk_75);
+        RenderPropertyWithHex("unk_76", &pEntity->unk_76);
+        RenderPropertyWithHex("unk_77", &pEntity->unk_77);
+        RenderPropertyWithHex("unk_78", &pEntity->unk_78);
+        RenderPropertyWithHex("unk_79", &pEntity->unk_79);
+        RenderPropertyWithHex("unk_80", &pEntity->unk_80);
+        RenderPropertyWithHex("unk_81", &pEntity->unk_81);
+        RenderPropertyWithHex("unk_82", &pEntity->unk_82);
+        RenderPropertyWithHex("unk_83", &pEntity->unk_83);
+        RenderPropertyWithHex("unk_84", &pEntity->unk_84);
+        RenderPropertyWithHex("unk_85", &pEntity->unk_85);
+        RenderPropertyWithHex("unk_86", &pEntity->unk_86);
+        RenderPropertyWithHex("unk_87", &pEntity->unk_87);
+        RenderPropertyWithHex("unk_88", &pEntity->unk_88);
+        RenderPropertyWithHex("unk_89", &pEntity->unk_89);
+        RenderPropertyWithHex("unk_90", &pEntity->unk_90);
+        RenderPropertyWithHex("unk_91", &pEntity->unk_91);
+        RenderPropertyWithHex("unk_92", &pEntity->unk_92);
+        RenderPropertyWithHex("unk_93", &pEntity->unk_93);
+        RenderPropertyWithHex("unk_94", &pEntity->unk_94);
+        RenderPropertyWithHex("unk_95", &pEntity->unk_95);
+        RenderPropertyWithHex("unk_96", &pEntity->unk_96);
 
-		EndPropertyTable();
-	}
+        EndPropertyTable();
+    }
 }
 
-void WorldView::RenderCustomView(DFCNode* pEntity)
-{
-	if (ImGui::Button("Dump Static Objects"))
-	{
-		DumpStaticObjects(pEntity);
-	}
+void WorldView::RenderCustomView(DFCNode *pEntity) {
+    if (ImGui::Button("Dump Static Objects")) {
+        DumpStaticObjects(pEntity);
+    }
 }
 
-void WorldView::RenderProperties(void* pVoid)
-{
-	pVoid = GetCurrentSuperclassNode((DFCNode*)pVoid);
-	RenderProperties((World*)pVoid);
-	DFCNodeView::RenderProperties((DFCNode*)pVoid);
+void WorldView::RenderProperties(void *pVoid) {
+    pVoid = GetCurrentSuperclassNode((DFCNode *) pVoid);
+    RenderProperties((World *) pVoid);
+    DFCNodeView::RenderProperties((DFCNode *) pVoid);
 }
 
-void WorldView::DumpStaticObjects(DFCNode* pNode)
-{
-	nlohmann::json result = nlohmann::json::array();
+void WorldView::DumpStaticObjects(DFCNode *pNode) {
+    nlohmann::json result = nlohmann::json::array();
 
-	pNode->WalkChildren([&result](DFCNode* child) -> void
-	{
-		// StaticObject VFTable
-		if (reinterpret_cast<unsigned int>(child->VFTable) != 0x8676E8)
-		{
-			return;
-		}
+    pNode->WalkChildren([&result](DFCNode *child) -> void {
+        // StaticObject VFTable
+        if (reinterpret_cast<unsigned int>(child->VFTable) != 0x8676E8) {
+            return;
+        }
 
-		StaticObject* staticObject = (StaticObject*)child;
+        StaticObject *staticObject = (StaticObject *) child;
 
-		nlohmann::json objectData = {
-				{ "gctypename", child->SuperClass->GCClass->FQTypeName->ToString() },
-				{ "gctypehash", child->SuperClass->GCClass->GCTypeHash },
-				{ "position",   {
-										{ "x", staticObject->positionX },
-										{ "y", staticObject->positionY },
-										{ "z", staticObject->positionZ },
-										{ "rotation", staticObject->rotation },
-								}}
-		};
+        nlohmann::json objectData = {
+                {"gctypename", child->SuperClass->GCClass->FQTypeName->ToString()},
+                {"gctypehash", child->SuperClass->GCClass->GCTypeHash},
+                {"position",   {
+                                       {"x", staticObject->positionX},
+                                       {"y", staticObject->positionY},
+                                       {"z", staticObject->positionZ},
+                                       {"rotation", staticObject->rotation},
+                               }}
+        };
 
-		result.push_back(objectData);
+        result.push_back(objectData);
 
 //		logger->Write(std::to_string(*reinterpret_cast<unsigned int*>(child->VFTable)));
-	});
+    });
 
-	auto jsonString = to_string(result);
+    auto jsonString = to_string(result);
 
-	logger->Write(jsonString);
+    logger->Write(jsonString);
 }
