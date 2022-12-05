@@ -202,15 +202,11 @@ void ViewHandler::AddHexProperty(const char *hexVal, T *value) {
 
     auto colour = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-    ImDrawList *windowDrawList = ImGui::GetWindowDrawList();
-    windowDrawList->AddRectFilled(cursorPos, textMax, colour, 2);
-
     if constexpr(!std::is_floating_point_v<T>) {
         auto ptr = reinterpret_cast<void *>(*value);
 
         if (ImGui::IsMouseHoveringRect(cursorPos, textMax) &&
             ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !IsBadReadPtr(ptr)) {
-            logger->Write("Click!");
             auto id = ImGui::GetID("LocationJump");
             SelectEntity(ptr, id);
         }
