@@ -46,7 +46,7 @@ public:
     static void RenderPropertyLocation(const std::string &name, const T *value);
 
     template<typename T>
-    static void RenderPropertyReference(const std::string &name, const T *value);
+    static void RenderPropertyReference(const std::string &name, T *value);
 
     template<typename T>
     static void writeStringValue(const char *stringValue, T *Value);
@@ -54,11 +54,14 @@ public:
     static void RenderErrorRow(const std::string &name);
 
     static void SelectEntity(void *entity, ImGuiID id);
+
+    template<typename T>
+    static void AddHexProperty(const char *hexVal, T *value);
 };
 
 template<typename T>
-void ViewHandler::RenderPropertyReference(const std::string &name, const T *value) {
-    if (IsBadReadPtr((void *) value) || value == nullptr) {
+void ViewHandler::RenderPropertyReference(const std::string &name, T *value) {
+    if (IsBadReadPtr((void *) *value) || value == nullptr) {
         RenderErrorRow(name);
         return;
     }
@@ -70,8 +73,18 @@ void ViewHandler::RenderPropertyReference(const std::string &name, const T *valu
     auto buttonID = ImGui::GetID("GotoButton");
 
     if (ImGui::Button(name.c_str())) {
-        SelectEntity((void *) value, buttonID);
+        SelectEntity((void *) *value, buttonID);
     }
+
+    ImGui::TableNextColumn();
+    ImGui::TableNextColumn();
+    ImGui::TableNextColumn();
+
+    char hexVal[32];
+    sprintf(hexVal, (std::string("0x%0") + std::to_string(4) + "X").c_str(), *value);
+    AddHexProperty(hexVal, value);
+
+    RenderPropertyLocation(name, value);
 
     ImGui::TableNextRow();
 
@@ -108,11 +121,7 @@ void ViewHandler::RenderPropertyWithHex(const std::string &name, T *value) {
     AddValueProperty("PropertyFloat", reinterpret_cast<float *>(value));
 
     ImGui::TableNextColumn();
-    ImGui::PushID("PropertyHex");
-    ImGui::TextColored(titleAltText, hexVal);
-    ImGui::SameLine();
-    AddCopyText(hexVal);
-    ImGui::PopID();
+    AddHexProperty(hexVal, value);
 
     RenderPropertyLocation(name, value);
 
@@ -168,13 +177,56 @@ void ViewHandler::RenderPropertyLocation(const std::string &name, const T *value
 
     sprintf(hexVal, "0x%08X", reinterpret_cast<unsigned int>(value));
 
+    // TODO add click select to field
+    //    auto buttonID = ImGui::GetID("GotoButton");
+    //
+    //    if (ImGui::Button(name.c_str())) {
+    //        SelectEntity((void *) *value, buttonID);
+    //    }
+
     ImGui::TableNextColumn();
     ImGui::PushID("PropertyLocation");
+
     ImGui::TextColored(titleAltText, hexVal);
     ImGui::SameLine();
+
     AddCopyText(hexVal);
     ImGui::PopID();
 }
 
+template<typename T>
+void ViewHandler::AddHexProperty(const char *hexVal, T *value) {
+    ImGui::PushID("PropertyHex");
+
+    auto cursorPos = ImGui::GetCursorScreenPos();
+    auto textSize = ImGui::CalcTextSize(hexVal);
+    auto textMax = ImVec2(
+            cursorPos.x + textSize.x,
+            cursorPos.y + textSize.y
+    );
+
+    ImGui::TextColored(titleAltText, hexVal);
+
+    auto colour = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+    ImDrawList *windowDrawList = ImGui::GetWindowDrawList();
+    windowDrawList->AddRectFilled(cursorPos, textMax, colour, 2);
+
+    if constexpr(!std::is_floating_point_v<T>) {
+        auto ptr = reinterpret_cast<void *>(*value);
+
+        if (ImGui::IsMouseHoveringRect(cursorPos, textMax) &&
+            ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !IsBadReadPtr(ptr)) {
+            logger->Write("Click!");
+            auto id = ImGui::GetID("LocationJump");
+            SelectEntity(ptr, id);
+        }
+    }
+
+    ImGui::SameLine();
+    AddCopyText(hexVal);
+
+    ImGui::PopID();
+}
 
 #endif //RRSPY2TESTAPP_VIEWHANDLER_H

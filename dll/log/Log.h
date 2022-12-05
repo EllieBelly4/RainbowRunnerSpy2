@@ -32,6 +32,10 @@ namespace RRLog {
             this->logFilePointer.close();
         }
 
+        std::ofstream* Stream(){
+            return &logFilePointer;
+        }
+
         void Write(const char* toLog, TLogLevel logLevel = TLogLevel::logDEBUG);
         void Write(const std::string &toLog, TLogLevel logLevel = TLogLevel::logDEBUG);
     };

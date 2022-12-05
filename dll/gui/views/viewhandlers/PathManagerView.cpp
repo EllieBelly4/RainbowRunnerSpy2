@@ -14,9 +14,9 @@ void PathManagerView::RenderProperties(PathManager *pEntity) {
         RenderPropertyWithHex("field_4", &pEntity->field_4);
         RenderPropertyWithHex("field_8", &pEntity->field_8);
         RenderPropertyWithHex("field_C", &pEntity->field_C);
-        RenderPropertyReference("world", pEntity->world);
-        RenderPropertyReference("path_map", pEntity->path_map);
-        RenderPropertyReference("world_collision_helper", pEntity->world_collision_helper);
+        RenderPropertyReference("world", &pEntity->world);
+        RenderPropertyReference("path_map", &pEntity->path_map);
+        RenderPropertyReference("world_collision_helper", &pEntity->world_collision_helper);
         RenderPropertyWithHex("field_1C", &pEntity->field_1C);
         RenderPropertyWithHex("unk_budget_related", &pEntity->unk_budget_related);
         RenderPropertyWithHex("field_24", &pEntity->field_24);
