@@ -177,13 +177,6 @@ void ViewHandler::RenderPropertyLocation(const std::string &name, const T *value
 
     sprintf(hexVal, "0x%08X", reinterpret_cast<unsigned int>(value));
 
-    // TODO add click select to field
-    //    auto buttonID = ImGui::GetID("GotoButton");
-    //
-    //    if (ImGui::Button(name.c_str())) {
-    //        SelectEntity((void *) *value, buttonID);
-    //    }
-
     ImGui::TableNextColumn();
     ImGui::PushID("PropertyLocation");
 
