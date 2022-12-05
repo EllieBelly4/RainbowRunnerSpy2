@@ -13,11 +13,16 @@ void PathMapView::RenderCustomView(void *node) {
 
         logger->Write("Dumping nodes");
 
+//        nlohmann::json pathMapJson();
+        nlohmann::json pathMapResults[pathMap->width * pathMap->height];
+
         for (int x = 0; x < pathMap->width; ++x) {
             for (int y = 0; y < pathMap->height; ++y) {
                 void *basePtr = (void *) *(unsigned int *) (
                         ((unsigned int) pathMap->nodes) + x * 4 + y * pathMap->width * 4
                 );
+
+                pathMapResults[x + y * pathMap->width] = nlohmann::json::array();
 
                 if (basePtr == 0) {
 //                    *stream << "_ ";
@@ -30,7 +35,7 @@ void PathMapView::RenderCustomView(void *node) {
 
                 auto **subNodes = (PathNode *(*)) basePtr;
 
-                DumpSubNodes(pathMap, subNodes);
+                DumpSubNodes(pathMap, subNodes, pathMapResults[x + y * pathMap->width]);
 
 //                *stream << "* ";
 
@@ -38,8 +43,28 @@ void PathMapView::RenderCustomView(void *node) {
 //                *stream << std::to_string((float) pathNode->y_coord) << " ";
             }
 
-            *stream << std::endl;
+//            *stream << std::endl;
         }
+
+        nlohmann::json pathMapJson = nlohmann::json::array();
+
+        for (int x = 0; x < pathMap->width; ++x) {
+            for (int y = 0; y < pathMap->height; ++y) {
+                pathMapJson.push_back(pathMapResults[x + y * pathMap->width]);
+            }
+        }
+
+        logger->Write("Saving results");
+
+        std::ofstream jsonOutput;
+
+        jsonOutput.open("./dumps/pathmap.json", std::ios::trunc | std::ios::in);
+
+        const std::string &jsonString = pathMapJson.dump() + "\n";
+
+        jsonOutput.write(jsonString.c_str(), jsonString.length());
+
+        jsonOutput.close();
     }
 }
 
@@ -77,31 +102,46 @@ void PathMapView::RenderProperties(PathMap *pathMap) {
     }
 }
 
-void PathMapView::DumpSubNodes(PathMap *pathMap, PathNode **pNode) {
+void PathMapView::DumpSubNodes(PathMap *pathMap, PathNode **pNode, nlohmann::basic_json<> &pJson) {
     auto stream = logger->Stream();
 
     logger->Write("Dumping sub nodes");
 
-    for (int x = 0; x < pathMap->width; ++x) {
-        for (int y = 0; y < pathMap->height; ++y) {
+    nlohmann::json pathMapResults[16 * 16];
+
+//    *pJson = nlohmann::json(16 * 16);
+
+    for (int x = 0; x < 16; ++x) {
+        for (int y = 0; y < 16; ++y) {
             void *basePtr = (void *) *(unsigned int *) (
-                    ((unsigned int) pNode) + x * 4 + y * pathMap->width * 4
+                    ((unsigned int) pNode) + x * 4 + y * 16 * 4
             );
+
+            auto solid = true;
 
 //            *stream << std::hex << basePtr << " ";
 
-            if (basePtr == 0) {
-                *stream << "_ ";
-                continue;
+            if (basePtr == nullptr) {
+                solid = false;
+//                *stream << "_ ";
             } else if (IsBadReadPtr(basePtr)) {
                 *stream << "bad(" << x << "," << y << ")["
-                        << std::hex << ((unsigned int) pathMap->nodes) + x * 4 + y * pathMap->width * 4
+                        //                        << std::hex << ((unsigned int) pathMap->nodes) + x * 4 + y * pathMap->width * 4
+                        << std::hex << basePtr
                         << "] ";
                 continue;
             }
 
-            *stream << "* ";
+            pJson[x + y * 16] = {
+                    {"solid", solid}
+            };
+
+//            *stream << "* ";
         }
+
+//        for (auto node: pathMapResults) {
+//            pJson.push_back(std::move(node));
+//        }
 
         *stream << std::endl;
     }
