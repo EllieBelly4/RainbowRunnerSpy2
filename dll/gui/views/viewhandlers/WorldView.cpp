@@ -94,9 +94,9 @@ void WorldView::RenderProperties(World *pEntity) {
     }
 }
 
-void WorldView::RenderCustomView(DFCNode *pEntity) {
+void WorldView::RenderCustomView(void *pEntity) {
     if (ImGui::Button("Dump Static Objects")) {
-        DumpStaticObjects(pEntity);
+        DumpStaticObjects((DFCNode*)pEntity);
     }
 }
 

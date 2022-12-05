@@ -194,6 +194,8 @@ void OnUpdate()
 	}
 
 	memoryDataStream->Tick(state->GameClientStateManager->CurrentFrame);
+
+    logger->Flush();
 }
 
 void OnInit()

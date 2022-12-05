@@ -5,46 +5,42 @@
 #include "RRSpyGUIPropertyView.h"
 
 RRSpyGUIPropertyView::RRSpyGUIPropertyView(std::shared_ptr<RRSpyState> state, std::shared_ptr<RRLog::Log> logger)
-		: _state(state), logger(logger)
-{
+        : _state(state), logger(logger) {
 }
 
-void RRSpyGUIPropertyView::Render()
-{
-	ImGui::Begin("Properties", &_state->PropertiesOpen);
+void RRSpyGUIPropertyView::Render() {
+    ImGui::Begin("Properties", &_state->PropertiesOpen);
 
-	auto currentSelectedEntity = _state->CurrentSelectedEntity;
-	auto entity = _state->CurrentSelectedDREntity;
+    auto currentSelectedEntity = _state->CurrentSelectedEntity;
+    auto entity = _state->CurrentSelectedDREntity;
 
-	if (currentSelectedEntity != nullptr && !IsBadReadPtr(entity))
-	{
-		char hexStr[16];
+    if (currentSelectedEntity != nullptr && !IsBadReadPtr(entity)) {
+        char hexStr[16];
 
-		sprintf(hexStr, "0x%08X", (int)entity);
+        sprintf(hexStr, "0x%08X", (int) entity);
 
-		ImGui::Text("Location:");
-		ImGui::SameLine();
-		ImGui::Text(hexStr);
-		ImGui::SameLine();
-		AddCopyText(hexStr);
+        ImGui::Text("Location:");
+        ImGui::SameLine();
+        ImGui::Text(hexStr);
+        ImGui::SameLine();
+        AddCopyText(hexStr);
 
-		ImGui::PushStyleColor(ImGuiCol_Tab, tabColour);
-		ImGui::PushStyleColor(ImGuiCol_TabActive, tabSelectedColour);
+        ImGui::PushStyleColor(ImGuiCol_Tab, tabColour);
+        ImGui::PushStyleColor(ImGuiCol_TabActive, tabSelectedColour);
 
-		if (dynamic_cast<DFCNodeView*>(currentSelectedEntity->View) != nullptr)
-		{
-			DFCNodeView::RenderNodeCrumblebar((DFCNode*)entity);
-			currentSelectedEntity->View->RenderCustomView((DFCNode*)entity);
-		}
+        if (dynamic_cast<DFCNodeView *>(currentSelectedEntity->View) != nullptr) {
+            DFCNodeView::RenderNodeCrumblebar((DFCNode *) entity);
+        }
 
-		if (ImGui::BeginTabBar("propertyview"))
-		{
-			currentSelectedEntity->RenderProperties(entity);
-			ImGui::EndTabBar();
-		}
+        currentSelectedEntity->View->RenderCustomView(entity);
 
-		ImGui::PopStyleColor(2);
-	}
+        if (ImGui::BeginTabBar("propertyview")) {
+            currentSelectedEntity->RenderProperties(entity);
+            ImGui::EndTabBar();
+        }
 
-	ImGui::End();
+        ImGui::PopStyleColor(2);
+    }
+
+    ImGui::End();
 }

@@ -45,9 +45,9 @@ void GameClientStateManagerView::RenderProperties(GameClientStateManager* pEntit
         RenderPropertyWithHex("CheckingForUpdatesText", (unsigned int*) &pEntity->CheckingForUpdatesText);
         RenderPropertyWithHex("field_40", (unsigned int*) &pEntity->field_40);
         RenderPropertyWithHex("field_44", (unsigned int*) &pEntity->field_44);
-        RenderPropertyWithHex("field_48", (unsigned int*) &pEntity->field_48);
-        RenderPropertyWithHex("field_4C", (unsigned int*) &pEntity->field_4C);
-        RenderPropertyWithHex("field_50", (unsigned int*) &pEntity->field_50);
+        RenderPropertyWithHex("width", (unsigned int*) &pEntity->field_48);
+        RenderPropertyWithHex("height", (unsigned int*) &pEntity->field_4C);
+        RenderPropertyWithHex("node_count", (unsigned int*) &pEntity->field_50);
         RenderPropertyWithHex("WorldUI", (unsigned int*) &pEntity->WorldUI);
         RenderPropertyWithHex("WorldUIBanner", (unsigned int*) &pEntity->WorldUIBanner);
         RenderPropertyWithHex("LoadingScreen", (unsigned int*) &pEntity->LoadingScreen);

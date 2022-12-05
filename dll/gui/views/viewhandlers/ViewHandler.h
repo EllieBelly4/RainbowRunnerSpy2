@@ -40,7 +40,7 @@ public:
 
     virtual void RenderProperties(void *);
 
-    virtual void RenderCustomView(DFCNode *);
+    virtual void RenderCustomView(void *);
 
     template<typename T>
     static void RenderPropertyLocation(const std::string &name, const T *value);

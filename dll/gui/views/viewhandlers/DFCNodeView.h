@@ -18,7 +18,7 @@ public:
 
     static void RenderNodeCrumblebar(DFCNode* pNode);
 
-    void RenderCustomView(DFCNode*) override;
+    void RenderCustomView(void*) override;
 
     static void RenderDFCNodeAllProperties(DFCNode* pEntity);
 

@@ -28,9 +28,9 @@ void PathManagerView::RenderProperties(PathManager *pEntity) {
         RenderPropertyWithHex("field_3C", &pEntity->field_3C);
         RenderPropertyWithHex("field_40", &pEntity->field_40);
         RenderPropertyWithHex("field_44", &pEntity->field_44);
-        RenderPropertyWithHex("field_48", &pEntity->field_48);
-        RenderPropertyWithHex("field_4C", &pEntity->field_4C);
-        RenderPropertyWithHex("field_50", &pEntity->field_50);
+        RenderPropertyWithHex("width", &pEntity->field_48);
+        RenderPropertyWithHex("height", &pEntity->field_4C);
+        RenderPropertyWithHex("node_count", &pEntity->field_50);
         RenderPropertyWithHex("budget_per_update", &pEntity->budget_per_update);
         RenderPropertyWithHex("field_58", &pEntity->field_58);
         RenderPropertyWithHex("field_5C", &pEntity->field_5C);

@@ -14,6 +14,10 @@ public:
     static void RenderProperties(PathMap* pathMap);
 
     void RenderProperties(void *pVoid) override;
+
+    void RenderCustomView(void *node) override;
+
+    void DumpSubNodes(PathMap *pMap, PathNode **pNode);
 };
 
 

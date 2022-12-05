@@ -216,7 +216,7 @@ void DFCNodeView::RenderNodeCrumblebar(DFCNode* pNode)
 	state->PropertyViewState.SelectedSuperClassIndex = newSelected;
 }
 
-void DFCNodeView::RenderCustomView(DFCNode*)
+void DFCNodeView::RenderCustomView(void*)
 {
 //	ImGui::Text("DFCNode");
 }

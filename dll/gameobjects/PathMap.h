@@ -6,6 +6,8 @@
 #define RRSPY2TESTAPP_PATHMAP_H
 
 
+struct PathNode;
+
 /* 3604 */
 struct PathMap {
     void *vtable;
@@ -26,10 +28,10 @@ struct PathMap {
     void *aNsemanagerL110;
     void *anonymous_0;
     void *anonymous_1;
-    int field_48;
-    int field_4C;
-    int field_50;
-    void *field_54;
+    int width;
+    int height;
+    int node_count;
+    PathNode *(*nodes);
     int field_58;
     int field_5C;
 };

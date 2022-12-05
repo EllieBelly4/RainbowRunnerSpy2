@@ -112,7 +112,7 @@ void ViewHandler::RenderProperties(void *) {
 
 }
 
-void ViewHandler::RenderCustomView(DFCNode *) {
+void ViewHandler::RenderCustomView(void *) {
 
 }
 
