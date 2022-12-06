@@ -107,10 +107,6 @@ void PathMapView::DumpSubNodes(PathMap *pathMap, PathNode **pNode, nlohmann::bas
 
     logger->Write("Dumping sub nodes");
 
-    nlohmann::json pathMapResults[16 * 16];
-
-//    *pJson = nlohmann::json(16 * 16);
-
     for (int x = 0; x < 16; ++x) {
         for (int y = 0; y < 16; ++y) {
             void *basePtr = (void *) *(unsigned int *) (
@@ -119,29 +115,35 @@ void PathMapView::DumpSubNodes(PathMap *pathMap, PathNode **pNode, nlohmann::bas
 
             auto solid = true;
 
-//            *stream << std::hex << basePtr << " ";
-
             if (basePtr == nullptr) {
                 solid = false;
-//                *stream << "_ ";
             } else if (IsBadReadPtr(basePtr)) {
                 *stream << "bad(" << x << "," << y << ")["
-                        //                        << std::hex << ((unsigned int) pathMap->nodes) + x * 4 + y * pathMap->width * 4
                         << std::hex << basePtr
                         << "] ";
                 continue;
             }
 
-            pJson[x + y * 16] = {
-                    {"solid", solid}
-            };
+            auto node = (PathNode *) basePtr;
 
-//            *stream << "* ";
+            if (solid) {
+                pJson[x + y * 16] = {
+                        {"solid",          true},
+                        {"x_maybe",        (float) node->x_coord},
+                        {"y_maybe",        (float) node->y_coord},
+                        {"x_global_maybe", (float) node->global_x_coord},
+                        {"y_global_maybe", (float) node->global_y_coord},
+                        {"unk0",           node->unk_0},
+                        {"unk1",           node->unk_1},
+//                        {"unk2",           node->unk_2},
+                };
+            } else {
+                pJson[x + y * 16] = {
+                        {"solid", false},
+                };
+            }
+
         }
-
-//        for (auto node: pathMapResults) {
-//            pJson.push_back(std::move(node));
-//        }
 
         *stream << std::endl;
     }
