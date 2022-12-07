@@ -6,6 +6,8 @@
 #define RRSPY2TESTAPP_PATHMAP_H
 
 
+#include "datatypes/DRFloat.h"
+
 struct PathNode;
 
 /* 3604 */
@@ -16,12 +18,12 @@ struct PathMap {
     int field_C;
     void *world;
     void *world_collision_manager;
-    int field_18;
+    DRFloat grid_tile_width;
     int field_1C;
     int field_20;
-    int field_24;
-    int field_28;
-    int field_2C;
+    DRFloat grid_tile_height;
+    int coord_limit_x;
+    int coord_limit_y;
     int field_30;
     int field_34;
     int field_38;

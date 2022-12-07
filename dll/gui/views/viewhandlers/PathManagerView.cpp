@@ -19,9 +19,9 @@ void PathManagerView::RenderProperties(PathManager *pEntity) {
         RenderPropertyReference("world_collision_helper", &pEntity->world_collision_helper);
         RenderPropertyWithHex("field_1C", &pEntity->field_1C);
         RenderPropertyWithHex("unk_budget_related", &pEntity->unk_budget_related);
-        RenderPropertyWithHex("field_24", &pEntity->field_24);
-        RenderPropertyWithHex("field_28", &pEntity->field_28);
-        RenderPropertyWithHex("field_2C", &pEntity->field_2C);
+        RenderPropertyWithHex("grid_tile_height", &pEntity->field_24);
+        RenderPropertyWithHex("coord_limit_x", &pEntity->field_28);
+        RenderPropertyWithHex("coord_limit_y", &pEntity->field_2C);
         RenderPropertyWithHex("field_30", &pEntity->field_30);
         RenderPropertyWithHex("field_34", &pEntity->field_34);
         RenderPropertyWithHex("field_38", &pEntity->field_38);

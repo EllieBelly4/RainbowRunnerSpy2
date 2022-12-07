@@ -12,6 +12,7 @@
 #include "../../general/colours.h"
 #include "../../general/gui_functions.h"
 #include "../../../common.h"
+#include "datatypes/DRFloat.h"
 #include <gui/views/ViewState.h>
 
 enum ListItemResult {
@@ -32,6 +33,8 @@ public:
 
     template<typename T>
     static void RenderPropertyWithHex(const std::string &name, T *value);
+
+    static void RenderPropertyWithHex(const std::string &name, DRFloat *value);
 
     template<typename T>
     static void AddValueProperty(const std::string &label, T *value);
@@ -202,7 +205,7 @@ void ViewHandler::AddHexProperty(const char *hexVal, T *value) {
 
     auto colour = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-    if constexpr(!std::is_floating_point_v<T>) {
+    if constexpr (!std::is_floating_point_v<T>) {
         auto ptr = reinterpret_cast<void *>(*value);
 
         if (ImGui::IsMouseHoveringRect(cursorPos, textMax) &&

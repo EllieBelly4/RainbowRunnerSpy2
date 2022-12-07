@@ -116,6 +116,47 @@ void ViewHandler::RenderCustomView(void *) {
 
 }
 
+void ViewHandler::RenderPropertyWithHex(const std::string &name, DRFloat *value) {
+    if (IsBadReadPtr(value) || value == nullptr) {
+        RenderErrorRow(name);
+        return;
+    }
+
+//	ImGui::PushID(name.c_str());
+    char hexVal[32];
+
+    sprintf(hexVal, (std::string("0x%0") + std::to_string(sizeof(DRFloat)) + "X").c_str(), *value);
+
+    // Code from this function has been copied here, so we can add the DataText
+//	RenderProperty(name, std::to_string(*value));
+
+    ImGui::PushID(name.c_str());
+
+    ImGui::TableNextColumn();
+    ImGui::PushID("PropertyName");
+
+    AddDataText(name + "(DRFloat)", reinterpret_cast<unsigned int>(value), sizeof(DRFloat));
+    ImGui::SameLine();
+
+    ImGui::TextColored(propertyColour, name.c_str());
+    ImGui::PopID();
+
+    ImGui::NextColumn();
+
+    auto intVal = (int)value->value;
+    auto floatVal = (float)*value;
+
+    AddValueProperty("PropertyInt", &intVal);
+    AddValueProperty("PropertyFloat", &floatVal);
+    ImGui::TableNextColumn();
+
+    AddHexProperty(hexVal, &intVal);
+
+    RenderPropertyLocation(name, value);
+
+    ImGui::PopID();
+}
+
 template<>
 void ViewHandler::writeStringValue<float>(const char *stringValue, float *value) {
     float newFloatVal;

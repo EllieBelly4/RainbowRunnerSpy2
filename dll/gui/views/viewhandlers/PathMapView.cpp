@@ -60,7 +60,17 @@ void PathMapView::RenderCustomView(void *node) {
 
         jsonOutput.open("./dumps/pathmap.json", std::ios::trunc | std::ios::in);
 
-        const std::string &jsonString = pathMapJson.dump() + "\n";
+        auto finalJson = nlohmann::json({
+                                                {"coordLimitX", pathMap->coord_limit_x},
+                                                {"coordLimitY", pathMap->coord_limit_y},
+                                                {"tileWidth", (float) pathMap->grid_tile_width},
+                                                {"tileHeight", (float) pathMap->grid_tile_height},
+                                                {"width", pathMap->width},
+                                                {"height", pathMap->height},
+                                                {"nodes", pathMapJson}
+                                        });
+
+        const std::string &jsonString = finalJson.dump() + "\n";
 
         jsonOutput.write(jsonString.c_str(), jsonString.length());
 
@@ -80,12 +90,12 @@ void PathMapView::RenderProperties(PathMap *pathMap) {
         RenderPropertyWithHex("field_C", &pathMap->field_C);
         RenderPropertyWithHex("world", &pathMap->world);
         RenderPropertyWithHex("world_collision_manager", &pathMap->world_collision_manager);
-        RenderPropertyWithHex("field_18", &pathMap->field_18);
+        RenderPropertyWithHex("grid_tile_width", &pathMap->grid_tile_width);
         RenderPropertyWithHex("field_1C", &pathMap->field_1C);
         RenderPropertyWithHex("field_20", &pathMap->field_20);
-        RenderPropertyWithHex("field_24", &pathMap->field_24);
-        RenderPropertyWithHex("field_28", &pathMap->field_28);
-        RenderPropertyWithHex("field_2C", &pathMap->field_2C);
+        RenderPropertyWithHex("grid_tile_height", &pathMap->grid_tile_height);
+        RenderPropertyWithHex("coord_limit_x", &pathMap->coord_limit_x);
+        RenderPropertyWithHex("coord_limit_y", &pathMap->coord_limit_y);
         RenderPropertyWithHex("field_30", &pathMap->field_30);
         RenderPropertyWithHex("field_34", &pathMap->field_34);
         RenderPropertyWithHex("field_38", &pathMap->field_38);
@@ -133,7 +143,7 @@ void PathMapView::DumpSubNodes(PathMap *pathMap, PathNode **pNode, nlohmann::bas
                         {"y_maybe",        (float) node->y_coord},
                         {"x_global_maybe", (float) node->global_x_coord},
                         {"y_global_maybe", (float) node->global_y_coord},
-                        {"unk0",           node->unk_0},
+                        {"height",         (float) node->height},
                         {"unk1",           node->unk_1},
 //                        {"unk2",           node->unk_2},
                 };

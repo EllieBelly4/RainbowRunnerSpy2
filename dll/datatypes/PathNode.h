@@ -14,7 +14,7 @@ struct PathNode {
     DRFloat y_coord;
     DRFloat global_x_coord;
     DRFloat global_y_coord;
-    unsigned int unk_0;
+    DRFloat height;
     unsigned int unk_1;
     unsigned int unk_2;
 };

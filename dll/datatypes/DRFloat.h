@@ -9,7 +9,7 @@ struct DRFloat {
     int value;
 
     explicit operator float() const {
-        return ((float) value) / 256.0f;
+        return ((float)value) / 256.0f;
     }
 };
 

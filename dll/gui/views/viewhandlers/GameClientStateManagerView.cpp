@@ -38,7 +38,7 @@ void GameClientStateManagerView::RenderProperties(GameClientStateManager* pEntit
         RenderPropertyWithHex("world_collision_helper", &pEntity->field_18);
         RenderPropertyWithHex("IEventHandlerVFTable", &pEntity->IEventHandlerVFTable);
         RenderPropertyWithHex("SomeMap", &pEntity->SomeMap);
-        RenderPropertyWithHex("field_2C", &pEntity->field_2C);
+        RenderPropertyWithHex("coord_limit_y", &pEntity->field_2C);
         RenderPropertyWithHex("field_30", &pEntity->field_30);
         RenderPropertyWithHex("field_34", &pEntity->field_34);
         RenderPropertyWithHex("UpdatingText", (unsigned int*) &pEntity->UpdatingText);
