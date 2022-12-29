@@ -9,6 +9,7 @@
 #include <string>
 #include "../datatypes/DRString.h"
 #include "gameobjects/Entities/DFCNode.h"
+#include "datatypes/DRVectorType.h"
 
 struct EntityManager;
 struct PathManager;
@@ -66,9 +67,10 @@ struct World : DFCNode {
     unsigned int unk_72;  // 0x130
     unsigned int unk_73;  // 0x134
     unsigned int unk_74;  // 0x138
-    unsigned int unk_75;  // 0x13c
-    unsigned int unk_76;  // 0x140
-    unsigned int unk_77;  // 0x144
+    DRVectorType root_pos;
+//    unsigned int unk_75;  // 0x13c
+//    unsigned int unk_76;  // 0x140
+//    unsigned int unk_77;  // 0x144
     unsigned int unk_78;  // 0x148
     unsigned int unk_79;  // 0x14c
     unsigned int unk_80;  // 0x150

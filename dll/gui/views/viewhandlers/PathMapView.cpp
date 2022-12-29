@@ -3,6 +3,7 @@
 //
 
 #include "PathMapView.h"
+#include "state.h"
 #include <datatypes/PathNode.h>
 
 void PathMapView::RenderCustomView(void *node) {
@@ -58,16 +59,26 @@ void PathMapView::RenderCustomView(void *node) {
 
         std::ofstream jsonOutput;
 
-        jsonOutput.open("./dumps/pathmap.json", std::ios::trunc | std::ios::in);
+        char *filename = new char[256];
+
+        auto mapName = state->CurrentWorld->MapName->ToString();
+        std::transform(mapName.begin(), mapName.end(), mapName.begin(), ::tolower);
+
+        sprintf(filename, "dumps/%s_pathmap.json", mapName.c_str());
+
+        jsonOutput.open(filename, std::ios::trunc | std::ios::in);
 
         auto finalJson = nlohmann::json({
-                                                {"coordLimitX", pathMap->coord_limit_x},
-                                                {"coordLimitY", pathMap->coord_limit_y},
-                                                {"tileWidth", (float) pathMap->grid_tile_width},
-                                                {"tileHeight", (float) pathMap->grid_tile_height},
-                                                {"width", pathMap->width},
-                                                {"height", pathMap->height},
-                                                {"nodes", pathMapJson}
+                                                {"worldOffsetX", (float) state->CurrentWorld->root_pos.X},
+                                                {"worldOffsetY", (float) state->CurrentWorld->root_pos.Y},
+                                                {"worldOffsetZ", (float) state->CurrentWorld->root_pos.Z},
+                                                {"coordLimitX",  pathMap->coord_limit_x},
+                                                {"coordLimitY",  pathMap->coord_limit_y},
+                                                {"tileWidth",    (float) pathMap->grid_tile_width},
+                                                {"tileHeight",   (float) pathMap->grid_tile_height},
+                                                {"width",        pathMap->width},
+                                                {"height",       pathMap->height},
+                                                {"nodes",        pathMapJson}
                                         });
 
         const std::string &jsonString = finalJson.dump() + "\n";
@@ -138,13 +149,13 @@ void PathMapView::DumpSubNodes(PathMap *pathMap, PathNode **pNode, nlohmann::bas
 
             if (solid) {
                 pJson[x + y * 16] = {
-                        {"solid",          true},
-                        {"x_maybe",        (float) node->x_coord},
-                        {"y_maybe",        (float) node->y_coord},
-                        {"x_global_maybe", (float) node->global_x_coord},
-                        {"y_global_maybe", (float) node->global_y_coord},
-                        {"height",         (float) node->height},
-                        {"unk1",           node->unk_1},
+                        {"solid",  true},
+                        {"gridX",  node->x_coord.value},
+                        {"gridY",  node->y_coord.value},
+                        {"worldX", (float) node->global_x_coord},
+                        {"worldY", (float) node->global_y_coord},
+                        {"height", (float) node->height},
+                        {"unk1",   node->unk_1},
 //                        {"unk2",           node->unk_2},
                 };
             } else {

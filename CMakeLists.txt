@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "-m32")
 set(CMAKE_BUILD_TYPE Debug)
 
 file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true dll/*.h dll/*.cpp)
-set(SOURCES ${SOURCES} dll/gameobjects/PathManager.cpp dll/gameobjects/PathManager.h dll/gui/views/viewhandlers/PathManagerView.cpp dll/gui/views/viewhandlers/PathManagerView.h dll/gameobjects/PathMap.cpp dll/gameobjects/PathMap.h dll/gui/views/viewhandlers/PathMapView.cpp dll/gui/views/viewhandlers/PathMapView.h dll/datatypes/PathNode.cpp dll/datatypes/PathNode.h dll/datatypes/DRFloat.h)
+set(SOURCES ${SOURCES} dll/gameobjects/PathManager.cpp dll/gameobjects/PathManager.h dll/gui/views/viewhandlers/PathManagerView.cpp dll/gui/views/viewhandlers/PathManagerView.h dll/gameobjects/PathMap.cpp dll/gameobjects/PathMap.h dll/gui/views/viewhandlers/PathMapView.cpp dll/gui/views/viewhandlers/PathMapView.h dll/datatypes/PathNode.cpp dll/datatypes/PathNode.h dll/datatypes/DRFloat.h dll/datatypes/DRVectorType.h)
 
 #add_compile_options(-masm=intel)
 add_compile_options(-g)

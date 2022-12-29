@@ -21,7 +21,8 @@ This has only been tested while using Jetbrains Clion to build.
 
 1. Ensure you have `d3d9.dll` available in `C:\Windows\System32\d3d9.dll`
 2. Copy compiled dll file to game directory with the name `d3d9.dll`
-3. Launch the game and press `F1` to toggle the UI
+3. Copy [fonts](./fonts) to game directory
+4. Launch the game and press `F1` to toggle the UI
 
 ## Features
 

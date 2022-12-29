@@ -107,6 +107,10 @@ void InitialiseEntityMap() {
     EntityMap[0x00867354] = std::make_shared<RRSpyGUIBaseEntityWrapper>("PathManager", new PathManagerView());
     EntityMap[0x008676B0] = std::make_shared<RRSpyGUIBaseEntityWrapper>("PathMap", new PathMapView());
     EntityMap[0x0089a918] = std::make_shared<RRSpyGUIBaseEntityWrapper>("ZonePortal", new DFCNodeView());
+    EntityMap[0x008a21f8] = std::make_shared<RRSpyGUIBaseEntityWrapper>("LinkRoomNode", new DFCNodeView());
+    EntityMap[0x008a2698] = std::make_shared<RRSpyGUIBaseEntityWrapper>("RoomNode", new DFCNodeView());
+    EntityMap[0x0089cbe0] = std::make_shared<RRSpyGUIBaseEntityWrapper>("Quest", new DFCNodeView());
+    EntityMap[0x0089bd40] = std::make_shared<RRSpyGUIBaseEntityWrapper>("Checkpoint", new DFCNodeView());
 }
 
 std::shared_ptr<RRSpyGUIBaseEntityWrapper> GetEntityWrapper(void *vftable) {

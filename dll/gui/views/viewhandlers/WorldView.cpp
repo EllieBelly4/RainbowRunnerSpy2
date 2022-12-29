@@ -17,6 +17,10 @@ void WorldView::RenderProperties(World *pEntity) {
 
         ImGui::TableNextRow();
 
+        RenderProperty("RootPos", pEntity->root_pos.to_string());
+
+        ImGui::TableNextRow();
+
         RenderPropertyWithHex("unk_25", &pEntity->unk_25);
         RenderPropertyWithHex("unk_26", &pEntity->unk_26);
         RenderPropertyWithHex("unk_27", &pEntity->unk_27);
@@ -67,9 +71,9 @@ void WorldView::RenderProperties(World *pEntity) {
         RenderPropertyWithHex("unk_72", &pEntity->unk_72);
         RenderPropertyWithHex("unk_73", &pEntity->unk_73);
         RenderPropertyWithHex("unk_74", &pEntity->unk_74);
-        RenderPropertyWithHex("unk_75", &pEntity->unk_75);
-        RenderPropertyWithHex("unk_76", &pEntity->unk_76);
-        RenderPropertyWithHex("unk_77", &pEntity->unk_77);
+        RenderPropertyWithHex("root_pos.X", &pEntity->root_pos.X);
+        RenderPropertyWithHex("root_pos.Y", &pEntity->root_pos.Y);
+        RenderPropertyWithHex("root_pos.Z", &pEntity->root_pos.Z);
         RenderPropertyWithHex("unk_78", &pEntity->unk_78);
         RenderPropertyWithHex("unk_79", &pEntity->unk_79);
         RenderPropertyWithHex("unk_80", &pEntity->unk_80);
@@ -96,7 +100,7 @@ void WorldView::RenderProperties(World *pEntity) {
 
 void WorldView::RenderCustomView(void *pEntity) {
     if (ImGui::Button("Dump Static Objects")) {
-        DumpStaticObjects((DFCNode*)pEntity);
+        DumpStaticObjects((DFCNode *) pEntity);
     }
 }
 
